@@ -1,0 +1,19 @@
+﻿@using Fostor.Ginkgo.Web.Resources
+@inject IWebResourceManager WebResourceManager
+@{
+    WebResourceManager.AddScript(ApplicationPath + "lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.zh-CN.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Views/Shared/Components/DatePicker/Default.js");
+
+}
+@model Fostor.Ginkgo.Web.Views.Shared.Components.DatePicker.DatePickerViewModel
+
+<link href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+
+<div class="input-group date datepicker-component" >
+    <div class="form-line">
+        <input type="text" name="@Model.TagName" value="@Model.Value" class="form-control">
+    </div>
+    <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+</div>
+

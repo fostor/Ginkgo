@@ -1,0 +1,81 @@
+﻿@using Fostor.Ginkgo.Web.Startup
+@using Fostor.Ginkgo.Web.Views.Shared.Components.DataConfigSelector
+@using Fostor.Ginkgo.Web.Views.Shared.Components.MaterialDatePicker
+@using Fostor.Ginkgo.Web.Views.Shared.Components.TaskTypeSelector
+@{
+    ViewData["Title"] = "MyRequests";
+    ViewBag.CurrentPageName = "TaskFlow.MyRequest"; //The menu item will be active for this page.
+}
+@section scripts
+    {
+    <environment names="Development">
+        <script src="~/view-resources/TaskFlow/Task/MyRequestList.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/view-resources/TaskFlow/Task/MyRequestList.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    @L("MyRequests")
+                </h2>
+
+                <form name="SearchForm" role="form" novalidate class="form-validation form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">@L("InstanceTaskName")</label>
+                        <div class="col-md-2">
+                            @await Component.InvokeAsync(typeof(TaskTypeSelectorViewComponent), new { tagName = "TaskCode" })
+                        </div>
+                        <label class="col-md-2 control-label">@L("Status")</label>
+                        <div class="col-md-2">
+                            @await Component.InvokeAsync(typeof(DataConfigSelectorViewComponent), new { configCode = "TaskInstanceStatus", tagName = "Status" })
+                        </div>
+                        <label class="col-md-2 control-label">@L("CreationTime")</label>
+                        <div class="col-md-1" style="min-width:120px;">
+                            @await Component.InvokeAsync(typeof(MaterialDatePickerViewComponent), new { tagName = "FromDate", value = @DateTime.Now.AddMonths(-3).ToShortDateString() })
+                        </div>
+                        <label class="col-md-1 control-label" style="text-align:center;">@L("To")</label>
+                        <div class="col-md-1" style="min-width:120px;">
+                            @await Component.InvokeAsync(typeof(MaterialDatePickerViewComponent), new { tagName = "ToDate", value = @DateTime.Now.ToShortDateString() })
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" id="btnSearch" class="btn btn-primary waves-effect btn-xs" style="margin-left:20px;"><i class="small material-icons">search</i></button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="datatables-container table-responsive">
+                <table id="table_100" class="table table-condensed table-bordered" style="min-width:100%;">
+                    <thead>
+                        <tr>
+                            <th>@L("InstanceCode")</th>
+                            <th>@L("TaskName")</th>
+                            <th>@L("View")</th>
+                            <th>@L("KeyInfo")</th>
+                            <th>@L("Status")</th>
+                            <th>@L("CurrentActors")</th>
+                            <th>@L("LastPhaseHandleTime")</th>                            
+                            <th>@L("LastModifier")</th>
+                            <th>@L("LastModificationTime")</th>
+                            <th>@L("Creator")</th>
+                            <th style="min-width:100px;">@L("CreationTime")</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

@@ -1,0 +1,125 @@
+﻿@using Fostor.Ginkgo.Web.Startup
+@using Fostor.Ginkgo.Web.Areas.Admin.Models
+@{
+    ViewData["Title"] = "SequenceRule";
+    ViewBag.CurrentPageName = "Admin.Sequence"; //The menu item will be active for this page.
+}
+@section scripts
+    {
+    <environment names="Development">
+        <script src="~/view-resources/Admin/Sequence/Index.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Admin/Sequence/Index.min.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    @L("SequenceRule")
+                </h2>
+
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a id="RefreshButton" href="javascript:void(0);" class="waves-effect waves-block"><i class="material-icons">refresh</i>Refresh</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <button type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right" data-toggle="modal" data-target="#SequenceCreateModal">
+                <i class="material-icons">add</i>
+            </button>
+            <div class="datatables-container m-r-30">
+                <table id="table_100" class="table table-bordered table-bordered" style="min-width:100%;">
+                    <thead>
+                        <tr>
+                            <th>@L("NumberCode")</th>
+                            <th>@L("Edit")</th>
+                            <th>@L("Delete")</th>
+                            <th>@L("DateStringSpec")</th>
+                            <th>@L("Prefix")</th>
+                            <th>@L("Infix")</th>
+                            <th>@L("Suffix")</th>
+                            <th>@L("SeqLength")</th>
+                            <th>@L("Sequence")</th>
+                            <th style="min-width:150px;">@L("LatestNumber")</th>
+
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="SequenceCreateModal" tabindex="-1" role="dialog" aria-labelledby="SequenceCreateModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span>@L("CreateNewSequence")</span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form name="SequenceCreateForm"  role="form" novalidate class="form-validation form-horizontal">
+                    <div class="modal-body">
+                        <bs-row>
+                            <bs-label>@L("NumberCode")<bs-star></bs-star></bs-label>
+                            <bs-input bs-width="10" name="NumberCode" maxlength="40" requried="requried"></bs-input>
+                        </bs-row>
+                        <bs-row>
+                            <bs-label>@L("NumberCode")</bs-label>
+                            <div class="col-md-10">
+                                <div class="form-line">
+                                    <select class="form-control show-tick" name="DateStringSpec">
+                                        <option value="">-- Please select --</option>
+                                        <option value="YYMMDD">YYMMDD</option>
+                                        <option value="YYYYMMDD">YYYYMMDD</option>
+                                        <option value="YYMM">YYMM</option>
+                                        <option value="YYYYMM">YYYYMM</option>
+                                        <option value="YY">YY</option>
+                                        <option value="">Null</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </bs-row>
+                        <bs-row>
+                            <bs-label>@L("Prefix")</bs-label>
+                            <bs-input bs-width="10" name="Prefix" maxlength="5"></bs-input>
+                        </bs-row>
+                        <bs-row>
+                            <bs-label>@L("Infix")</bs-label>
+                            <bs-input bs-width="10" name="Infix" maxlength="5"></bs-input>
+                        </bs-row>
+                        <bs-row>
+                            <bs-label>@L("Suffix")</bs-label>
+                            <bs-input bs-width="10" name="Suffix" maxlength="5"></bs-input>
+                        </bs-row><bs-row>
+                            <bs-label>@L("SeqLength")</bs-label>
+                            <bs-input bs-width="10" type="number" name="SeqLength" maxlength="2"></bs-input>
+                        </bs-row>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">@L("Cancel")</button>
+                        <button type="submit" class="btn btn-primary waves-effect">@L("Save")</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="SequenceEditModal" tabindex="-1" role="dialog" aria-labelledby="SequenceEditModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>

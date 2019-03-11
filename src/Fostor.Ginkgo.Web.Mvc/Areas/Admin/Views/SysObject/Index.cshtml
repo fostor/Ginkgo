@@ -1,0 +1,82 @@
+﻿@using Fostor.Ginkgo.Web.Startup
+@using Fostor.Ginkgo.Web.Areas.Admin.Models
+@{
+    ViewData["Title"] = "SysObject";
+    ViewBag.CurrentPageName = "Admin.SysObject"; //The menu item will be active for this page.
+}
+@section scripts
+    {
+    <environment names="Development">
+        <script src="~/view-resources/Admin/SysObject/Index.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Admin/SysObject/Index.min.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    @L("SysObject")
+                </h2> 
+            </div>
+            <button type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right add-object" data-toggle="modal" data-target="#SysObjectCreateModal">
+                <i class="material-icons">add</i>
+            </button>
+            <div class="datatables-container" style="width:98%;">
+                <table id="table_100" class="table table-condensed table-bordered" style="min-width:97%;">
+                    <thead>
+                        <tr>
+                            <th>@L("ParentKey")</th>
+                            <th>@L("ObjectKey")</th>
+                            <th>@L("DisplayName")</th>
+                            <th>@L("Edit")</th>
+                            <th>@L("Delete")</th>
+                            <th>@L("Icon")</th>
+                            <th>@L("Uri")</th>
+                            <th>@L("MenuLevel")</th>
+                            <th>@L("SortCode")</th>
+                            <th>@L("IsMenuItem")</th>
+                            <th>@L("IsEnable")</th>
+                            <th>@L("LastModificationTime")</th>
+                            <th style="min-width:80px;">@L("CreationTime")</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>@L("ParentKey")</th>
+                            <th>@L("ObjectKey")</th>
+                            <th>@L("DisplayName")</th>
+                            <th>@L("Edit")</th>
+                            <th>@L("Delete")</th>
+                            <th>@L("Icon")</th>
+                            <th>@L("Uri")</th>
+                            <th>@L("MenuLevel")</th>
+                            <th>@L("SortCode")</th>
+                            <th>@L("IsMenuItem")</th>
+                            <th>@L("IsEnable")</th>
+                            <th>@L("LastModificationTime")</th>
+                            <th style="min-width:80px;">@L("CreationTime")</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="SysObjectCreateModal" tabindex="-1" role="dialog" aria-labelledby="SysObjectCreateModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document" style="width:75%;min-width:800px;">
+        <div class="modal-content">
+            
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="SysObjectEditModal" tabindex="-1" role="dialog" aria-labelledby="SysObjectEditModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document" style="width:75%;min-width:800px;">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+

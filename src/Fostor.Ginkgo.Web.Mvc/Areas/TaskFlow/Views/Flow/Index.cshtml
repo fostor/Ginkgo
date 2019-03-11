@@ -1,0 +1,79 @@
+﻿@using Fostor.Ginkgo.Web.Startup
+@using Fostor.Ginkgo.Web.Views.Shared.Components.MaterialDatePicker
+@{
+    ViewData["Title"] = "TaskTemplates";
+    ViewBag.CurrentPageName = "TaskFlow.TaskTemplate"; //The menu item will be active for this page.
+}
+@section scripts
+    {
+    <environment names="Development">
+        <script src="~/view-resources/TaskFlow/Flow/Index.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/view-resources/TaskFlow/Flow/Index.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    @L("TaskTemplates")
+                </h2>
+
+                <form name="SearchForm" role="form" novalidate class="form-validation form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">@L("TaskCode")</label>
+                        <div class="col-md-2">
+                            <div class="form-line">
+                                <input type="text" name="TaskCode" class="form-control" maxlength="20">
+                            </div>
+                        </div>
+                        <label class="col-md-2 control-label">@L("TaskName")</label>
+                        <div class="col-md-2">
+                            <div class="form-line">
+                                <input type="text" name="TaskName" class="form-control" maxlength="30">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" id="btnSearch" class="btn btn-primary waves-effect btn-xs" style="margin-left:20px;"><i class="small material-icons">search</i></button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <button type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right add-flow">
+                <i class="material-icons">add</i>
+            </button>
+            <div class="datatables-container table-responsive">
+                <table id="table_100" class="table table-condensed table-bordered">
+                    <thead>
+                        <tr>
+                            <th>@L("TaskCode")</th>
+                            <th>@L("TaskName")</th>
+                            <th>@L("Edit")</th>
+                            <th>@L("Delete")</th>
+                            <th>@L("TaskDescription")</th>
+                            <th>@L("UseConditionControl")</th>
+                            <th>@L("CanAppendPhase")</th>
+                            <th>@L("Revocable")</th>
+                            <th>@L("KeyInfoTemplate")</th>
+                            <th>@L("FormUriTemplate")</th>
+                            <th>@L("IsDefaultForAllUser")</th>
+                            <th>@L("FinalServiceTemplate")</th>
+                            <th>@L("StartServiceTemplate")</th>
+                            <th>@L("LastModifier")</th>
+                            <th>@L("LastModificationTime")</th>
+                            <th>@L("Creator")</th>
+                            <th style="min-width:100px;">@L("CreationTime")</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

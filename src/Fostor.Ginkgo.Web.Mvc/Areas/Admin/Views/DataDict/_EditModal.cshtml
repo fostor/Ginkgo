@@ -1,0 +1,28 @@
+﻿@using Fostor.Ginkgo.Web.Models.Common.Modals
+@using System.Collections.Generic;
+@model Fostor.Ginkgo.Web.Areas.Admin.Models.DataDictViewModel
+@{
+    Layout = null;
+}
+@Html.Partial("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("EditDataDictionary")))
+
+<div class="modal-body">
+    <form name="DataDictEditForm" role="form" novalidate class="form-validation form-horizontal">
+        <input type="hidden" name="Id" value="@Model.DataDictionaryDto.Id" />
+        <bs-row>
+            <bs-label>@L("CategoryCode")</bs-label>
+            <bs-input bs-width="10" name="CategoryCode" value="@Model.DataDictionaryDto.CategoryCode" maxlength="50" readonly="readonly"></bs-input>
+        </bs-row>
+        <bs-row>
+            <bs-label>@L("Key")</bs-label>
+            <bs-input bs-width="10" name="Key" value="@Model.DataDictionaryDto.Key" maxlength="50"  requried="requried"></bs-input>
+        </bs-row>
+        <bs-row>
+            <bs-label>@L("Value")</bs-label>
+            <bs-input bs-width="10" name="Value" value="@Model.DataDictionaryDto.Value" maxlength="1000"></bs-input>
+        </bs-row>
+    </form>
+</div>
+@Html.Partial("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+<script src="~/view-resources/Admin/DataDict/_EditModal.js" asp-append-version="true"></script>
+

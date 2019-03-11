@@ -1,0 +1,77 @@
+﻿@using Fostor.Ginkgo.Web.Models.Common.Modals
+@using System.Collections.Generic
+@using Fostor.Ginkgo
+@using Fostor.Ginkgo.Web.Views.Shared.Components.DataConfigSelector
+@using Fostor.Ginkgo.Web.Views.Shared.Components.MaterialDatePicker
+@{
+    Layout = null;
+}
+<form name="LeaveCreateForm" role="form" novalidate class="form-validation form-horizontal">
+    <div class="form-group">
+        <label class="col-md-2 control-label">@L("AppliNumber")<span style="color:red;">*</span></label>
+        <div class="col-md-4">
+            <div class="form-line">
+                <input class="form-control" type="text" name="AppliNumber" maxlength="20" readonly>
+            </div>
+        </div>
+        <label class="col-md-2 control-label">@L("Status")<span style="color:red;">*</span></label>
+        <div class="col-md-4">
+            @await Component.InvokeAsync(typeof(DataConfigSelectorViewComponent), new { configCode = "LeaveAppliStatus", tagName = "Status", selectedValue = "1", disabled = "1" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">@L("LeaveType")<span style="color:red;">*</span></label>
+        <div class="col-md-4">
+            @await Component.InvokeAsync(typeof(DataConfigSelectorViewComponent), new { configCode = "LeaveType", tagName = "LeaveType", selectedValue = "", required = "1" })
+        </div>
+        <label class="col-md-2 control-label">@L("Title")<span style="color:red;">*</span></label>
+        <div class="col-md-4">
+            <div class="form-line">
+                <input class="form-control" type="text" name="Title" maxlength="50" required>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">@L("Description")</label>
+        <div class="col-md-10">
+            <div class="form-line">
+                <input class="form-control" type="text" name="Description" maxlength="500">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">@L("FromTime")<span style="color:red;">*</span></label>
+        <div class="col-md-4">
+            @await Component.InvokeAsync(typeof(MaterialDatePickerViewComponent), new { tagName = "FromTime", showTime = "1", required = "1" })
+        </div>
+        <label class="col-md-2 control-label">@L("To")<span style="color:red;">*</span></label>
+        <div class="col-md-4">
+            @await Component.InvokeAsync(typeof(MaterialDatePickerViewComponent), new { tagName = "EndTime", showTime = "1", required = "1" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">@L("TotalHours")<span style="color:red;">*</span></label>
+        <div class="col-md-4">
+            <div class="form-line">
+                <input class="form-control" type="number" name="TotalHours" required>
+            </div>
+        </div>
+        <label class="col-md-2 control-label">@L("Applicant")<span style="color:red;">*</span></label>
+        <div class="col-md-4">
+            <div class="form-line">
+                <input class="form-control" type="text" name="Applicant" maxlength="30" value="@ViewBag.Applicant" required>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="~/view-resources/TaskSample/Leave/_AddModal.js" asp-append-version="true"></script>
+<script src="~/view-resources/Views/Shared/Components/MaterialDatePicker/Default.js" asp-append-version="true"></script>
+
+
+
+
+
+
+
+
+

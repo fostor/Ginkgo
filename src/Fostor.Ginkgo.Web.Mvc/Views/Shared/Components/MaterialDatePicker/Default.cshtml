@@ -1,0 +1,27 @@
+﻿@using Fostor.Ginkgo.Web.Resources
+@inject IWebResourceManager WebResourceManager
+@{
+    WebResourceManager.AddScript(ApplicationPath + "lib/moment/min/moment.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "lib/moment/min/locales.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "lib/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Views/Shared/Components/MaterialDatePicker/Default.js");
+
+}
+@model Fostor.Ginkgo.Web.Views.Shared.Components.MaterialDatePicker.MaterialDatePickerViewModel
+
+<link href="~/lib/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+
+<div class="form-line">
+    @if (Model.ShowTime == true)
+    {
+        <input type="text" class="form-control material-datepicker-component-with-time" name="@Model.TagName" value="@Model.Value" @(Model.IsDisabled ? "disabled" : "") @(Model.IsRequired == true ? "required" : "")>
+    }
+    else
+    {
+        <input type="text" class="form-control material-datepicker-component" name="@Model.TagName" value="@Model.Value" @(Model.IsDisabled ? "disabled" : "") @(Model.IsRequired == true ? "required" : "")>
+    }
+
+</div>
+
+
+

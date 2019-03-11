@@ -1,0 +1,100 @@
+﻿@using Fostor.Ginkgo.Web.Models.Common.Modals
+@using System.Collections.Generic
+@model Fostor.Ginkgo.Web.Areas.Admin.Models.SysObjectViewModel
+@{
+    Layout = null;
+}
+@Html.Partial("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("EditSysObject")))
+
+<div class="modal-body">
+    <form name="SysObjectEditForm" role="form" novalidate class="form-validation form-horizontal">
+        <input type="hidden" name="Id" value="@Model.SysObject.Id" />
+        <div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">@L("ParentKey")</label>
+                <div class="col-md-10">
+                    <div class="form-line">
+                        <input class="form-control" type="text" name="ParentKey" value="@Model.SysObject.ParentKey" maxlength="200" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">@L("ObjectKey")<span style="color:red;">*</span></label>
+                <div class="col-md-10">
+                    <div class="form-line">
+                        <input class="form-control" type="text" name="ObjectKey" value="@Model.SysObject.ObjectKey" maxlength="255" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">@L("Uri")</label>
+                <div class="col-md-10">
+                    <div class="form-line">
+                        <input class="form-control" type="text" name="Uri" value="@Model.SysObject.Uri" maxlength="255">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">@L("DisplayName")<span style="color:red;">*</span></label>
+                <div class="col-md-4">
+                    <div class="form-line">
+                        <input class="form-control" type="text" name="DisplayName" value="@Model.SysObject.DisplayName" maxlength="30" required>
+                    </div>
+                </div>
+                <label class="col-md-2 control-label">@L("Icon")</label>
+                <div class="col-md-4">
+                    <div class="form-line">
+                        <input class="form-control" type="text" name="Icon" value="@Model.SysObject.Icon" maxlength="30">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2">
+                    <div class="checkbox">
+                        <input type="checkbox" name="IsEnable" value="false" class="filled-in" id="IsEnable0" @((Model.SysObject.IsEnable ?? false) == true ? "checked" : "") />
+                        <label for="IsEnable0">@L("IsEnable") </label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="checkbox">
+                        <input type="checkbox" name="IsMenuItem" value="false" class="filled-in" id="IsMenuItem0" @((Model.SysObject.IsMenuItem ?? false) == true ? "checked" : "") />
+                        <label for="IsMenuItem0">@L("IsMenuItem") </label>
+                    </div>
+                </div>
+                <label class="col-md-2 control-label">@L("MenuLevel") </label>
+                <div class="col-md-2">
+                    <div class="form-line">
+                        <input class="form-control" type="number" name="MenuLevel" value="@Model.SysObject.MenuLevel">
+                    </div>
+                </div>
+                <label class="col-md-2 control-label">@L("SortCode") </label>
+                <div class="col-md-2">
+                    <div class="form-line">
+                        <input class="form-control" type="number" name="SortCode" value="@Model.SysObject.SortCode">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <h4>Permissions</h4>
+                @foreach (var permission in Model.AllPermissions)
+                {
+                    <div class="col-sm-3">
+                        <input type="checkbox" name="permission0" value="false" data-permission-name="@permission.PermissionName" data-display-name="@permission.DisplayName" class="filled-in" id="@string.Format("permission{0}0",permission.PermissionName)" @(Model.SysObject.RefPermissions.Any(t => t.PermissionName == permission.PermissionName) ? "checked" : "") />
+                        <label for="@string.Format("permission{0}0",permission.PermissionName)">@permission.DisplayName</label>
+                    </div>
+                }
+            </div>
+        </div>
+        @Html.Partial("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+    </form>
+</div>
+
+<script src="~/view-resources/Admin/SysObject/_EditModal.js" asp-append-version="true"></script>
+
+
+
+
+

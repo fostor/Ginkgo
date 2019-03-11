@@ -1,0 +1,51 @@
+﻿@using Fostor.Ginkgo.Web.Models.Common.Modals
+@using System.Collections.Generic
+@using Fostor.Ginkgo
+@{
+    Layout = null;
+}
+
+@Html.Partial("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("AddLanguageText")))
+
+<div class="modal-body">
+    <form name="LanguageTextCreateForm" role="form" novalidate class="form-validation form-horizontal">
+        <input type="hidden" name="Source" value="@GinkgoConsts.LocalizationSourceName">
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="col-md-2 control-label">@L("LanguageKey")<span style="color:red;">*</span></label>
+                <div class="col-md-10">
+                    <div class="form-line">
+                        <input class="form-control" type="text" name="Key" maxlength="256" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">@L("zh-Hans") @L("LanguageValue")<span style="color:red;">*</span></label>
+                <div class="col-md-10">
+                    <div class="form-line">
+                        <input class="form-control" type="text" name="ValueCN" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">@L("en") @L("LanguageValue")<span style="color:red;">*</span></label>
+                <div class="col-md-10">
+                    <div class="form-line">
+                        <input class="form-control" type="text" name="ValueEN" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @Html.Partial("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+    </form>
+</div>
+
+<script src="~/view-resources/Admin/Localization/_AddModal.js" asp-append-version="true"></script>
+
+
+
+
+
+
+
+

@@ -1,0 +1,95 @@
+﻿@using System.Collections.Generic
+@using Fostor.Ginkgo.Web
+@using Fostor.Ginkgo.Web.Views.Shared.Components.DataConfigSelector
+@model Fostor.Ginkgo.Web.Areas.TaskFlow.Models.Task.TaskViewModel
+@{
+    ViewData["Title"] = "MyRequests";
+    ViewBag.CurrentPageName = "TaskFlow.MyRequest"; //The menu item will be active for this page.
+}
+@section scripts
+    {
+    <environment names="Development">
+        <script src="~/view-resources/TaskFlow/Task/MyRequestForm.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/view-resources/TaskFlow/Task/MyRequestForm.min.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    @L("MyRequests")
+                </h2>
+            </div>
+
+            <form name="FlowInfoForm" role="form" novalidate class="form-validation form-horizontal form-panel">
+                <input type="hidden" name="FormUri" value="@Model.Instance.FormUri" />
+                <div class="form-group">
+                    <label class="col-md-2 control-label">@L("InstanceCode")</label>
+                    <div class="col-md-2">
+                        <div class="form-line">
+                            <input class="form-control" type="text" name="InstanceCode" value="@Model.Instance.InstanceCode" readonly>
+                        </div>
+                    </div>
+                    <label class="col-md-2 control-label">@L("InstanceTaskName")</label>
+                    <div class="col-md-2">
+                        <div class="form-line">
+                            <input class="form-control" type="text" name="TaskName" value="@Model.Instance.TaskName" readonly>
+                        </div>
+                    </div>
+                    <label class="col-md-2 control-label">@L("Status")</label>
+                    <div class="col-md-2">
+                        @await Component.InvokeAsync(typeof(DataConfigSelectorViewComponent), new { configCode = "TaskInstanceStatus", tagName = "Status", selectedValue = Model.Instance.Status ?? "", disabled = "1" })
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">@L("KeyInfo")</label>
+                    <div class="col-md-10">
+                        <div class="form-line">
+                            <input class="form-control" type="text" name="KeyInfo" value="@Model.Instance.KeyInfo" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">@L("CurrentActors")</label>
+                    <div class="col-md-2">
+                        <div class="form-line">
+                            <input class="form-control" type="text" name="CurrentActors" value="@Model.Instance.CurrentActors" readonly>
+                        </div>
+                    </div>
+                    <label class="col-md-2 control-label">@L("LastPhaseHandleTime")</label>
+                    <div class="col-md-2">
+                        <div class="form-line">
+                            <input class="form-control" type="text" name="LastPhaseHandleTime" value="@Model.Instance.LastPhaseHandleTime" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-4 pull-right">
+                        <button type="button" class="btn btn-default close-button waves-effect m-r-30">@L("Close")</button>
+                        @if (Model.Instance.Status == "1")
+                        {
+                            <button type="button" class="btn btn-primary revoke-button waves-effect">@L("Revoke")</button>
+                        }
+                    </div>
+                </div>
+            </form>
+
+            @Html.Partial("_ExecuteLogs", Model)
+            <div id="form-info-panel" class="panel panel-info">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+

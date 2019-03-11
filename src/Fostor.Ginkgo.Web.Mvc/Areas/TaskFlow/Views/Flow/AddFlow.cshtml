@@ -1,0 +1,157 @@
+﻿@using Fostor.Ginkgo.Web.Models.Common.Modals
+@using Fostor.Ginkgo.Web.Views.Shared.Components.DataConfigSelector
+@{
+    ViewData["Title"] = "AddFlow";
+    ViewBag.CurrentPageName = "TaskFlow.TaskTemplate"; //The menu item will be active for this page.
+}
+@section scripts
+    {
+    <environment names="Development">
+        <script src="~/view-resources/TaskFlow/Flow/AddFlow.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/view-resources/TaskFlow/Flow/AddFlow.min.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header" style="margin-bottom:-30px;">
+                <h2>
+                    @L("AddFlow")
+                </h2>
+            </div>
+            <div class="panel-body">
+                <form name="FlowCreateForm" role="form" novalidate class="form-validation form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">@L("TaskCode")<span style="color:red;">*</span></label>
+                        <div class="col-md-4">
+                            <div class="form-line">
+                                <input class="form-control" type="text" name="TaskCode" value="@L("NewCode")" readonly>
+                            </div>
+                        </div>
+                        <label class="col-md-2 control-label">@L("TaskName")<span style="color:red;">*</span></label>
+                        <div class="col-md-4">
+                            <div class="form-line">
+                                <input class="form-control" type="text" name="TaskName" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">@L("TaskDescription")</label>
+                        <div class="col-md-4">
+                            <div class="form-line">
+                                <input class="form-control form-control-static" type="text" name="Description">
+                            </div>
+                        </div>
+                        <label class="col-md-2 control-label">@L("FormUriTemplate")</label>
+                        <div class="col-md-4">
+                            <div class="form-line">
+                                <input class="form-control" type="text" name="FormUriTemplate">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">@L("KeyInfoTemplate")</label>
+                        <div class="col-md-8">
+                            <div class="form-line">
+                                <input class="form-control" type="text" name="KeyInfoTemplate">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">@L("StartServiceTemplate")</label>
+                        <div class="col-md-4">
+                            <div class="form-line">
+                                <input class="form-control" type="text" name="StartServiceTemplate">
+                            </div>
+                        </div>
+                        <label class="col-md-2 control-label">@L("FinalServiceTemplate")</label>
+                        <div class="col-md-4">
+                            <div class="form-line">
+                                <input class="form-control" type="text" name="FinalServiceTemplate">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="col-md-2 control-label">@L("NotifyTitleTemplate")</label>
+                        <div class="col-md-4">
+                            <div class="form-line">
+                                <input class="form-control" type="number" name="NotifyTitleTemplate">
+                            </div>
+                        </div>
+                        <label class="col-md-2 control-label">@L("NotifyContentTemplate")</label>
+                        <div class="col-md-4">
+                            <div class="form-line">
+                                <input class="form-control" type="number" name="NotifyContentTemplate">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">@L("ReturnType")<span style="color:red;">*</span></label>
+                        <div class="col-md-4">
+                            @await Component.InvokeAsync(typeof(DataConfigSelectorViewComponent), new { configCode = "TaskReturnType", tagName = "ReturnType", selectedValue = "", required = "1" })
+                        </div>
+                        <label class="col-md-2 control-label">@L("ResubmitType")<span style="color:red;">*</span></label>
+                        <div class="col-md-4">
+                            @await Component.InvokeAsync(typeof(DataConfigSelectorViewComponent), new { configCode = "TaskResubmitType", tagName = "ResubmitType", selectedValue = "", required = "1" })
+                        </div>
+                    </div>
+                    <div class=form-group>
+                        <div class="col-md-2 checkbox">
+                            <input type="checkbox" name="IsDefaultForAllUser" value="true" class="filled-in" id="IsDefaultForAllUser" checked />
+                            <label for="IsDefaultForAllUser"> @L("IsDefaultForAllUser") </label>
+                        </div>
+                        <div class="col-md-2 checkbox">
+                            <input type="checkbox" name="Revocable" value="true" class="filled-in" id="Revocable" checked />
+                            <label for="Revocable"> @L("Revocable") </label>
+                        </div>
+                        <div class="col-md-2 checkbox">
+                            <input type="checkbox" name="CanAppendPhase" value="true" class="filled-in" id="CanAppendPhase" />
+                            <label for="CanAppendPhase"> @L("CanAppendPhase") </label>
+                        </div>
+                        <div class="col-md-2 checkbox">
+                            <input type="checkbox" name="UseConditionControl" value="true" class="filled-in" id="UseConditionControl" />
+                            <label for="UseConditionControl"> @L("UseConditionControl") </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">@L("Condition1Name")</label>
+                        <div class="col-md-2">
+                            <div class="form-line">
+                                <input class="form-control" type="text" name="Condition1Name" readonly>
+                            </div>
+                        </div>
+                        <label class="col-md-2 control-label">@L("Condition2Name")</label>
+                        <div class="col-md-2">
+                            <div class="form-line">
+                                <input class="form-control" type="text" name="Condition2Name" readonly>
+                            </div>
+                        </div>
+                        <label class="col-md-2 control-label">@L("Condition3Name")</label>
+                        <div class="col-md-2">
+                            <div class="form-line">
+                                <input class="form-control" type="text" name="Condition3Name" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 pull-right">
+                            <button type="button" style="margin-right:30px;" class="btn btn-default close-button waves-effect">@L("Close")</button>
+                            <button type="button" class="btn btn-primary save-button waves-effect">@L("Save")</button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

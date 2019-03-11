@@ -1,0 +1,88 @@
+﻿@using System.Collections.Generic
+@using Fostor.Ginkgo.Web
+@model Fostor.Ginkgo.Web.Areas.TaskFlow.Models.Task.TaskViewModel
+@{
+    ViewData["Title"] = "SendFlow";
+    ViewBag.CurrentPageName = "TaskFlow.ToDoList"; //The menu item will be active for this page.
+}
+@section scripts
+    {
+    <environment names="Development">
+        <script src="~/view-resources/TaskFlow/Task/SendForm.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/view-resources/TaskFlow/Task/SendForm.min.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    @L("SendFlow")
+                </h2>
+            </div>
+            <form name="SendFlowForm" role="form" novalidate class="form-validation form-horizontal form-panel">                
+                <input type="hidden" name="FormUri" value="@Model.Instance.FormUri" />
+                <div class="form-group">
+                    <label class="col-md-2 control-label">@L("InstanceCode")</label>
+                    <div class="col-md-2">
+                        <div class="form-line">
+                            <input class="form-control" type="text" name="InstanceCode" value="@Model.Instance.InstanceCode" readonly>
+                        </div>
+                    </div>
+                    <label class="col-md-2 control-label">@L("InstanceTaskName")</label>
+                    <div class="col-md-6">
+                        <div class="form-line">
+                            <input class="form-control" type="text" name="TaskName" value="@Model.Instance.TaskName" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">@L("KeyInfo")</label>
+                    <div class="col-md-10">
+                        <div class="form-line">
+                            <input class="form-control" type="text" name="KeyInfo" value="@Model.Instance.KeyInfo" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">@L("NextPhaseActors")<span style="color:red;">*</span></label>
+                    <div class="col-md-2">
+                        <div class="form-line">
+                            <select class="form-control bootstrap-select show-tick" name="NextPhaseActors" required>
+                                @if (Model.NextPhaseActors.Count() > 1)
+                                {
+                                    <option value="">--select--</option>
+                                }
+                                @foreach (var s in Model.NextPhaseActors)
+                                {
+                                    <option value="@s.UserName">@(s.UserName + " " + s.FullName)</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <label class="col-md-2 control-label">@L("SendFlowMemo")</label>
+                    <div class="col-md-6">
+                        <div class="form-line">
+                            <input class="form-control" type="text" name="Memo"  >
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div id="foot_bar" class="panel-footer panel panel-default m-t-5" style="height:48px;">
+                <div class="col-md-6 pull-right">
+                    <button type="button" class="btn btn-default close-button waves-effect m-r-50">@L("Close")</button>
+                    <button type="button" class="btn btn-primary save-button waves-effect m-r-50">@L("Save")</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

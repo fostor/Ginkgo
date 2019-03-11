@@ -1,0 +1,116 @@
+﻿@using Fostor.Ginkgo.Web.Models.Common.Modals
+@using System.Collections.Generic
+@using Fostor.Ginkgo.Web.Views.Shared.Components.TaskRoleSelector
+@{
+    Layout = null;
+}
+<link href="~/lib/multi-select/css/multi-select.css" rel="stylesheet" />
+<style type="text/css">
+    .ms-container .ms-list {
+        height: 200px;
+    }
+</style>
+<script src="~/lib/multi-select/js/jquery.multi-select.js" asp-append-version="true"></script>
+<script src="~/lib/quicksearch/dist/jquery.quicksearch.min.js" asp-append-version="true"></script>
+@Html.Partial("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("AddTaskPhase")))
+
+<div class="modal-body">
+    <form name="TaskPhaseCreateForm" role="form" novalidate class="form-validation form-horizontal">
+        <input type="hidden" name="TaskCode" value="@(ViewBag.TaskCode??"")" />
+        <input type="hidden" name="TaskUsers" value="" />
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="col-md-2 control-label">@L("PhaseCode")<span style="color:red;">*</span></label>
+                <div class="col-md-4">
+                    <div class="form-line">
+                        <input class="form-control" type="text" name="PhaseCode" size="2" maxlength="2" required>
+                    </div>
+                </div>
+                <label class="col-md-2 control-label">@L("PhaseName")<span style="color:red;">*</span></label>
+                <div class="col-md-4">
+                    <div class="form-line">
+                        <input class="form-control" type="text" name="PhaseName" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">@L("TaskRoleConfig")</label>
+                <div class="col-md-4">
+                    @await Component.InvokeAsync(typeof(TaskRoleSelectorViewComponent), new { tagName = "TaskRole", selectedValue = "" })
+                </div>
+                <label class="col-md-2 control-label">@L("UpdateFormUriTemplate")</label>
+                <div class="col-md-4">
+                    <div class="form-line">
+                        <input class="form-control" type="text" name="UpdateFormUriTemplate">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-2 control-label">@L("BatchHandleUriTemplate")</label>
+                <div class="col-md-4">
+                    <div class="form-line">
+                        <input class="form-control" type="text" name="BatchHandleUriTemplate">
+                    </div>
+                </div>
+                <label class="col-md-2 control-label">@L("Condition1EndValue")</label>
+                <div class="col-md-4">
+                    <div class="form-line">
+                        <input class="form-control" type="number" name="Condition1EndValue">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">@L("Condition2EndValue")</label>
+                <div class="col-md-4">
+                    <div class="form-line">
+                        <input class="form-control" type="number" name="Condition2EndValue">
+                    </div>
+                </div>
+                <label class="col-md-2 control-label">@L("Condition3EndValue")</label>
+                <div class="col-md-4">
+                    <div class="form-line">
+                        <input class="form-control" type="number" name="Condition3EndValue">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-2 checkbox">
+                    <input type="checkbox" name="IsCountersignPhase" value="true" class="filled-in" id="IsCountersignPhase" />
+                    <label for="IsCountersignPhase"> @L("IsCountersignPhase") </label>
+                </div>
+                <div class="col-md-2 checkbox">
+                    <input type="checkbox" name="IsSignInPhase" value="true" class="filled-in" id="IsSignInPhase" />
+                    <label for="IsSignInPhase"> @L("IsSignInPhase") </label>
+                </div>
+                <div class="col-md-2 checkbox">
+                    <input type="checkbox" name="CanUpdateForm" value="true" class="filled-in" id="CanUpdateForm" />
+                    <label for="CanUpdateForm"> @L("CanUpdateForm") </label>
+                </div>
+                <div class="col-md-2 checkbox">
+                    <input type="checkbox" name="CanBatchHandle" value="true" class="filled-in" id="CanBatchHandle" />
+                    <label for="CanBatchHandle"> @L("CanBatchHandle") </label>
+                </div>
+                <div class="col-md-2 checkbox">
+                    <input type="checkbox" name="CanReject" value="true" class="filled-in" id="CanReject" />
+                    <label for="CanReject"> @L("CanReject") </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">@L("TaskUsersConfig")</label>
+                <div class="col-md-9">
+                    <select id='task_users_add_select' multiple='multiple'>
+                        @*<option value='000'>000</option>*@
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        @Html.Partial("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+    </form>
+</div>
+
+<script src="~/view-resources/TaskFlow/Flow/_AddPhaseModal.js" asp-append-version="true"></script>
+
+
+

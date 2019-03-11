@@ -1,0 +1,50 @@
+﻿@using Fostor.Ginkgo.Web.Models.Common.Modals
+@using System.Collections.Generic
+@model Fostor.Ginkgo.Web.Areas.Admin.Models.LanguageTextViewModel
+@{
+    Layout = null;
+}
+@Html.Partial("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("EditLanguageText")))
+
+<div class="modal-body">
+    <form name="LanguageTextEditForm" role="form" novalidate class="form-validation form-horizontal">
+        <input type="hidden" name="Id" value="@Model.LangText.Id" />
+        <input type="hidden" name="Source" value="@Model.LangText.Source" />
+        <input type="hidden" name="CreationTime" value="@Model.LangText.CreationTime" />
+        <input type="hidden" name="CreatorUserId" value="@Model.LangText.CreatorUserId" />
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="col-md-2 control-label">@L("LanguageName")</label>
+                <div class="col-md-10">
+                    <div class="form-line">
+                        <input class="form-control" type="text" name="LanguageName" value="@Model.LangText.LanguageName" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">@L("LanguageKey")</label>
+                <div class="col-md-10">
+                    <div class="form-line">
+                        <input class="form-control" type="text" name="Key" value="@Model.LangText.Key" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">@L("LanguageValue")</label>
+                <div class="col-md-10">
+                    <div class="form-line">
+                        <input class="form-control" type="text" name="Value" value="@Model.LangText.Value" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @Html.Partial("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+    </form>
+</div>
+
+<script src="~/view-resources/Admin/Localization/_EditModal.js" asp-append-version="true"></script>
+
+
+
+
+

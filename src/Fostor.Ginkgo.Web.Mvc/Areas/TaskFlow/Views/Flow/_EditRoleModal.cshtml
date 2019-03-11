@@ -1,0 +1,51 @@
+﻿@using Fostor.Ginkgo.Web.Models.Common.Modals
+@using System.Collections.Generic
+@using Fostor.Ginkgo.Web
+@model Fostor.Ginkgo.Web.Areas.TaskFlow.Models.Flow.TaskRoleViewModel
+@{
+    Layout = null;
+}
+<link href="~/lib/multi-select/css/multi-select.css" rel="stylesheet" />
+<style type="text/css">
+    .ms-container .ms-list {
+        height:400px;
+    }
+</style>
+<script src="~/lib/multi-select/js/jquery.multi-select.js" asp-append-version="true"></script>
+<script src="~/lib/quicksearch/dist/jquery.quicksearch.min.js" asp-append-version="true"></script>
+@Html.Partial("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("EditTaskRole")))
+<div class="modal-body">
+    <form name="TaskRoleEditForm" role="form" novalidate class="form-validation form-horizontal">
+        <input type="hidden" name="Id" value="@Model.Role.Id" />
+        <div class="form-group">
+            <label class="col-md-2 control-label">@L("RoleCode")</label>
+            <div class="col-md-4">
+                <div class="form-line">
+                    <input class="form-control" type="text" name="RoleCode" value="@Model.Role.RoleCode" readonly>
+                </div>
+            </div>
+            <label class="col-md-2 control-label">@L("RoleName")</label>
+            <div class="col-md-4">
+                <div class="form-line">
+                    <input class="form-control" type="text" name="RoleName" value="@Model.Role.RoleName" required>
+                </div>
+            </div>
+        </div>        
+        <div class="form-group">
+            <label class="col-md-2 control-label">@L("RoleMembers")</label>
+            <div class="col-md-8">
+                <select id='role_member_select' multiple='multiple'>
+                    @*<option value='000'>000</option>*@
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer" style="border-top:1px solid #e2e2e2;">
+            <button type="button" class="btn btn-default close-button waves-effect" data-dismiss="modal">@L("Cancel")</button>
+            <button type="button" class="btn btn-primary save-button waves-effect">@L("Save")</button>
+        </div>
+    </form>
+</div>
+
+<script src="~/view-resources/TaskFlow/Flow/_EditRoleModal.js" asp-append-version="true"></script>
+
+

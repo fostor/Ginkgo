@@ -1,0 +1,24 @@
+﻿@using Fostor.Ginkgo.Web.Resources
+@inject IWebResourceManager WebResourceManager
+@{
+    WebResourceManager.AddScript(ApplicationPath + "lib/bootstrap-select/dist/js/bootstrap-select.min.js");
+}
+@model Fostor.Ginkgo.Web.Views.Shared.Components.TaskRoleSelector.TaskRoleSelectorViewModel
+          <!-- Bootstrap Select -->
+<link href="~/lib/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<div class="form-line">
+    <select class="form-control  bootstrap-select show-tick" name="@Model.TagName" data-live-search="true" @(Model.IsRequired == true ? "required" : "") @(Model.IsDisabled ? "disabled" : "")>
+        <option value="">--select--</option>
+        @foreach (var s in Model.Roles)
+        {
+            if (s.RoleCode == Model.SelectedValue)
+            {
+                <option value="@s.RoleCode" selected>@s.RoleName</option>
+            }
+            else
+            {
+                <option value="@s.RoleCode">@s.RoleName</option>
+            }
+        }
+    </select>
+</div>

@@ -1,0 +1,231 @@
+﻿@using Fostor.Ginkgo.Web.Models.Common.Modals
+@using System.Collections.Generic
+@using Fostor.Ginkgo.Web
+@using Fostor.Ginkgo.Web.Views.Shared.Components.DataConfigSelector
+@model Fostor.Ginkgo.Web.Areas.TaskFlow.Models.Flow.FlowViewModel
+@{
+    ViewData["Title"] = "EditFlow";
+    ViewBag.CurrentPageName = "TaskFlow.TaskTemplate"; //The menu item will be active for this page.
+}
+@section scripts
+    {
+    <environment names="Development">
+        <script src="~/view-resources/TaskFlow/Flow/EditFlow.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/view-resources/TaskFlow/Flow/EditFlow.min.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header" style="margin-bottom:-10px;">
+                <h2>
+                    @L("EditFlow")
+                </h2>
+            </div>
+            <div class="panel-body">
+                <form name="FlowEditForm" role="form" novalidate class="form-validation form-horizontal">
+                    <input type="hidden" name="Id" value="@Model.Flow.Id" />
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">@L("TaskCode")<span style="color:red;">*</span></label>
+                        <div class="col-md-4">
+                            <div class="form-line">
+                                <input class="form-control" type="text" name="TaskCode" value="@Model.Flow.TaskCode" readonly>
+                            </div>
+                        </div>
+                        <label class="col-md-2 control-label">@L("TaskName")<span style="color:red;">*</span></label>
+                        <div class="col-md-4">
+                            <div class="form-line">
+                                <input class="form-control" type="text" name="TaskName" value="@Model.Flow.TaskName" required>
+                            </div>
+                        </div>
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-default edit-close-button waves-effect" style="margin-right:30px;" data-dismiss="modal">@L("Cancel")</button>
+                            <button type="button" class="btn btn-primary edit-save-button waves-effect">@L("Save")</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                    </div>
+                    <div class="panel-group" id="panel_list2" role="tablist" style="margin-top:5px;" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="heading_flow_template">
+                                <h5 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" href="#flow_template" aria-expanded="false" aria-controls="flow_template">
+                                        @L("MoreTaskTemplateInfo")
+                                        <span class="pull-right"><i class="material-icons">arrow_drop_down</i></span>
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="flow_template" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_flow_template">
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">@L("TaskDescription")</label>
+                                        <div class="col-md-4">
+                                            <div class="form-line">
+                                                <input class="form-control form-control-static" type="text" name="Description" value="@Model.Flow.Description">
+                                            </div>
+                                        </div>
+                                        <label class="col-md-2 control-label">@L("FormUriTemplate")</label>
+                                        <div class="col-md-4">
+                                            <div class="form-line">
+                                                <input class="form-control" type="text" name="FormUriTemplate" value="@Model.Flow.FormUriTemplate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">@L("KeyInfoTemplate")</label>
+                                        <div class="col-md-8">
+                                            <div class="form-line">
+                                                <input class="form-control" type="text" name="KeyInfoTemplate" value="@Model.Flow.KeyInfoTemplate">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">@L("StartServiceTemplate")</label>
+                                        <div class="col-md-4">
+                                            <div class="form-line">
+                                                <input class="form-control" type="text" name="StartServiceTemplate" value="@Model.Flow.StartServiceTemplate">
+                                            </div>
+                                        </div>
+                                        <label class="col-md-2 control-label">@L("FinalServiceTemplate")</label>
+                                        <div class="col-md-4">
+                                            <div class="form-line">
+                                                <input class="form-control" type="text" name="FinalServiceTemplate" value="@Model.Flow.FinalServiceTemplate">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <label class="col-md-2 control-label">@L("NotifyTitleTemplate")</label>
+                                        <div class="col-md-4">
+                                            <div class="form-line">
+                                                <input class="form-control" type="number" name="NotifyTitleTemplate" value="@Model.Flow.NotifyTitleTemplate">
+                                            </div>
+                                        </div>
+                                        <label class="col-md-2 control-label">@L("NotifyContentTemplate")</label>
+                                        <div class="col-md-4">
+                                            <div class="form-line">
+                                                <input class="form-control" type="number" name="NotifyContentTemplate" value="@Model.Flow.NotifyContentTemplate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">@L("ReturnType")<span style="color:red;">*</span></label>
+                                        <div class="col-md-4">
+                                            @await Component.InvokeAsync(typeof(DataConfigSelectorViewComponent), new { configCode = "TaskReturnType", tagName = "ReturnType", selectedValue = Model.Flow.ReturnType ?? "", required = "1" })
+                                        </div>
+                                        <label class="col-md-2 control-label">@L("ResubmitType")<span style="color:red;">*</span></label>
+                                        <div class="col-md-4">
+                                            @await Component.InvokeAsync(typeof(DataConfigSelectorViewComponent), new { configCode = "TaskResubmitType", tagName = "ResubmitType", selectedValue = Model.Flow.ResubmitType ?? "", required = "1" })
+                                        </div>
+                                    </div>
+                                    <div class=form-group>
+                                        @*<div class="col-md-2 checkbox">
+                                                <input type="checkbox" name="IsDefaultForAllUser" value="true" class="filled-in" id="IsDefaultForAllUser" @((Model.Flow.IsDefaultForAllUser ?? false) ? "checked" : "") />
+                                                <label for="IsDefaultForAllUser"> @L("IsDefaultForAllUser") </label>
+                                            </div>*@
+                                        <bs-check id="IsDefaultForAllUser" name="IsDefaultForAllUser" label="@L("IsDefaultForAllUser")" checked="@((Model.Flow.IsDefaultForAllUser ?? false) ? "checked" : "")"></bs-check>
+                                        <div class="col-md-2 checkbox">
+                                            <input type="checkbox" name="Revocable" value="true" class="filled-in" id="Revocable" @((Model.Flow.Revocable ?? false) ? "checked" : "") />
+                                            <label for="Revocable"> @L("Revocable") </label>
+                                        </div>
+                                        <div class="col-md-2 checkbox">
+                                            <input type="checkbox" name="CanAppendPhase" value="true" class="filled-in" id="CanAppendPhase" @((Model.Flow.CanAppendPhase ?? false) ? "checked" : "") />
+                                            <label for="CanAppendPhase"> @L("CanAppendPhase") </label>
+                                        </div>
+                                        <div class="col-md-2 checkbox">
+                                            <input type="checkbox" name="UseConditionControl" value="true" class="filled-in" id="UseConditionControl" @((Model.Flow.UseConditionControl ?? false) ? "checked" : "") />
+                                            <label for="UseConditionControl"> @L("UseConditionControl") </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">@L("Condition1Name")</label>
+                                        <div class="col-md-2">
+                                            <div class="form-line">
+                                                <input class="form-control" type="text" name="Condition1Name" value="@Model.Flow.Condition1Name" readonly>
+                                            </div>
+                                        </div>
+                                        <label class="col-md-2 control-label">@L("Condition2Name")</label>
+                                        <div class="col-md-2">
+                                            <div class="form-line">
+                                                <input class="form-control" type="text" name="Condition2Name" value="@Model.Flow.Condition2Name" readonly>
+                                            </div>
+                                        </div>
+                                        <label class="col-md-2 control-label">@L("Condition3Name")</label>
+                                        <div class="col-md-2">
+                                            <div class="form-line">
+                                                <input class="form-control" type="text" name="Condition3Name" value="@Model.Flow.Condition3Name" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <button type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right add-task-phase" data-toggle="modal" data-target="#TaskPhaseCreateModal">
+                    <i class="material-icons">add</i>
+                </button>
+                <div class="datatables-container table-responsive">
+                    <table id="table_100" class="table table-condensed table-bordered">
+                        <thead>
+                            <tr>
+                                <th>@L("PhaseCode")</th>
+                                <th>@L("PhaseName")</th>
+                                <th>@L("Edit")</th>
+                                <th>@L("Delete")</th>
+                                <th>@L("TaskRoleConfig")</th>
+                                <th>@L("TaskUsersConfig")</th>
+                                <th>@L("IsCountersignPhase")</th>
+                                <th>@L("IsSignInPhase")</th>
+                                <th>@L("CanUpdateForm")</th>
+                                <th>@L("UpdateFormUriTemplate")</th>
+                                <th>@L("CanBatchHandle")</th>
+                                <th>@L("BatchHandleUriTemplate")</th>
+                                <th>@L("CanReject")</th>
+                                <th>@L("Condition1EndValue")</th>
+                                <th>@L("Condition2EndValue")</th>
+                                <th>@L("Condition3EndValue")</th>
+                                <th>@L("LastModifier")</th>
+                                <th>@L("LastModificationTime")</th>
+                                <th>@L("Creator")</th>
+                                <th style="min-width:80px;">@L("CreationTime")</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="TaskPhaseCreateModal" tabindex="-1" role="dialog" aria-labelledby="TaskPhaseCreateModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document" style="width:960px;height:550px;">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="TaskPhaseEditModal" tabindex="-1" role="dialog" aria-labelledby="TaskPhaseEditModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document" style="width:960px;height:550px;">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+

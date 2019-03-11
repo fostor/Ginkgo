@@ -1,0 +1,129 @@
+﻿@using System.Collections.Generic
+@using Fostor.Ginkgo.Web
+@model Fostor.Ginkgo.Web.Areas.TaskFlow.Models.Task.TaskViewModel
+@{
+    ViewData["Title"] = "DoForm";
+    ViewBag.CurrentPageName = "TaskFlow.ToDoList"; //The menu item will be active for this page.
+}
+@section scripts
+    {
+    <environment names="Development">
+        <script src="~/view-resources/TaskFlow/Task/DoForm.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/view-resources/TaskFlow/Task/DoForm.min.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    @L("DoForm")
+                </h2>
+            </div>
+            <form name="DoFlowForm" role="form" novalidate class="form-validation form-horizontal form-panel">
+                <input type="hidden" name="FormUri" value="@Model.Instance.FormUri" />
+                <div class="form-group">
+                    <label class="col-md-2 control-label">@L("InstanceCode")</label>
+                    <div class="col-md-2">
+                        <div class="form-line">
+                            <input class="form-control" type="text" name="InstanceCode" value="@Model.Instance.InstanceCode" readonly>
+                        </div>
+                    </div>
+                    <label class="col-md-2 control-label">@L("InstanceTaskName")</label>
+                    <div class="col-md-6">
+                        <div class="form-line">
+                            <input class="form-control" type="text" name="TaskName" value="@Model.Instance.TaskName" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">@L("KeyInfo")</label>
+                    <div class="col-md-10">
+                        <div class="form-line">
+                            <input class="form-control" type="text" name="KeyInfo" value="@Model.Instance.KeyInfo" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-body panel-success m-t-5 m-l-5 m-r-15">
+                    <div class="form-group">
+                        <div class="col-md-2" style="text-align:right;max-width:150px;">
+                            <input name="group0" type="radio" id="radio_1" class="with-gap radio-col-green" />
+                            <label for="radio_1">@L("NextPhaseActors")</label>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-line">
+                                @if (Model.NextPhaseActors != null && Model.NextPhaseActors.Count() > 0)
+                                {
+                                    <select class="form-control bootstrap-select show-tick" name="NextPhaseActors">
+                                        @if (Model.NextPhaseActors.Count() > 1)
+                                        {
+                                            <option value="">--select--</option>
+                                        }
+                                        @foreach (var s in Model.NextPhaseActors)
+                                        {
+                                            <option value="@s.UserName">@(s.UserName + " " + s.FullName)</option>
+                                        }
+                                    </select>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="text-align:right;max-width:120px;">
+                            <input name="group0" type="radio" id="radio_2" class="with-gap radio-col-blue" />
+                            <label for="radio_2">@L("ToReturnActors")</label>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-line">
+                                <select class="form-control bootstrap-select show-tick" name="ToReturnActors">
+                                    @if (Model.ToReturnActors.Count() > 1)
+                                    {
+                                        <option value="">--select--</option>
+                                    }
+                                    @foreach (var s in Model.ToReturnActors)
+                                    {
+                                        <option value="@s.UserName">@(s.UserName + " " + s.FullName)</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="text-align:right;max-width:140px;">
+                            <input name="group0" type="radio" id="radio_3" class="with-gap radio-col-red" />
+                            <label for="radio_3">@L("Reject")</label>
+                        </div>
+
+
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">@L("HandleMemo")</label>
+                        <div class="col-md-9">
+                            <div class="form-line">
+                                <input class="form-control" type="text" name="Memo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6 pull-right m-t--15 m-b-5">
+                        <button type="button" class="btn btn-default close-button waves-effect m-r-50">@L("Close")</button>
+                        <button type="button" class="btn btn-primary save-button waves-effect m-r-50">@L("Save")</button>
+                    </div>
+                </div>
+                            </form>
+                            @*<div id="foot_bar" class=" m-t-5" style="height:48px;">
+
+                                </div>*@
+                            @Html.Partial("_ExecuteLogs", Model)
+                            <div id="form-info-panel" class="panel panel-info">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+

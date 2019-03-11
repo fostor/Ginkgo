@@ -1,0 +1,35 @@
+﻿@using Fostor.Ginkgo.Web.Models.Common.Modals
+@using System.Collections.Generic
+@using Fostor.Ginkgo.Web
+@{
+    Layout = null;
+}
+<style type="text/css">
+    .ms-container .ms-list {
+        height: 200px;
+    }
+</style>
+<link href="~/lib/multi-select/css/multi-select.css" rel="stylesheet" />
+<script src="~/lib/multi-select/js/jquery.multi-select.js" asp-append-version="true"></script>
+@Html.Partial("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("EditMyFlowPhaseActor")))
+<div class="modal-body">
+    <form name="MyFlowPhaseEditForm" role="form" novalidate class="form-validation form-horizontal">
+        <input type="hidden" name="TaskCode" value="@ViewBag.TaskCode" />
+        <input type="hidden" name="PhaseCode" value="@ViewBag.PhaseCode" />
+        <input type="hidden" name="Originator" value="@ViewBag.Originator" />
+        <div class="form-group">
+            <div class="col-md-11">
+                <select id='phase_actors_select' multiple='multiple'>
+                    
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer" style="border-top:1px solid #e2e2e2;">
+            <button type="button" class="btn btn-default close-button waves-effect" data-dismiss="modal">@L("Close")</button>
+            <button type="button" class="btn btn-primary save-button waves-effect">@L("Save")</button>
+        </div>
+    </form>
+</div>
+
+<script src="~/view-resources/TaskFlow/Flow/_EditMyFlowPhaseModal.js" asp-append-version="true"></script>
+

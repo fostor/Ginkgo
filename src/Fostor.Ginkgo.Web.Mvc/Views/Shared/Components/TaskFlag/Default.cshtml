@@ -1,0 +1,9 @@
+﻿@using Fostor.Ginkgo.Web.Resources
+@inject IWebResourceManager WebResourceManager
+@{
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Views/Shared/Components/TaskFlag/Default.js");
+}
+<a href="~/TaskFlow/Task/ToDoList" role="button">
+    <i class="material-icons">flag</i>
+    <span id="task_flag_count" class="label-count">0</span>
+</a>

@@ -1,0 +1,91 @@
+﻿@using Fostor.Ginkgo.Web.Startup
+@using Fostor.Ginkgo.Web.Areas.Admin.Models
+@using Fostor.Ginkgo.Web.Views.Shared.Components.DataConfigSelector
+@{
+    ViewData["Title"] = "DataDictionary";
+    ViewBag.CurrentPageName = "Admin.DataDict"; //The menu item will be active for this page.    
+}
+@section scripts
+    {
+    <environment names="Development">
+        <script src="~/view-resources/Admin/DataDict/Index.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Admin/DataDict/Index.min.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header" >
+                <h2>
+                    @L("DataDictionary")
+                </h2>
+                <form name="SearchForm" role="form" novalidate class="form-validation form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2 control-label" >@L("CategoryCode")</label>
+                    <div class="col-md-4">
+                        @await Component.InvokeAsync(typeof(DataConfigSelectorViewComponent), new { configCode = "DataDictCategoryCode", tagName = "CategoryCode" })
+                    </div>
+                </div>
+                </form>
+            </div>
+            <button type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right" data-toggle="modal" data-target="#DataDictCreateModal">
+                <i class="material-icons">add</i>
+            </button>
+            <div  class="datatables-container m-r-30">
+                <table id="table_100" class="table table-condensed table-bordered" style="min-width:100%;">
+                    <thead>
+                        <tr>
+                            <th>@L("CategoryCode")</th>
+                            <th>@L("Key")</th>
+                            <th style="min-width:100px;">@L("Value")</th>
+                            <th>@L("Edit")</th>
+                            <th>@L("Delete")</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="DataDictCreateModal" tabindex="-1" role="dialog" aria-labelledby="DataDictCreateModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span>@L("CreateNewDataDictionary")</span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form name="DataDictCreateForm" role="form" novalidate class="form-validation form-horizontal">                   
+                    <bs-row>
+                        <bs-label>@L("CategoryCode")</bs-label>
+                        <bs-input bs-width="10" name="CategoryCode"  maxlength="50" requried="requried"></bs-input>
+                    </bs-row>
+                    <bs-row>
+                        <bs-label>@L("Key")</bs-label>
+                        <bs-input bs-width="10" name="Key"  maxlength="50" requried="requried"></bs-input>
+                    </bs-row>
+                    <bs-row>
+                        <bs-label>@L("Value")</bs-label>
+                        <bs-input bs-width="10" name="Value"  maxlength="1000"></bs-input>
+                    </bs-row>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">@L("Cancel")</button>
+                        <button type="submit" class="btn btn-primary waves-effect">@L("Save")</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="DataDictEditModal" tabindex="-1" role="dialog" aria-labelledby="DataDictEditModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,41 @@
+﻿@using Fostor.Ginkgo.Web.Resources
+@inject IWebResourceManager WebResourceManager
+@{
+    WebResourceManager.AddScript(ApplicationPath + "lib/bootstrap-select/dist/js/bootstrap-select.min.js");
+}
+@model Fostor.Ginkgo.Web.Views.Shared.Components.DataConfigSelector.DataConfigSelectorViewModel
+          <!-- Bootstrap Select -->
+<link href="~/lib/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<div class="form-line">
+    <select class="form-control bootstrap-select show-tick" data-live-search="true" name="@Model.TagName" @(Model.IsRequired == true ? "required" : "") @(Model.IsDisabled ? "disabled" : "")>
+        <option value="">--select--</option>
+        @if (Model.UseTextAsValue == false)
+        {
+            foreach (var s in Model.ConfigList)
+            {
+                if (s.Code == Model.SelectedValue)
+                {
+                    <option value="@s.Code" selected>@s.Name</option>
+                }
+                else
+                {
+                    <option value="@s.Code">@s.Name</option>
+                }
+            }
+        }
+        else
+        {
+            foreach (var s in Model.ConfigList)
+            {
+                if (s.Name == Model.SelectedValue)
+                {
+                    <option value="@s.Name" selected>@s.Name</option>
+                }
+                else
+                {
+                    <option value="@s.Name">@s.Name</option>
+                }
+            }
+        }
+    </select>
+</div>
