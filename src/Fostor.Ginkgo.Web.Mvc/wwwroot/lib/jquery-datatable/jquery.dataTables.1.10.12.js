@@ -5563,11 +5563,20 @@
 			headerCells = _fnGetUniqueThs( oSettings, tmpTable.find('thead')[0] );
 	
 			for ( i=0 ; i<visibleColumns.length ; i++ ) {
-				column = columns[ visibleColumns[i] ];
+                column = columns[visibleColumns[i]];
+
+                //fixed by fostor 2019/03/13
+                for (var j = 0; j < columns.length; j++) {
+                    if (columns[j] === column && $(headerCells[j]).is(':visible')) {
+                        headerCells[j].style.width = column.sWidthOrig !== null && column.sWidthOrig !== '' ?
+                            _fnStringToCss(column.sWidthOrig) :
+                            '';
+                    }
+                }
 	
-				headerCells[i].style.width = column.sWidthOrig !== null && column.sWidthOrig !== '' ?
-					_fnStringToCss( column.sWidthOrig ) :
-					'';
+				//headerCells[i].style.width = column.sWidthOrig !== null && column.sWidthOrig !== '' ?
+				//	_fnStringToCss( column.sWidthOrig ) :
+				//	'';
 	
 				// For scrollX we need to force the column width otherwise the
 				// browser will collapse it. If this width is smaller than the

@@ -121,5 +121,7 @@
     <text name="Memo">Memo</text>
     <text name="FromTime">From Time</text>
     <text name="EndTime">End Time</text>
+    <text name="CurrentPassword">Current Password</text>
+    <text name="NewPassword">New Password</text>
   </texts>
 </localizationDictionary>

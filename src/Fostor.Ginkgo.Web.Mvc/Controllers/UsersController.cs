@@ -43,5 +43,10 @@ namespace Fostor.Ginkgo.Web.Controllers
             };
             return View("_EditUserModal", model);
         }
+
+        public IActionResult ChangePassword()
+        {
+            return View("ChangePassword");
+        }
     }
 }

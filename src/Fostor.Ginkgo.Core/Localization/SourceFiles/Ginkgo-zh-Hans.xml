@@ -130,6 +130,8 @@
     <text name="Memo">备注</text>
     <text name="FromTime">开始时间</text>
     <text name="EndTime">结束时间</text>
+    <text name="CurrentPassword">当前密码</text>
+    <text name="NewPassword">新密码</text>
   </texts>
 </localizationDictionary>
 

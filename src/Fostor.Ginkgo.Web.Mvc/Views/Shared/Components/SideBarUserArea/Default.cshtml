@@ -9,8 +9,8 @@
         <div class="btn-group user-helper-dropdown">
             <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"  >keyboard_arrow_down</i>
             <ul class="dropdown-menu pull-right">
-                <li><a href="../../Account/Logout"><i class="material-icons">input</i>@L("Logout")</a></li>
-                <li><a href="../../Assistant/ChangePassword"><i class="material-icons">security</i>@L("ChangePassword")</a></li>
+                <li><a asp-area="" asp-controller="Account" asp-action="Logout"><i class="material-icons">input</i>@L("Logout")</a></li>
+                <li><a asp-area="" asp-controller="Users" asp-action="ChangePassword" ><i class="material-icons">security</i>@L("ChangePassword")</a></li>
             </ul>
         </div>
     </div>

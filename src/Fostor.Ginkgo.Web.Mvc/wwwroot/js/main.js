@@ -46,6 +46,11 @@
             $(this).toggleClass('selected');
         });
     };
+    //设置表格间隔行颜色
+    $.setTableInterVarRowsColor = function (tableId) {
+        var tableDT = $('#' + tableId).DataTable();
+        tableDT.$("tr:even").css("background-color", "#E0EEEE");
+    };
 
     //get the language of datatables
     $.getDataTableLang = function () {
@@ -167,6 +172,78 @@
 
     $.deleteConfirm = function (code) {
         return abp.utils.formatString(abp.localization.localize('AreYouSureWantToDelete', 'Ginkgo'), code);
+    };
+    //权限检查,无权限时报错
+    $.checkPermision = function (pkey, pname) {
+        if (abp.auth.isGranted(pkey)) {
+            return true;
+        }
+        else {
+            var info = abp.utils.formatString(abp.localization.localize('AtLeastOneOfThesePermissionsMustBeGranted', 'Abp'),
+                abp.localization.localize(pname, 'SmartPacking'));
+            abp.message.error(info);
+            return false;
+        }
+    };
+    $.fixDataTableHeight = function (tableId, height) {
+        $('#' + tableId + '_wrapper').find('.dataTables_scrollBody').height(height);
+    };
+
+    $.setFormReadMode = function (form) {
+        form.find('input[type=text]').each(function () {
+            $(this).attr("readonly", "readonly");
+        });
+        form.find('input[type=number]').each(function () {
+            $(this).attr("readonly", "readonly");
+        });
+        form.find('input[type=checkbox]').each(function () {
+            $(this).attr("disabled", "disabled");
+        });
+        form.find('select').each(function () {
+            $(this).attr("disabled", "disabled").selectpicker('refresh');
+        });
+    };
+    $.setFormEditMode = function (form) {
+        form.find('input[type=text]').each(function () {
+            $(this).attr("readonly", false);
+        });
+        form.find('input[type=number]').each(function () {
+            $(this).attr("readonly", false);
+        });
+        form.find('input[type=checkbox]').each(function () {
+            $(this).attr("disabled", false);
+        });
+        form.find('select').each(function () {
+            $(this).attr("disabled", false).selectpicker('refresh');
+        });
+    };
+    //重新设置表单的选择框的值，便于form数据序列化
+    $.setCheckVal = function (form) {
+        form.find('input[type=checkbox]').each(function (i) {
+            if ($(this).attr('checked') === true) {
+                $(this).val(true);
+            }
+            else {
+                $(this).val(false);
+            }
+        });
+    };
+    //设置滚动条退回到顶部
+    $.setTableScrollerTop = function (tableId) {
+        var row0 = $('#' + tableId).DataTable().row(0);
+        if (row0) {
+            row0.scrollTo();
+        }
+        else {
+            $('#' + tableId).DataTable().scroller.toPosition(-1);
+        }
+    };
+    //datatable保存状态时,不保存搜索条件
+    $.setTableStateSaveNoneFilter = function (settings, data) {
+        data.search.search = "";
+        $.each(data.columns, function (index, value) {
+            value.search = {};
+        });
     };
 
 })(jQuery);
