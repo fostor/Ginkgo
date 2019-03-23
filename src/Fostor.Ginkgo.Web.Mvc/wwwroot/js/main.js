@@ -77,6 +77,7 @@
         $('#' + tableId + ' tfoot th').each(function () {
             var title = $('#' + tableId + ' thead th').eq($(this).index()).text();
             var widthInput = $('#' + tableId + ' thead th').eq($(this).index()).width() + 5;
+            if (widthInput < 80) { widthInput = 80; }
             $(this).html('<input type="text" style="width:' + widthInput + 'px;" placeholder="' + title + '" />');
         });
     };
@@ -100,6 +101,37 @@
                     .search(this.value)
                     .draw();
             });
+        });
+    };
+    //行首选择框
+    $.getColumnSelect = function (data) {
+        var content = '<div style="text-align:center;" >';
+        content += '   <a href="#" name="checkItem" data-id="' + data + '"  ><i class="material-icons">check_box_outline_blank</i></a>';
+        content += '</div>';
+        return content;
+    };
+    $.bindRowSelectEvent = function (tableId) {
+        //每次加载时都先清理
+        $('#' + tableId + ' tbody').off("click", "tr");
+        $('#' + tableId + ' tbody').on("click", "tr", function () {
+            $(this).toggleClass('selected');
+            if ($(this).hasClass("selected")) {
+                $(this).find("a[name='checkItem']").find("i").text("check_box");
+            } else {
+                $(this).find("a[name='checkItem']").find("i").text("check_box_outline_blank");
+            }
+        });
+    };
+    $.bindCheckAllEvent = function (selector, tableId) {
+        selector.click(function (e) {
+            $(this).toggleClass('selected');
+            if ($(this).hasClass("selected")) {
+                $(this).find("i").text("check_box");
+                $('#' + tableId + ' tbody tr').addClass('selected').find("a[name='checkItem']").find("i").text("check_box");
+            } else {
+                $(this).find("i").text("check_box_outline_blank");
+                $('#' + tableId + ' tbody tr').removeClass('selected').find("a[name='checkItem']").find("i").text("check_box_outline_blank");
+            }
         });
     };
     //Datetime Format
@@ -220,7 +252,7 @@
     //重新设置表单的选择框的值，便于form数据序列化
     $.setCheckVal = function (form) {
         form.find('input[type=checkbox]').each(function (i) {
-            if ($(this).attr('checked') === true) {
+            if ($(this).is(':checked')) {
                 $(this).val(true);
             }
             else {

@@ -7,18 +7,8 @@
             return;
         }
         //处理选择项的值不改变的问题
-        var _$IsMenuItem = $('#IsMenuItem');
-        if (_$IsMenuItem.is(':checked')) {
-            _$IsMenuItem.val(true);
-        } else {
-            _$IsMenuItem.val(false);
-        }
-        var _$IsEnable = $('#IsEnable');
-        if (_$IsEnable.is(':checked')) {
-            _$IsEnable.val(true);
-        } else {
-            _$IsEnable.val(false);
-        }
+        $.setCheckVal(_$form);
+        
         var sysobj = _$form.serializeFormToObject(); //serializeFormToObject is defined in main.js
         var objKey = _$form.find('input[name=ObjectKey]').val();
         sysobj.RefPermissions = [];
@@ -44,8 +34,11 @@
         });
     }
     //Handle save button click
-    _$form.closest('div.modal-content').find(".save-button").click(function (e) {
+    _$modal.find(".save-button").click(function (e) {
         e.preventDefault();
+        if (_$form.is(':hidden')) {
+            return; //判断是否为后台缓存的弹窗数据,因底部工具条会触发所有打开过的缓存窗体
+        }
         save();
     });
 

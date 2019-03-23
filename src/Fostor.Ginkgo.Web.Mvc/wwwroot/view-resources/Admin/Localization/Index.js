@@ -23,7 +23,7 @@
                 type: 'POST',
                 contentType: 'application/html',
                 success: function (content) {
-                    $('#LanguageTextCreateModal div.modal-content').html(content);
+                    $('#LanguageTextCreateModalBody').html(content);
                 },
                 error: function (e) { }
             });
@@ -36,7 +36,7 @@
                 type: 'POST',
                 contentType: 'application/html',
                 success: function (content) {
-                    $('#LanguageTextCopyModal div.modal-content').html(content);
+                    $('#LanguageTextCopyModalBody').html(content);
                 },
                 error: function (e) { }
             });
@@ -66,7 +66,7 @@
                 language: $.getDataTableLang(),
                 buttons: $.getDataTableButtons(),
                 deferRender: true,
-                scrollY: $(window).height() - 400,
+                scrollY: $(window).height() - 350,
                 scrollX: true,
                 scrollCollapse: true,
                 scroller: true,
@@ -81,7 +81,7 @@
                         width: '35px',
                         render: function (data, type, row, meta) {
                             var content = '<div style="text-align:center;" >';
-                            content += '   <a href="#" class="waves-effect waves-block edit-language-text" data-id="' + data + '"  data-toggle="modal" data-target="#LanguageTextEditModal"><i class="tiny material-icons">visibility</i></a>';
+                            content += '   <a href="#" class="waves-effect waves-block edit-language-text" data-id="' + data + '"  data-toggle="modal" data-target="#LanguageTextEditModal"><i class="tiny material-icons">edit</i></a>';
 
                             content += '</div>';
                             return content;
@@ -104,31 +104,32 @@
                         data: 'lastModificationTime',
                         width: '80px',
                         render: function (data, type, row, meta) {                            
-                            return data ? data.substr(0, 16).replace(/T/, ' ') : null;
-                            //return data ? $.dateFormat(new Date(data), "yyyy-MM-dd hh:mm:ss") : null;
+                            return data ? data.substr(0, 16).replace(/T/, ' ') : null;                            
                         }
                     },
                     {
                         data: 'creationTime',
                         render: function (data, type, row, meta) {                            
-                            return data ? data.substr(0, 16).replace(/T/, ' ') : null;
-                            //return data ? $.dateFormat(new Date(data), "yyyy-MM-dd hh:mm") : null;
+                            return data ? data.substr(0, 16).replace(/T/, ' ') : null;                            
                         }
                     }
                 ],
-                initComplete: function () {
-                    bindEditEvent();
-                    bindDeleteEvent();
+                initComplete: function () {                    
                     $.setTableSelectedRowsCss('table_100');
                     $.bindTableColumnSearchEvent('table_100');
                     $.resetTableColumnSearchInput('table_100');
+                    $.fixDataTableHeight('table_100', $(window).height() - 350);
+                },
+                drawCallback:function(){
+                    bindEditEvent();
+                    bindDeleteEvent();
                 }
             });
         }
         $.setTableColumnSearchInput('table_100');
 
         function bindEditEvent() {
-            $('.edit-language-text').click(function (e) {
+            $('.edit-language-text').off("click").on("click",function (e) {
                 var id = $(this).attr("data-id");
                 e.preventDefault();
                 $.ajax({
@@ -136,7 +137,7 @@
                     type: 'POST',
                     contentType: 'application/html',
                     success: function (content) {
-                        $('#LanguageTextEditModal div.modal-content').html(content);
+                        $('#LanguageTextEditModalBody').html(content);
                     },
                     error: function (e) { }
                 });
@@ -145,12 +146,12 @@
         }
 
         function bindDeleteEvent() {
-            $('.delete-language-text').click(function (e) {
+            $('.delete-language-text').off("click").on("click",function (e) {
                 e.preventDefault();
                 var id = $(this).attr("data-id");
                 var code = $(this).attr("data-code");
                 abp.message.confirm(
-                    "Delete language text '" + code + "'?",
+                    $.deleteConfirm(code),
                     function (isConfirmed) {
                         if (isConfirmed) {
                             _dataService.delete(id).done(function () {

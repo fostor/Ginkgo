@@ -34,7 +34,7 @@
                 language: $.getDataTableLang(),
                 buttons: $.getDataTableButtons(),
                 deferRender: true,
-                scrollY: $(window).height() - 300,
+                scrollY: $(window).height() - 310,
                 scrollX: true,
                 scrollCollapse: true,
                 scroller: true,   
@@ -99,19 +99,22 @@
                     }
                 ],
 
-                initComplete: function () {
-                    bindEditEvent();
-                    bindDeleteEvent();
+                initComplete: function () {                    
                     $.setTableSelectedRowsCss('table_100');
                     $.bindTableColumnSearchEvent('table_100');
                     $.resetTableColumnSearchInput('table_100');
+                    $.fixDataTableHeight('table_100', $(window).height() - 310);
+                },
+                drawCallback: function () {
+                    bindEditEvent();
+                    bindDeleteEvent();
                 }
             });
         }
         $.setTableColumnSearchInput('table_100');
 
         function bindEditEvent() {
-            $('.edit-object').click(function (e) {
+            $('.edit-object').off("click").on("click",function (e) {
                 var id = $(this).attr("data-id");
 
                 e.preventDefault();
@@ -120,7 +123,7 @@
                     type: 'POST',
                     contentType: 'application/html',
                     success: function (content) {
-                        $('#SysObjectEditModal div.modal-content').html(content);
+                        $('#SysObjectEditModalBody').html(content);
                     },
                     error: function (e) { }
                 });
@@ -128,7 +131,7 @@
         }
 
         function bindDeleteEvent() {
-            $('.delete-object').click(function () {
+            $('.delete-object').off("click").on("click",function () {
                 var id = $(this).attr("data-id");
                 var code = $(this).attr('data-code');
                 abp.message.confirm(                    
@@ -151,7 +154,7 @@
                 type: 'POST',
                 contentType: 'application/html',
                 success: function (content) {
-                    $('#SysObjectCreateModal div.modal-content').html(content);
+                    $('#SysObjectCreateModalBody').html(content);
                 },
                 error: function (e) { }
             });

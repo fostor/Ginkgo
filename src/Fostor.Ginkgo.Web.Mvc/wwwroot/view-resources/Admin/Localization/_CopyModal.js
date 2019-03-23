@@ -14,7 +14,7 @@
         abp.ui.setBusy(_$form);
         _dataService.copyTenantLanguageText(sourceTenant, targetTenant).done(function (data) {
             abp.message.info('Copy ' + data+' records');
-            _$form.find(".save-button").addClass('save-clicked');
+            _$modal.find(".save-button").addClass('save-clicked');
             _$modal.modal('hide');
         }).always(function () {
             abp.ui.clearBusy(_$modal);
@@ -22,10 +22,13 @@
     }
 
     //Handle save button click
-    _$form.find(".save-button").click(function (e) {
+    _$modal.find(".save-button").click(function (e) {
         e.preventDefault();
+        if (_$form.is(':hidden')) {
+            return; //判断是否为后台缓存的弹窗数据,因底部工具条会触发所有打开过的缓存窗体
+        }
         save();
     });
-    _$form.find(".save-button").removeClass('save-clicked');
+    _$modal.find(".save-button").removeClass('save-clicked');
     $.AdminBSB.input.activate(_$form);
 })(jQuery);

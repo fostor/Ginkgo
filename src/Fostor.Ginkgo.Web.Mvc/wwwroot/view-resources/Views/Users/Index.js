@@ -17,7 +17,7 @@
                 language: $.getDataTableLang(),
                 buttons: $.getDataTableButtons(),
                 deferRender: true,
-                scrollY: $(window).height() - 400,
+                scrollY: $(window).height() - 320,
                 scrollX: true,
                 scrollCollapse: true,
                 scroller: true,                            
@@ -63,20 +63,22 @@
                     { data: 'fullName', width: '100px' },
                     { data: 'emailAddress' }
                 ],
-
-                initComplete: function () {
-                    bindEditEvent();
-                    bindDeleteEvent();
+                initComplete: function () {                    
                     $.setTableSelectedRowsCss('table_100');
                     $.bindTableColumnSearchEvent('table_100');
                     $.resetTableColumnSearchInput('table_100');
+                    $.fixDataTableHeight('table_100', $(window).height() - 320);
+                },
+                drawCallback: function () {
+                    bindEditEvent();
+                    bindDeleteEvent();
                 }
             });
         }
         $.setTableColumnSearchInput('table_100');
 
         function bindEditEvent() {
-            $('.edit-user').click(function (e) {
+            $('.edit-user').off("click").on("click",function (e) {
                 var userId = $(this).attr("data-user-id");
                 e.preventDefault();
                 $.ajax({
@@ -92,7 +94,7 @@
         }
 
         function bindDeleteEvent() {
-            $('.delete-user').click(function () {
+            $('.delete-user').off("click").on("click",function () {
                 var userId = $(this).attr("data-user-id");
                 var userName = $(this).attr('data-user-name');
                 abp.message.confirm(                    

@@ -5,54 +5,49 @@
     Layout = null;
     List<string> dateStringSpecs = new List<string> { "YYMMDD", "YYYYMMDD", "YYMM", "YYYYMM", "YY", string.Empty };
 }
-@Html.Partial("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("EditSequenceNumber")))
-
-<div class="modal-body">
-    <bs-form name="SequenceEditForm">
-        <input type="hidden" name="Id" value="@Model.SeqNumber.Id" />
-        <input type="hidden" name="LatestNumber" value="@Model.SeqNumber.LatestNumber" />
-        <input type="hidden" name="Sequence" value="@Model.SeqNumber.Sequence" />
-        <bs-row>
-            <bs-label>@L("NumberCode")</bs-label>
-            <bs-input bs-width="10" name="NumberCode" value="@Model.SeqNumber.NumberCode" readonly="readonly"></bs-input>
-        </bs-row>
-        <bs-row>
-            <bs-label>@L("NumberCode")</bs-label>
-            <div class="col-md-10">
-                <div class="form-line">
-                    <select class="form-control show-tick" name="DateStringSpec">
-                        @foreach (var s in dateStringSpecs)
+<bs-form name="SequenceEditForm">
+    <input type="hidden" name="Id" value="@Model.SeqNumber.Id" />
+    <input type="hidden" name="LatestNumber" value="@Model.SeqNumber.LatestNumber" />
+    <input type="hidden" name="Sequence" value="@Model.SeqNumber.Sequence" />
+    <bs-row>
+        <bs-label>@L("NumberCode")</bs-label>
+        <bs-input bs-width="10" name="NumberCode" value="@Model.SeqNumber.NumberCode" readonly="readonly"></bs-input>
+    </bs-row>
+    <bs-row>
+        <bs-label>@L("NumberCode")</bs-label>
+        <div class="col-md-10">
+            <div class="form-line">
+                <select class="form-control show-tick" name="DateStringSpec">
+                    @foreach (var s in dateStringSpecs)
+                    {
+                        if (Model.SeqNumber.DateStringSpec == s)
                         {
-                            if (Model.SeqNumber.DateStringSpec == s)
-                            {
-                                <option value="@s" selected>@(s == string.Empty ? "Null" : s)</option>
-                            }
-                            else
-                            {
-                                <option value="@s">@(s == string.Empty ? "Null" : s)</option>
-                            }
+                            <option value="@s" selected>@(s == string.Empty ? "Null" : s)</option>
                         }
-                    </select>
-                </div>
+                        else
+                        {
+                            <option value="@s">@(s == string.Empty ? "Null" : s)</option>
+                        }
+                    }
+                </select>
             </div>
-        </bs-row>
-        <bs-row>
-            <bs-label>@L("Prefix")</bs-label>
-            <bs-input bs-width="10" name="Prefix" value="@Model.SeqNumber.Prefix" maxlength="5"></bs-input>
-        </bs-row>
-        <bs-row>
-            <bs-label>@L("Infix")</bs-label>
-            <bs-input bs-width="10" name="Infix" value="@Model.SeqNumber.Infix" maxlength="5"></bs-input>
-        </bs-row>
-        <bs-row>
-            <bs-label>@L("Suffix")</bs-label>
-            <bs-input bs-width="10" name="Suffix" value="@Model.SeqNumber.Suffix" maxlength="5"></bs-input>
-        </bs-row><bs-row>
-            <bs-label>@L("SeqLength")</bs-label>
-            <bs-input bs-width="10" type="number" name="SeqLength" value="@Model.SeqNumber.SeqLength" maxlength="2"></bs-input>
-        </bs-row>
-    </bs-form>
-</div>
-@Html.Partial("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+        </div>
+    </bs-row>
+    <bs-row>
+        <bs-label>@L("Prefix")</bs-label>
+        <bs-input bs-width="10" name="Prefix" value="@Model.SeqNumber.Prefix" maxlength="5"></bs-input>
+    </bs-row>
+    <bs-row>
+        <bs-label>@L("Infix")</bs-label>
+        <bs-input bs-width="10" name="Infix" value="@Model.SeqNumber.Infix" maxlength="5"></bs-input>
+    </bs-row>
+    <bs-row>
+        <bs-label>@L("Suffix")</bs-label>
+        <bs-input bs-width="10" name="Suffix" value="@Model.SeqNumber.Suffix" maxlength="5"></bs-input>
+    </bs-row><bs-row>
+        <bs-label>@L("SeqLength")</bs-label>
+        <bs-input bs-width="10" type="number" name="SeqLength" value="@Model.SeqNumber.SeqLength" maxlength="2"></bs-input>
+    </bs-row>
+</bs-form>
 <script src="~/view-resources/Admin/Sequence/_EditModal.js" asp-append-version="true"></script>
 

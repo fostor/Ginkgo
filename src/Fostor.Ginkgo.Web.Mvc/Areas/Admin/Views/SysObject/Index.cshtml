@@ -1,5 +1,6 @@
 ﻿@using Fostor.Ginkgo.Web.Startup
 @using Fostor.Ginkgo.Web.Areas.Admin.Models
+@using Fostor.Ginkgo.Web.Views.Shared.Components.CommonModal
 @{
     ViewData["Title"] = "SysObject";
     ViewBag.CurrentPageName = "Admin.SysObject"; //The menu item will be active for this page.
@@ -19,7 +20,7 @@
             <div class="header">
                 <h2>
                     @L("SysObject")
-                </h2> 
+                </h2>
             </div>
             <button type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right add-object" data-toggle="modal" data-target="#SysObjectCreateModal">
                 <i class="material-icons">add</i>
@@ -65,18 +66,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="SysObjectCreateModal" tabindex="-1" role="dialog" aria-labelledby="SysObjectCreateModalLabel" data-backdrop="static">
-    <div class="modal-dialog" role="document" style="width:75%;min-width:800px;">
-        <div class="modal-content">
-            
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="SysObjectEditModal" tabindex="-1" role="dialog" aria-labelledby="SysObjectEditModalLabel" data-backdrop="static">
-    <div class="modal-dialog" role="document" style="width:75%;min-width:800px;">
-        <div class="modal-content">
+@await Component.InvokeAsync(typeof(CommonModalViewComponent), new { modalName = "SysObjectCreate", modalTitle = @L("AddSysObject") })
+@await Component.InvokeAsync(typeof(CommonModalViewComponent), new { modalName = "SysObjectEdit", modalTitle = @L("EditSysObject") })
 
-        </div>
-    </div>
-</div>
 

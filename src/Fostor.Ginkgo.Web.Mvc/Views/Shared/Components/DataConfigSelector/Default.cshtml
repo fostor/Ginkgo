@@ -6,7 +6,7 @@
 @model Fostor.Ginkgo.Web.Views.Shared.Components.DataConfigSelector.DataConfigSelectorViewModel
           <!-- Bootstrap Select -->
 <link href="~/lib/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
-<div class="form-line">
+@*<div class="form-line">*@
     <select class="form-control bootstrap-select show-tick" data-live-search="true" name="@Model.TagName" @(Model.IsRequired == true ? "required" : "") @(Model.IsDisabled ? "disabled" : "")>
         <option value="">--select--</option>
         @if (Model.UseTextAsValue == false)
@@ -38,4 +38,4 @@
             }
         }
     </select>
-</div>
+@*</div>*@

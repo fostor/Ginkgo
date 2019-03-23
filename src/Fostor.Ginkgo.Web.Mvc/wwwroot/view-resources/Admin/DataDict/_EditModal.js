@@ -21,8 +21,11 @@
     }
     
     //Handle save button click
-    _$form.closest('div.modal-content').find(".save-button").click(function (e) {
+    _$modal.find(".save-button").click(function (e) {
         e.preventDefault();
+        if (_$form.is(':hidden')) {
+            return; //判断是否为后台缓存的弹窗数据,因底部工具条会触发所有打开过的缓存窗体
+        }
         save();
     });
 

@@ -6,19 +6,18 @@
 @model Fostor.Ginkgo.Web.Views.Shared.Components.TaskTypeSelector.TaskTypeSelectorViewModel
 <!-- Bootstrap Select -->
 <link href="~/lib/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
-<div class="form-line">
-    <select class="form-control  bootstrap-select show-tick" name="@Model.TagName" data-live-search="true" @(Model.IsRequired == true ? "required" : "") @(Model.IsDisabled ? "disabled" : "")>
-        <option value="">--select--</option>
-        @foreach (var s in Model.Tasks)
+<select class="form-control  bootstrap-select show-tick" name="@Model.TagName" data-live-search="true" @(Model.IsRequired == true ? "required" : "") @(Model.IsDisabled ? "disabled" : "")>
+    <option value="">--select--</option>
+    @foreach (var s in Model.Tasks)
+    {
+        if (s.TaskCode == Model.SelectedValue)
         {
-            if (s.TaskCode == Model.SelectedValue)
-            {
-                <option value="@s.TaskCode" selected>@s.TaskCode  @s.TaskName</option>
-            }
-            else
-            {
-                <option value="@s.TaskCode">@s.TaskCode  @s.TaskName</option>
-            }
+            <option value="@s.TaskCode" selected>@s.TaskCode  @s.TaskName</option>
         }
-    </select>
-</div>
+        else
+        {
+            <option value="@s.TaskCode">@s.TaskCode  @s.TaskName</option>
+        }
+    }
+</select>
+

@@ -17,7 +17,7 @@
                 language: $.getDataTableLang(),
                 buttons: $.getDataTableButtons(),
                 deferRender: true,
-                scrollY: $(window).height() - 350,
+                scrollY: $(window).height() - 280,
                 scrollX: true,
                 scrollCollapse: true,
                 scroller: true,                            
@@ -56,6 +56,7 @@
                     bindEditEvent();
                     bindDeleteEvent();
                     $.setTableSelectedRowsCss('table_100');
+                    $.fixDataTableHeight('table_100', $(window).height() - 280);
                 }
             });
         }

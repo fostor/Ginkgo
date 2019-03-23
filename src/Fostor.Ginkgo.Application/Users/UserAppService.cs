@@ -165,7 +165,7 @@ namespace Fostor.Ginkgo.Users
         {
             identityResult.CheckErrors(LocalizationManager);
         }
-
+        [Abp.Auditing.DisableAuditing]
         public async Task<bool> ChangePassword(ChangePasswordDto input)
         {
             if (_abpSession.UserId == null)
@@ -187,7 +187,7 @@ namespace Fostor.Ginkgo.Users
             CurrentUnitOfWork.SaveChanges();
             return true;
         }
-
+        [Abp.Auditing.DisableAuditing]
         public async Task<bool> ResetPassword(ResetPasswordDto input)
         {
             if (_abpSession.UserId == null)
@@ -244,7 +244,7 @@ namespace Fostor.Ginkgo.Users
 
             return user;
         }
-
+        [Abp.Auditing.DisableAuditing]
         public async Task<IdentityResult> ResetUserPassword(string userName, string password)
         {
             var user = await _repository.FirstOrDefaultAsync(x => x.TenantId == AbpSession.TenantId && x.UserName == userName);
@@ -256,7 +256,7 @@ namespace Fostor.Ginkgo.Users
         {
             return System.Text.RegularExpressions.Regex.IsMatch(str, @"^[^\x00-\xFF]");
         }
-
+        [Abp.Auditing.DisableAuditing]
         public async Task<IdentityResult> ChangeCurrentUserPassword(string currentPassword, string newPassword)
         {
             var user = await _userManager.GetUserByIdAsync(AbpSession.UserId.Value);

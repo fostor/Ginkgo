@@ -18,7 +18,7 @@
                 language: $.getDataTableLang(),
                 buttons: $.getDataTableButtons(),
                 deferRender: true,
-                scrollY: $(window).height() - 350,
+                scrollY: $(window).height() - 300,
                 scrollX: true,
                 scrollCollapse: true,
                 scroller: true,                            
@@ -61,6 +61,7 @@
                     bindEditEvent();
                     bindDeleteEvent();
                     $.setTableSelectedRowsCss('table_100');
+                    $.fixDataTableHeight('table_100', $(window).height() - 300);
                 }
             });
         }
@@ -75,7 +76,7 @@
                     type: 'POST',
                     contentType: 'application/html',
                     success: function (content) {
-                        $('#SequenceEditModal div.modal-content').html(content);
+                        $('#SequenceEditModalBody').html(content);
                     },
                     error: function (e) { }
                 });
@@ -86,8 +87,8 @@
             $('.delete-seqnumber').click(function () {
                 var seqId = $(this).attr("data-seqnumber-id");
                 var seqName = $(this).attr('data-seqnumber-name');
-                abp.message.confirm(                    
-                    abp.utils.formatString(abp.localization.localize('AreYouSureWantToDelete', 'Ginkgo'), seqName),
+                abp.message.confirm(
+                    $.deleteConfirm(seqName),
                     function (isConfirmed) {
                         if (isConfirmed) {
                             _seqService.delete({
@@ -117,7 +118,7 @@
         _$form.validate({
         });    
 
-        _$form.find('button[type="submit"]').click(function (e) {
+        _$modal.find('button[type="submit"]').click(function (e) {
             e.preventDefault();
             if (!_$form.valid()) {
                 return;

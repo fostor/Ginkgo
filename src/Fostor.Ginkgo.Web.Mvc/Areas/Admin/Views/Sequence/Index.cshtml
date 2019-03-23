@@ -1,5 +1,6 @@
 ﻿@using Fostor.Ginkgo.Web.Startup
 @using Fostor.Ginkgo.Web.Areas.Admin.Models
+@using Fostor.Ginkgo.Web.Views.Shared.Components.CommonModal
 @{
     ViewData["Title"] = "SequenceRule";
     ViewBag.CurrentPageName = "Admin.Sequence"; //The menu item will be active for this page.
@@ -19,18 +20,7 @@
             <div class="header">
                 <h2>
                     @L("SequenceRule")
-                </h2>
-
-                <ul class="header-dropdown m-r--5">
-                    <li class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            <i class="material-icons">more_vert</i>
-                        </a>
-                        <ul class="dropdown-menu pull-right">
-                            <li><a id="RefreshButton" href="javascript:void(0);" class="waves-effect waves-block"><i class="material-icons">refresh</i>Refresh</a></li>
-                        </ul>
-                    </li>
-                </ul>
+                </h2>    
             </div>
             <button type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right" data-toggle="modal" data-target="#SequenceCreateModal">
                 <i class="material-icons">add</i>
@@ -62,12 +52,16 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">
-                    <span>@L("CreateNewSequence")</span>
-                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <div class="col-md-8">
+                    <h4 class="modal-title m-l--15">
+                        <span>@L("CreateNewSequence")</span>
+                    </h4>
+                </div>
+                <span class="close pull-right" data-dismiss="modal"><i class="material-icons ">close</i></span>
             </div>
             <div class="modal-body">
-                <form name="SequenceCreateForm"  role="form" novalidate class="form-validation form-horizontal">
+                <form name="SequenceCreateForm" role="form" novalidate class="form-validation form-horizontal">
                     <div class="modal-body">
                         <bs-row>
                             <bs-label>@L("NumberCode")<bs-star></bs-star></bs-label>
@@ -105,21 +99,12 @@
                             <bs-input bs-width="10" type="number" name="SeqLength" maxlength="2"></bs-input>
                         </bs-row>
                     </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">@L("Cancel")</button>
-                        <button type="submit" class="btn btn-primary waves-effect">@L("Save")</button>
-                    </div>
                 </form>
-
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary waves-effect">@L("Save")</button>
             </div>
         </div>
     </div>
 </div>
-<div class="modal fade" id="SequenceEditModal" tabindex="-1" role="dialog" aria-labelledby="SequenceEditModalLabel" data-backdrop="static">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-
-        </div>
-    </div>
-</div>
+@await Component.InvokeAsync(typeof(CommonModalViewComponent), new { modalName = "SequenceEdit", modalTitle = @L("EditSequenceNumber"), width = "600px", height = "480px" })

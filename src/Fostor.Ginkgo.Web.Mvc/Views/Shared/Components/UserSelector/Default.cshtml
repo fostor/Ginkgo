@@ -6,20 +6,19 @@
 @model Fostor.Ginkgo.Web.Views.Shared.Components.UserSelector.UserSelectorViewModel
 <!-- Bootstrap Select -->
 <link href="~/lib/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
-<div class="form-line">
-    <select class="form-control  bootstrap-select show-tick" name="@Model.TagName" data-live-search="true" @(Model.IsRequired == true ? "required" : "") @(Model.IsDisabled ? "disabled" : "")>
-        <option value="">--select--</option>
-        @foreach (var s in Model.Users)
+<select class="form-control  bootstrap-select show-tick" name="@Model.TagName" data-live-search="true" @(Model.IsRequired == true ? "required" : "") @(Model.IsDisabled ? "disabled" : "")>
+    <option value="">--select--</option>
+    @foreach (var s in Model.Users)
+    {
+        if (s.UserName == Model.SelectedValue)
         {
-            if (s.UserName == Model.SelectedValue)
-            {
-                <option value="@s.UserName" selected>@s.UserName  @s.FullName</option>
-            }
-            else
-            {
-                <option value="@s.UserName">@s.UserName  @s.FullName</option>
-            }
+            <option value="@s.UserName" selected>@s.UserName  @s.FullName</option>
         }
-    </select>
-</div>
+        else
+        {
+            <option value="@s.UserName">@s.UserName  @s.FullName</option>
+        }
+    }
+</select>
+
 

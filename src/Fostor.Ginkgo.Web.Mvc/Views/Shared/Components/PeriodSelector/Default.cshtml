@@ -6,19 +6,17 @@
 @model Fostor.Ginkgo.Web.Views.Shared.Components.PeriodSelector.PeriodSelectorViewModel
 <!-- Bootstrap Select -->
 <link href="~/lib/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
-<div class="form-line">
-    <select class="form-control bootstrap-select show-tick" name="@Model.TagName" data-live-search="true" required>
-        <option value="">--select--</option>
-        @foreach (var s in Model.Periods)
+<select class="form-control bootstrap-select show-tick" name="@Model.TagName" data-live-search="true" required>
+    <option value="">--select--</option>
+    @foreach (var s in Model.Periods)
+    {
+        if (s == Model.SelectedValue)
         {
-            if (s == Model.SelectedValue)
-            {
-                <option value="@s" selected>@s</option>
-            }
-            else
-            {
-                <option value="@s">@s</option>
-            }
+            <option value="@s" selected>@s</option>
         }
-    </select>
-</div>
+        else
+        {
+            <option value="@s">@s</option>
+        }
+    }
+</select>

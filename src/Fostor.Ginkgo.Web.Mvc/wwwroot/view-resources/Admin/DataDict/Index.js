@@ -1,10 +1,6 @@
 ﻿(function () {
     $(function () {
-
-        var _dataService = abp.services.app.dataDictionary;
-        var _$modal = $('#DataDictCreateModal');
-        var _$form = _$modal.find('form');
-
+        var _dataService = abp.services.app.dataDictionary; 
         $('select[name=CategoryCode]').change(function (e) {
             e.preventDefault();            
             loadList();
@@ -19,11 +15,10 @@
                 });
             }
         }
-
-        var table_100 = null;        
+             
         //loadList();
         function BindTable_100(data) {
-            table_100 = $('#table_100').DataTable({
+           var table_100 = $('#table_100').DataTable({
                 data: data,
                 destroy: true,
                 searching: true,
@@ -31,7 +26,7 @@
                 language: $.getDataTableLang(),
                 buttons: $.getDataTableButtons(),
                 deferRender: true,
-                scrollY: $(window).height() - 350,
+                scrollY: $(window).height() - 320,
                 scrollX: true,
                 scrollCollapse: true,
                 scroller: true,                            
@@ -70,6 +65,7 @@
                     bindEditEvent();
                     bindDeleteEvent();
                     $.setTableSelectedRowsCss('table_100');
+                    $.fixDataTableHeight('table_100', $(window).height() - 320);
                 }
             });
         }
@@ -83,7 +79,7 @@
                     type: 'POST',
                     contentType: 'application/html',
                     success: function (content) {
-                        $('#DataDictEditModal div.modal-content').html(content);
+                        $('#DataDictEditModalBody').html(content);
                     },
                     error: function (e) { }
                 });
@@ -95,7 +91,7 @@
                 var dataDictId = $(this).attr("data-datadict-id");
                 var dataDictName = $(this).attr('data-datadict-name');
                 abp.message.confirm(
-                    "Delete data dictionary config '" + dataDictName + "'?",
+                    $.deleteConfirm(dataDictName),
                     function (isConfirmed) {
                         if (isConfirmed) {
                             _dataService.delete({
@@ -112,13 +108,14 @@
         $('#DataDictEditModal').on('hide.bs.modal', function () {
             loadList();
         });
-        //Add Dict
-        
 
+        //Add Dict
+        var _$modal = $('#DataDictCreateModal');
+        var _$form = _$modal.find('form');
         _$form.validate({
         });
 
-        _$form.find('button[type="submit"]').click(function (e) {
+        _$modal.find('button[type="submit"]').click(function (e) {
             e.preventDefault();
 
             if (!_$form.valid()) {

@@ -1,5 +1,6 @@
 ﻿@using Fostor.Ginkgo.Web.Startup
 @using Fostor.Ginkgo
+@using Fostor.Ginkgo.Web.Views.Shared.Components.CommonModal
 @{
     ViewData["Title"] = "Localization";
     ViewBag.CurrentPageName = "Admin.Localization"; //The menu item will be active for this page.
@@ -28,13 +29,11 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label">@L("LanguageName")</label>
                         <div class="col-md-2">
-                            <div class="form-line">
-                                <select class="form-control  bootstrap-select show-tick" name="LanguageName">
-                                    <option value="">-select-</option>
-                                    <option value="zh-Hans">zh-Hans</option>
-                                    <option value="en">en</option>
-                                </select>
-                            </div>
+                            <select class="form-control  bootstrap-select show-tick" name="LanguageName">
+                                <option value="">-select-</option>
+                                <option value="zh-Hans">zh-Hans</option>
+                                <option value="en">en</option>
+                            </select>
                         </div>
                         <label class="col-md-2 control-label">@L("LanguageKey")</label>
                         <div class="col-md-2">
@@ -89,28 +88,10 @@
         </div>
     </div>
 </div>
+@await Component.InvokeAsync(typeof(CommonModalViewComponent), new { modalName = "LanguageTextCreate", modalTitle = @L("AddLanguageText"), width = "600px", height = "400px" })
+@await Component.InvokeAsync(typeof(CommonModalViewComponent), new { modalName = "LanguageTextCopy", modalTitle = @L("CopyLanguageText"), width = "600px", height = "400px" })
+@await Component.InvokeAsync(typeof(CommonModalViewComponent), new { modalName = "LanguageTextEdit", modalTitle = @L("EditLanguageText"), width = "600px", height = "400px" })
 
-<div class="modal fade" id="LanguageTextCreateModal" tabindex="-1" role="dialog" aria-labelledby="LanguageTextCreateModalLabel" data-backdrop="static">
-    <div class="modal-dialog" role="document" style="width:600px;height:400px;">
-        <div class="modal-content">
-
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="LanguageTextCopyModal" tabindex="-1" role="dialog" aria-labelledby="LanguageTextCopyModalLabel" data-backdrop="static">
-    <div class="modal-dialog" role="document" style="width:600px;height:400px;">
-        <div class="modal-content">
-
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="LanguageTextEditModal" tabindex="-1" role="dialog" aria-labelledby="LanguageTextEditModalLabel" data-backdrop="static">
-    <div class="modal-dialog" role="document" style="width:600px;height:400px;">
-        <div class="modal-content">
-
-        </div>
-    </div>
-</div>
 
 
 
