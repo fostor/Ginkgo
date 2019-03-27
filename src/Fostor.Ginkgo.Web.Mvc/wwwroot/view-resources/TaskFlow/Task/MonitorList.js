@@ -30,7 +30,7 @@
                 language: $.getDataTableLang(),
                 buttons: $.getDataTableButtons(),
                 deferRender: true,
-                scrollY: $(window).height() - 385,
+                scrollY: $(window).height() - 350,
                 scrollX: true,
                 scrollCollapse: true,
                 scroller: true,
@@ -92,9 +92,12 @@
 
                 initComplete: function () {
                     $.setTableSelectedRowsCss('table_100');
+                    $.bindTableColumnSearchEvent('table_100');
+                    $.resetTableColumnSearchInput('table_100');
+                    $.fixDataTableHeight('table_100', $(window).height() - 350);
                 }
             });
         }
-
+        $.setTableColumnSearchInput('table_100');
     });
 })(jQuery);

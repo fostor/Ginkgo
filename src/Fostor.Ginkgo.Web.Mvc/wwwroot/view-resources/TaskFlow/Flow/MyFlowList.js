@@ -41,10 +41,7 @@
                 scrollY: $(window).height() - 310,
                 scrollX: true,
                 scrollCollapse: true,
-                scroller: true,
-                //lengthMenu: [10, 50, 100, 500],
-                //使用对象数组，一定要配置columns，告诉 DataTables 每列对应的属性
-                //data 这里是固定不变的，name，position，salary，office 为你数据里对应的属性
+                scroller: true,                
                 columns: [
                     { data: 'phaseCode', width: '80px' },               
                     { data: 'phaseName', width: '80px' },
@@ -66,6 +63,7 @@
                 initComplete: function () {
                     bindEditEvent();
                     $.setTableSelectedRowsCss('table_100');
+                    $.fixDataTableHeight('table_100', $(window).height() - 310);
                 }
             });
         }

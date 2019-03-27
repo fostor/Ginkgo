@@ -1,0 +1,49 @@
+﻿@using System.Globalization
+@using Abp.Configuration
+@using Abp.Web.Security.AntiForgery
+@using Abp.Configuration.Startup
+@using Abp.Web.Mvc.Alerts
+@using Fostor.Ginkgo
+@using Fostor.Ginkgo.Web.Resources
+@inject Fostor.Ginkgo.Timing.AppTimes AppTimes
+@inject IAbpAntiForgeryManager AbpAntiForgeryManager
+@inject IMultiTenancyConfig MultiTenancyConfig
+@inject IWebResourceManager WebResourceManager
+@inject ISettingManager SettingManager
+@inject IAlertManager AlertManager
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>@ViewBag.Title</title>
+    <link href="~/lib/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet" asp-append-version="true">
+    <link href="~/lib/jquery-datatable/extensions/scroller/css/scroller.dataTables.min.css" rel="stylesheet" asp-append-version="true">
+    <script src="~/lib/jquery-datatable/jquery.dataTables.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-datatable/extensions/scroller/dataTables.scroller.min.js" asp-append-version="true"></script>
+
+    <!-- View specific styles -->
+    @RenderSection("styles", required: false)
+
+    <script type="text/javascript">
+        //This is used to get the application's root path from javascript. It's useful if you're running application in a virtual directory under IIS.
+        var abp = abp || {};
+        abp.appPath = '@ApplicationPath';
+    </script>
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+    @WebResourceManager.RenderScripts()
+    @RenderSection("scripts", required: false)
+</body>
+</html>

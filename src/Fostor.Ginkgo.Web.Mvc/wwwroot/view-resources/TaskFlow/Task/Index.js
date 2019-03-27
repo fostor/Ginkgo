@@ -93,9 +93,12 @@
 
                 initComplete: function () {
                     $.setTableSelectedRowsCss('table_100');
+                    $.bindTableColumnSearchEvent('table_100');
+                    $.resetTableColumnSearchInput('table_100');
+                    $.fixDataTableHeight('table_100', $(window).height() - 385);
                 }
             });
         }
-
+        $.setTableColumnSearchInput('table_100');
     });
 })(jQuery);

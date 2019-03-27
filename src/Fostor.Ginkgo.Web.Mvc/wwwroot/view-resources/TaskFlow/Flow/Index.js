@@ -34,13 +34,14 @@
                 language: $.getDataTableLang(),
                 buttons: $.getDataTableButtons(),
                 deferRender: true,
-                scrollY: $(window).height() - 350,
+                scrollY: $(window).height() - 330,
                 scrollX: true,
                 scrollCollapse: true,
-                scroller: true,               
+                scroller: true,
+                columnDefs: [{ targets: '_all', width: '100px' }],
                 columns: [
-                    { data: 'taskCode', width: '80px' },
-                    { data: 'taskName', width: '80px' },
+                    { data: 'taskCode' },
+                    { data: 'taskName' },
                     {
                         orderable: false,
                         bSortable: false,
@@ -61,13 +62,13 @@
                         width: '35px',
                         render: function (data, type, row, meta) {
                             var content = '<div style="text-align:center;" >';
-                            content += '   <a href="#" class="waves-effect waves-block delete-flow" data-flow-id="' + data + '" data-code="' + row.taskCode+'" ><i class="tiny material-icons">delete</i></a>';
+                            content += '   <a href="#" class="waves-effect waves-block delete-flow" data-flow-id="' + data + '" data-code="' + row.taskCode + '" ><i class="tiny material-icons">delete</i></a>';
 
                             content += '</div>';
                             return content;
                         }
                     },
-                    { data: 'description', width: '100px' },                 
+                    { data: 'description' },
                     {
                         data: 'useConditionControl',
                         width: '100px',
@@ -79,20 +80,14 @@
                     },
                     {
                         data: 'canAppendPhase',
-                        width: '100px',
                         render: function (data, type, row, meta) {
-                            var content = '';
-                            if (data) content = 'Y';
-                            return content;
+                            return $.getColumnCheck(data);
                         }
-                    },                 
+                    },
                     {
                         data: 'revocable',
-                        width: '80px',
                         render: function (data, type, row, meta) {
-                            var content = '';
-                            if (data) content = 'Y';
-                            return content;
+                            return $.getColumnCheck(data);
                         }
                     },
                     { data: 'keyInfoTemplate', width: '150px' },
@@ -101,34 +96,44 @@
                         data: 'isDefaultForAllUser',
                         width: '150px',
                         render: function (data, type, row, meta) {
-                            var content = '';
-                            if (data) content = 'Y';
-                            return content;
+                            return $.getColumnCheck(data);
                         }
                     },
                     { data: 'finalServiceTemplate', width: '150px' },
-                    { data: 'startServiceTemplate', width: '150px' },                   
-                    { data: 'lastModifier', width: '80px' },
-                    { data: 'lastModificationTime', width: '80px' },
-                    { data: 'creator', width: '80px' },
-                    { data: 'creationTime' }
+                    { data: 'startServiceTemplate', width: '150px' },
+                    { data: 'lastModifier' },
+                    {
+                        data: 'lastModificationTime',
+                        render: function (data, type, row, meta) {
+                            return $.getDateString(data, 16);
+                        }
+                    },
+                    { data: 'creator' },
+                    {
+                        data: 'creationTime', render: function (data, type, row, meta) {
+                            return $.getDateString(data, 16);
+                        }
+                    }
                 ],
                 initComplete: function () {
-                    bindDeleteEvent();
                     $.setTableSelectedRowsCss('table_100');
+                    $.bindTableColumnSearchEvent('table_100');
+                    $.resetTableColumnSearchInput('table_100');
+                    $.fixDataTableHeight('table_100', $(window).height() - 330);
+                },
+                drawCallback: function () {
+                    bindDeleteEvent();
                 }
             });
         }
-
+        $.setTableColumnSearchInput('table_100');
         function bindDeleteEvent() {
-            $('.delete-flow').click(function (e) {
+            $('.delete-flow').off("click").on("click", function (e) {
                 e.preventDefault();
                 var id = $(this).attr("data-flow-id");
                 var code = $(this).attr("data-code");
                 abp.message.confirm(
-                    abp.utils.formatString(abp.localization
-                        .localize("DeleteTaskTemplate{0}?", "Ginkgo"),
-                        code),
+                    $.deleteConfirm(code),
                     function (isConfirmed) {
                         if (isConfirmed) {
                             _dataService.delete({

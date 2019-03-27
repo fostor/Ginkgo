@@ -75,10 +75,8 @@
     //set DataTable Column Search Input
     $.setTableColumnSearchInput = function (tableId) {
         $('#' + tableId + ' tfoot th').each(function () {
-            var title = $('#' + tableId + ' thead th').eq($(this).index()).text();
-            var widthInput = $('#' + tableId + ' thead th').eq($(this).index()).width() + 5;
-            if (widthInput < 80) { widthInput = 80; }
-            $(this).html('<input type="text" style="width:' + widthInput + 'px;" placeholder="' + title + '" />');
+            var title = $('#' + tableId + ' thead th').eq($(this).index()).text();            
+            $(this).html('<input type="search" style="width:100%;" placeholder="' + title + '" />');
         });
     };
 
@@ -90,6 +88,7 @@
                 $('input', tableRTCSI.column(colIdx).footer()).val("");
             }
         });
+        $('#' + tableId + '_wrapper').find('.dataTables_scrollFootInner').css("margin-bottom", "-10px");
     };
 
     //bind DataTable Column Search Event
@@ -100,7 +99,7 @@
                 tableBTCSE.column(colIdx)
                     .search(this.value)
                     .draw();
-            });
+            }).off("mouseout").on("mouseout", function () { $(this).blur(); });
         });
     };
     //行首选择框
@@ -219,6 +218,7 @@
     };
     $.fixDataTableHeight = function (tableId, height) {
         $('#' + tableId + '_wrapper').find('.dataTables_scrollBody').height(height);
+        $('#' + tableId + '_wrapper').find('.dataTables_scroll').css("border","1px solid #d9d9d9");
     };
 
     $.setFormReadMode = function (form) {

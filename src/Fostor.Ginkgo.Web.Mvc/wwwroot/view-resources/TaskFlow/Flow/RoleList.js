@@ -14,7 +14,7 @@
                 BindTable_100(data);
             });
         }
-    
+
         $('.add-task-role').click(function (e) {
             e.preventDefault();
             $.ajax({
@@ -40,13 +40,14 @@
                 language: $.getDataTableLang(),
                 buttons: $.getDataTableButtons(),
                 deferRender: true,
-                scrollY: $(window).height() - 350,
+                scrollY: $(window).height() - 330,
                 scrollX: true,
                 scrollCollapse: true,
                 scroller: true,
+                columnDefs: [{ targets: '_all', width: '100px' }],
                 columns: [
-                    { data: 'roleCode', width: '80px' },
-                    { data: 'roleName', width: '80px' },
+                    { data: 'roleCode' },
+                    { data: 'roleName' },
                     {
                         orderable: false,
                         bSortable: false,
@@ -66,26 +67,39 @@
                         width: '35px',
                         render: function (data, type, row, meta) {
                             var content = '<div style="text-align:center;" >';
-                            content += '   <a href="#" class="waves-effect waves-block delete-task-role" data-role-id="' + data + '" data-code="' + row.roleCode+'" ><i class="tiny material-icons">delete</i></a>';
+                            content += '   <a href="#" class="waves-effect waves-block delete-task-role" data-role-id="' + data + '" data-code="' + row.roleCode + '" ><i class="tiny material-icons">delete</i></a>';
                             content += '</div>';
                             return content;
                         }
                     },
-                    { data: 'lastModifier', width: '80px' },
-                    { data: 'lastModificationTime', width: '80px' },
-                    { data: 'creator', width: '80px' },
-                    { data: 'creationTime' }
+                    { data: 'lastModifier' },
+                    {
+                        data: 'lastModificationTime', render: function (data, type, row, meta) {
+                            return $.getDateString(data, 16);
+                        }
+                    },
+                    { data: 'creator' },
+                    {
+                        data: 'creationTime', render: function (data, type, row, meta) {
+                            return $.getDateString(data, 16);
+                        }
+                    }
                 ],
                 initComplete: function () {
+                    $.setTableSelectedRowsCss('table_100');
+                    $.bindTableColumnSearchEvent('table_100');
+                    $.resetTableColumnSearchInput('table_100');
+                    $.fixDataTableHeight('table_100', $(window).height() - 330);
+                },
+                drawCallback: function () {
                     bindEditEvent();
                     bindDeleteEvent();
-                    $.setTableSelectedRowsCss('table_100');
                 }
             });
         }
-
+        $.setTableColumnSearchInput('table_100');
         function bindEditEvent() {
-            $('.edit-task-role').click(function (e) {
+            $('.edit-task-role').off("click").on("click", function (e) {
                 e.preventDefault();
                 var id = $(this).attr("data-role-id");
                 $.ajax({
@@ -100,14 +114,12 @@
             });
         }
         function bindDeleteEvent() {
-            $('.delete-task-role').click(function (e) {
+            $('.delete-task-role').off("click").on("click", function (e) {
                 e.preventDefault();
                 var id = $(this).attr("data-role-id");
                 var code = $(this).attr("data-code");
                 abp.message.confirm(
-                    abp.utils.formatString(abp.localization
-                        .localize("DeleteTaskRole{0}?", "Ginkgo"),
-                        code),
+                    $.deleteConfirm(code),
                     function (isConfirmed) {
                         if (isConfirmed) {
                             _dataService.delete({

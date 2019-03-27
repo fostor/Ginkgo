@@ -39,7 +39,7 @@
                         <div class="col-md-1" style="min-width:120px;">
                             @await Component.InvokeAsync(typeof(MaterialDatePickerViewComponent), new { tagName = "FromDate", value = @DateTime.Now.AddMonths(-3).ToShortDateString() })
                         </div>
-                        <label class="col-md-1 control-label" style="text-align:center;">@L("To")</label>
+                        <label class="col-md-1 control-label" style="text-align:center;width:30px;">@L("To")</label>
                         <div class="col-md-1" style="min-width:120px;">
                             @await Component.InvokeAsync(typeof(MaterialDatePickerViewComponent), new { tagName = "ToDate", value = @DateTime.Now.ToShortDateString() })
                         </div>
@@ -61,13 +61,28 @@
                             <th>@L("KeyInfo")</th>
                             <th>@L("Status")</th>
                             <th>@L("CurrentActors")</th>
-                            <th>@L("LastPhaseHandleTime")</th>                            
+                            <th>@L("LastPhaseHandleTime")</th>
                             <th>@L("LastModifier")</th>
                             <th>@L("LastModificationTime")</th>
                             <th>@L("Creator")</th>
                             <th style="min-width:100px;">@L("CreationTime")</th>
                         </tr>
                     </thead>
+                    <tfoot>
+                        <tr>
+                            <th>@L("InstanceCode")</th>
+                            <th>@L("TaskName")</th>
+                            <th>@L("View")</th>
+                            <th>@L("KeyInfo")</th>
+                            <th>@L("Status")</th>
+                            <th>@L("CurrentActors")</th>
+                            <th>@L("LastPhaseHandleTime")</th>
+                            <th>@L("LastModifier")</th>
+                            <th>@L("LastModificationTime")</th>
+                            <th>@L("Creator")</th>
+                            <th style="min-width:100px;">@L("CreationTime")</th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

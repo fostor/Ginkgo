@@ -135,6 +135,7 @@
                     bindEditEvent();
                     bindDeleteEvent();
                     $.setTableSelectedRowsCss('table_100');
+                    $.fixDataTableHeight('table_100', table_height);
                 }
             });
         }
@@ -194,11 +195,13 @@
             if (!_$form.valid()) {
                 return;
             }
+
             //处理选择项的值不改变的问题
-            $('#UseConditionControl').val($('#UseConditionControl').is(':checked'));
-            $('#CanAppendPhase').val($('#CanAppendPhase').is(':checked'));
-            $('#Revocable').val($('#Revocable').is(':checked'));
-            $('#IsDefaultForAllUser').val($('#IsDefaultForAllUser').is(':checked')); 
+            $.setCheckVal(_$form);
+            //$('#UseConditionControl').val($('#UseConditionControl').is(':checked'));
+            //$('#CanAppendPhase').val($('#CanAppendPhase').is(':checked'));
+            //$('#Revocable').val($('#Revocable').is(':checked'));
+            //$('#IsDefaultForAllUser').val($('#IsDefaultForAllUser').is(':checked')); 
             var flow = _$form.serializeFormToObject();             
             abp.ui.setBusy(_$form);
             _dataService.update(flow).done(function (data) {

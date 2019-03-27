@@ -40,15 +40,14 @@
                         <div class="col-md-2">
                             <button type="button" id="btnSearch" class="btn btn-primary waves-effect btn-xs" style="margin-left:20px;"><i class="small material-icons">search</i></button>
                         </div>
+                        <button type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right add-task-role" data-toggle="modal" data-target="#TaskRoleCreateModal">
+                            <i class="material-icons">add</i>
+                        </button>
                     </div>
                 </form>
-
-            </div>
-            <button type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right add-task-role" data-toggle="modal" data-target="#TaskRoleCreateModal">
-                <i class="material-icons">add</i>
-            </button>
-            <div class="datatables-container table-responsive">
-                <table id="table_100" class="table table-condensed table-bordered" style="min-width:99%;">
+            </div>            
+            <div class="m-l-15 m-r-15">
+                <table id="table_100" class="table table-condensed table-bordered" style="min-width:100%;">
                     <thead>
                         <tr>
                             <th>@L("RoleCode")</th>
@@ -58,9 +57,21 @@
                             <th>@L("LastModifier")</th>
                             <th>@L("LastModificationTime")</th>
                             <th>@L("Creator")</th>
-                            <th style="min-width:100px;">@L("CreationTime")</th>
+                            <th>@L("CreationTime")</th>
                         </tr>
                     </thead>
+                    <tfoot>
+                        <tr>
+                            <th>@L("RoleCode")</th>
+                            <th>@L("RoleName")</th>
+                            <th>@L("View")</th>
+                            <th>@L("Delete")</th>
+                            <th>@L("LastModifier")</th>
+                            <th>@L("LastModificationTime")</th>
+                            <th>@L("Creator")</th>
+                            <th>@L("CreationTime")</th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
