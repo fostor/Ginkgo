@@ -5,8 +5,6 @@
 @{
     Layout = null;
 }
-@*@Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("ChangeTenant")))*@
-@*@Html.Partial("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("ChangeTenant")))*@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
     <h4 class="modal-title">
@@ -30,23 +28,14 @@
                         {
                             <option value="@s.TenancyName">@s.Name</option>
                         }
-                    }
-                    @if (Model.TenancyName == string.Empty)
-                    {
-                        <option value="" selected>@L("Host")</option>
-                    }
-                    else
-                    {
-                        <option value="">@L("Host")</option>
-                    }
+                    }              
                 </select>
-
             </div>
         </div>
         @*<span class="help-block">@L("LeaveEmptyToSwitchToHost")</span>*@
     </form>
 </div>
 
-@Html.Partial("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+@await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
 
 <script src="~/view-resources/Views/Shared/Components/TenantChange/_ChangeModal.js" asp-append-version="true"></script>

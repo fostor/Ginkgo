@@ -54,7 +54,7 @@
     <text name="LeaveEmptyToSwitchToHost">Leave empty to switch to the host</text>
     <text name="CurrentTenant">Current tenant</text>
     <text name="NotSelected">Not selected</text>
-    <text name="Change">Change</text>
+    <text name="ChangeOther">Change</text>
     <text name="ChangeTenant">Change tenant</text>
     <text name="MultiLevelMenu">Multi Level Menu</text>
     <text name="Back">Back</text>

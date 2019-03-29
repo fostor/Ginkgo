@@ -74,9 +74,7 @@
                     { data: 'languageName', width: '60px' },
                     { data: 'key', width: '100px' },
                     { data: 'value', width: '60px' },
-                    {
-                        orderable: false,
-                        bSortable: false,
+                    {                       
                         data: "id",
                         width: '35px',
                         render: function (data, type, row, meta) {
@@ -87,9 +85,7 @@
                             return content;
                         }
                     },
-                    {
-                        orderable: false,
-                        bSortable: false,
+                    {                        
                         data: "id",
                         width: '40px',
                         render: function (data, type, row, meta) {

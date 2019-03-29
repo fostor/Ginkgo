@@ -10,14 +10,13 @@
 
             @if (Model.Tenant != null)
             {
-                <span title="@Model.Tenant.Name"><strong>@Model.Tenant.Name</strong></span>
+                <span id="current_tenant_name" title="@Model.Tenant.Name"><strong>@Model.Tenant.Name</strong></span>
             }
             else
             {
-                <span>@L("Host")</span>
+                <span id="current_tenant_name"  title="@L("Host")">@L("Host")</span>
             }
-
-            (<a href="#" data-toggle="modal" data-target="#TenantChangeModal">@L("Change")</a>)
+            <a href="#" data-toggle="modal" data-target="#TenantChangeModal">[@L("ChangeOther")]</a>
         </span>
     </div>
 </div>

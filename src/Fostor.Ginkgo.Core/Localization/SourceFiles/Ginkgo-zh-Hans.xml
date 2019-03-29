@@ -17,8 +17,10 @@
     <text name="RememberMe" value="记住我" />
     <text name="ForgetPassword" value="忘记密码"/>
     <text name="NotSelected" value="未选"/>
-    <text name="ChangeTenant" value="更改租户"/>
+    <text name="ChangeTenant" value="选择系统"/>
     <text name="LeaveEmptyToSwitchToHost" value="留空以切换到Host"/>
+    <text name="CurrentTenant">当前登入</text>
+    <text name="ChangeOther">选择其它</text>
     <text name="LogIn" value="登录" />
     <text name="LoginFailed" value="登录失败!" />
     <text name="AppName" >Ginkgo</text>

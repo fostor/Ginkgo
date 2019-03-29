@@ -91,6 +91,22 @@ namespace Fostor.Ginkgo.Web.Controllers
             });
         }
 
+        public ActionResult LoginAdmin(string userNameOrEmailAddress = "", string returnUrl = "", string successMessage = "")
+        {
+            if (string.IsNullOrWhiteSpace(returnUrl))
+            {
+                returnUrl = GetAppHomeUrl();
+            }
+
+            return View("Login",new LoginFormViewModel
+            {
+                ReturnUrl = returnUrl,
+                IsMultiTenancyEnabled = _multiTenancyConfig.IsEnabled,
+                IsSelfRegistrationAllowed = IsSelfRegistrationEnabled(),
+                MultiTenancySide = AbpSession.MultiTenancySide
+            });
+        }
+
         [HttpPost]
         [UnitOfWork]
         public virtual async Task<JsonResult> Login(LoginViewModel loginModel, string returnUrl = "", string returnUrlHash = "")

@@ -34,9 +34,7 @@
                     { data: 'categoryCode', width: '150px' },
                     { data: 'key', width: '100px' },
                     { data: 'value' },
-                    {
-                        orderable: false,
-                        bSortable: false,
+                    {                        
                         data: "id",
                         width: '35px',
                         render: function (data, type, row, meta) {
@@ -46,9 +44,7 @@
                             return content;
                         }
                     },
-                    {
-                        orderable: false,
-                        bSortable: false,
+                    {                        
                         data: "id",
                         width: '35px',
                         render: function (data, type, row, meta) {

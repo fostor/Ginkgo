@@ -211,7 +211,7 @@
         }
         else {
             var info = abp.utils.formatString(abp.localization.localize('AtLeastOneOfThesePermissionsMustBeGranted', 'Abp'),
-                abp.localization.localize(pname, 'SmartPacking'));
+                abp.localization.localize(pname, 'Ginkgo'));
             abp.message.error(info);
             return false;
         }
