@@ -1,10 +1,10 @@
 ﻿@using Fostor.Ginkgo.Web.Startup
 @using Fostor.Ginkgo
-@using Fostor.Ginkgo.Web.Views.Shared.Components.MaterialDatePicker
+@using Fostor.Ginkgo.Web.Views.Shared.Components.DatePicker
 @using Fostor.Ginkgo.Web.Views.Shared.Components.CommonModal
 @{
     ViewData["Title"] = "LeaveApplication";
-    ViewBag.CurrentPageName = "TaskFlow.TaskSample"; //The menu item will be active for this page.
+    ViewBag.CurrentPageName = "TaskFlow.Sample"; //The menu item will be active for this page.
     string otherButton = @"<button type=""button"" class=""btn btn-primary send-flow-button waves-effect m-l-50"">"+@L("SendFlow")+"</button>";
     //otherButton = Html.Encode(otherButton);
 }
@@ -37,20 +37,20 @@
                         </div>
                         <label class="col-md-2 control-label">@L("CreationTime")</label>
                         <div class="col-md-2" style="min-width:120px;">
-                            @await Component.InvokeAsync(typeof(MaterialDatePickerViewComponent), new { tagName = "FromDate", value = @DateTime.Now.AddMonths(-1).ToShortDateString(), showTime = "1" })
+                            @await Component.InvokeAsync(typeof(DatePickerViewComponent), new { tagName = "FromDate", value = @DateTime.Now.AddMonths(-1).ToShortDateString() })
                         </div>
                         <label class="col-md-1 control-label" style="text-align:center;max-width:30px;">@L("To")</label>
                         <div class="col-md-2" style="min-width:120px;">
-                            @await Component.InvokeAsync(typeof(MaterialDatePickerViewComponent), new { tagName = "ToDate", value = @DateTime.Now.ToShortDateString(), showTime = "1" })
+                            @await Component.InvokeAsync(typeof(DatePickerViewComponent), new { tagName = "ToDate", value = @DateTime.Now.ToShortDateString() })
                         </div>
                         <div class="col-md-2" style="width:80px;">
-                            <button type="button" id="btnSearch" class="btn btn-primary waves-effect" style="margin-left:20px;"><i class="small material-icons">search</i></button>
+                            <button type="button" id="btnSearch" class="btn btn-xs btn-info waves-effect m-l-20 m-t-5" ><i class="small material-icons">search</i></button>
                         </div>
-                        <div class="col-md-2 pull-right" style="width:80px;">
+                        @*<div class="col-md-2 pull-right" style="width:80px;">
                             <button type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right add-leave" data-toggle="modal" data-target="#LeaveCreateModal">
                                 <i class="material-icons">add</i>
                             </button>
-                        </div>
+                        </div>*@
                     </div>
                 </form>
             </div>
@@ -97,8 +97,8 @@
     </div>
 </div>
 
-@await Component.InvokeAsync(typeof(CommonModalViewComponent), new { modalName = "LeaveCreate", modalTitle = @L("AddLeave") })
-@await Component.InvokeAsync(typeof(CommonModalViewComponent), new { modalName = "LeaveEdit", modalTitle = @L("EditLeave"), otherBtnHtml = otherButton })
+@await Component.InvokeAsync(typeof(CommonModalViewComponent), new { modalName = "LeaveCreate" })
+@await Component.InvokeAsync(typeof(CommonModalViewComponent), new { modalName = "LeaveEdit" })
 
 
 

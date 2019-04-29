@@ -1,6 +1,6 @@
 ﻿(function ($) {
     var _dataService = abp.services.app.leaveApplication;
-    $('#LeaveEditModalBody').height(400); //$(window).height() - 250
+    $('#LeaveEditModalBody').height(180); //$(window).height() - 250
     var _$modal = $('#LeaveEditModal');
     var _$form = _$modal.find('form[name=LeaveEditForm]');
 
@@ -48,9 +48,9 @@
    
     _$modal.find(".save-button").click(function (e) {
         e.preventDefault(); 
-        if (_$form.is(':hidden')) {
-            return; //判断是否为后台缓存的弹窗数据,因底部工具条会触发所有打开过的缓存窗体
-        }  
+        //if (_$form.is(':hidden')) {
+        //    return; //判断是否为后台缓存的弹窗数据,因底部工具条会触发所有打开过的缓存窗体
+        //}  
         save();
     });
     _$modal.find(".save-button").removeClass('save-clicked');
@@ -85,5 +85,5 @@
         });
 
     });
-    
+    $.AdminBSB.input.activate(_$form);
 })(jQuery);

@@ -1,6 +1,6 @@
 ﻿(function ($) {
     var _dataService = abp.services.app.leaveApplication;
-
+    //$('#LeaveCreateModal').find('.modal-body').height(150);
     var _$modal = $('#LeaveCreateModal');
     var _$form = $('form[name=LeaveCreateForm]');
 
@@ -57,4 +57,5 @@
         save();
     });
     _$modal.find(".save-button").removeClass('save-clicked');    
+    $.AdminBSB.input.activate(_$form);
 })(jQuery);

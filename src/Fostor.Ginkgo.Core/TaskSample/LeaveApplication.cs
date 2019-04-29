@@ -6,8 +6,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Fostor.Ginkgo.TaskSample
 {
+    [Table("LeaveApplications",Schema ="dbo")]  //如果使用oracle数据库，可以通过Table和Column特性实现表名和栏位名的转换匹配
     public class LeaveApplication:CommonEntity
     {
+        [Column("AppliNumber",TypeName ="nvarchar(20)")]
         [MaxLength(20)]
         public string AppliNumber { get; set; }
         [MaxLength(30)]

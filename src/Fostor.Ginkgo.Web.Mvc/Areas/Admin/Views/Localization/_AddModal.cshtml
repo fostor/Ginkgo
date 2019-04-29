@@ -2,7 +2,8 @@
 @using System.Collections.Generic
 @using Fostor.Ginkgo
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Modal.cshtml";
+    ViewBag.ModalTitle = L("AddLanguageText");
 }
 <form name="LanguageTextCreateForm" role="form" novalidate class="form-validation form-horizontal">
     <input type="hidden" name="Source" value="@GinkgoConsts.LocalizationSourceName">
@@ -33,7 +34,10 @@
         </div>
     </div>
 </form>
-
+@section modalfooter
+    {
+    <button type="button" class="btn btn-primary save-button waves-effect">@L("Save")</button>
+}
 <script src="~/view-resources/Admin/Localization/_AddModal.js" asp-append-version="true"></script>
 
 

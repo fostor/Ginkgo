@@ -2,7 +2,8 @@
 @using System.Collections.Generic;
 @model Fostor.Ginkgo.Web.Areas.Admin.Models.SequneceNumberViewModel
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Modal.cshtml";
+    ViewBag.ModalTitle = L("EditSequenceNumber");
     List<string> dateStringSpecs = new List<string> { "YYMMDD", "YYYYMMDD", "YYMM", "YYYYMM", "YY", string.Empty };
 }
 <bs-form name="SequenceEditForm">
@@ -49,5 +50,9 @@
         <bs-input bs-width="10" type="number" name="SeqLength" value="@Model.SeqNumber.SeqLength" maxlength="2"></bs-input>
     </bs-row>
 </bs-form>
+@section modalfooter
+    {
+    <button type="button" class="btn btn-primary save-button waves-effect">@L("Save")</button>
+}
 <script src="~/view-resources/Admin/Sequence/_EditModal.js" asp-append-version="true"></script>
 

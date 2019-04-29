@@ -74,9 +74,7 @@
                     {
                         data: 'isMenuItem',
                         width: '80px',
-                        render: function (data, type, row, meta) {
-                            return $.getColumnCheck(data);                           
-                        }
+                        render: function (data, type, row, meta) { return $.getColumnCheck(data); }
                     },                  
                     {
                         data: 'isEnable',
@@ -123,7 +121,7 @@
                     type: 'POST',
                     contentType: 'application/html',
                     success: function (content) {
-                        $('#SysObjectEditModalBody').html(content);
+                        $('#SysObjectEditModal div.modal-content').html(content);
                     },
                     error: function (e) { }
                 });
@@ -154,7 +152,7 @@
                 type: 'POST',
                 contentType: 'application/html',
                 success: function (content) {
-                    $('#SysObjectCreateModalBody').html(content);
+                    $('#SysObjectCreateModal div.modal-content').html(content);
                 },
                 error: function (e) { }
             });

@@ -1,0 +1,37 @@
+﻿@using System.Globalization
+@using Abp.Configuration
+@using Abp.Web.Security.AntiForgery
+@using Abp.Configuration.Startup
+@using Abp.Web.Mvc.Alerts
+@using Fostor.Ginkgo
+@using Fostor.Ginkgo.Web.Resources
+@inject Fostor.Ginkgo.Timing.AppTimes AppTimes
+@inject IAbpAntiForgeryManager AbpAntiForgeryManager
+@inject IMultiTenancyConfig MultiTenancyConfig
+@inject IWebResourceManager WebResourceManager
+@inject ISettingManager SettingManager
+@inject IAlertManager AlertManager
+@{
+    Layout = null;
+}
+
+@RenderSection("styles", required: false)
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    <div class="col-md-8">
+        <h4 class="modal-title m-l--15">
+            <span>@ViewBag.ModalTitle</span>
+        </h4>
+    </div>
+    <span class="close close-button pull-right" data-dismiss="modal"><i class="material-icons ">close</i></span>
+</div>
+<div class="modal-body common-modal-body" style="overflow-x:hidden;overflow-y:auto;">
+    @RenderBody()
+</div>
+<div class="modal-footer">
+    @RenderSection("modalfooter", required: false)
+</div>
+@WebResourceManager.RenderScripts()
+@RenderSection("scripts", required: false)
+
+

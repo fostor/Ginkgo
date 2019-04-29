@@ -63,6 +63,18 @@
         };
     };
 
+    //set datatable add button
+    $.setAddButton = function (className, target) {
+        var content = '';
+        content += '<button type="button" class="btn btn-default pull-left ' + className + '"';
+        if (target) {
+            content += ' data-toggle="modal" data-target="#' + target + '"';
+        }
+        content += ' ><span  style="color:#009688;"><i class="material-icons">add_box</i></span><span style="color:#00BCD4;">' + abp.localization.localize("Create", "Ginkgo") + '</span>' + '</button>';
+        $("div.toolbar-add").html(content);
+
+    }
+
     //get the Buttons of datatables
     $.getDataTableButtons = function () {
         return [
@@ -75,7 +87,10 @@
     //set DataTable Column Search Input
     $.setTableColumnSearchInput = function (tableId) {
         $('#' + tableId + ' tfoot th').each(function () {
-            var title = $('#' + tableId + ' thead th').eq($(this).index()).text();            
+            var title = $('#' + tableId + ' thead th').eq($(this).index()).text();
+            if ($('#' + tableId + ' thead th').eq($(this).index()).find('i').length > 0) {
+                title = '';
+            }
             $(this).html('<input type="search" style="width:100%;" placeholder="' + title + '" />');
         });
     };
@@ -218,7 +233,7 @@
     };
     $.fixDataTableHeight = function (tableId, height) {
         $('#' + tableId + '_wrapper').find('.dataTables_scrollBody').height(height);
-        $('#' + tableId + '_wrapper').find('.dataTables_scroll').css("border","1px solid #d9d9d9");
+        $('#' + tableId + '_wrapper').find('.dataTables_scroll').css("border", "1px solid #d9d9d9");
     };
 
     $.setFormReadMode = function (form) {

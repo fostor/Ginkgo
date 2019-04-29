@@ -2534,7 +2534,7 @@ section.content {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 10px rgba(0, 0, 0, 0.12); }
   .btn-group .btn,
   .btn-group-vertical .btn {
-    box-shadow: none !important;
+    /*box-shadow: none !important;*/ /* delete at 2019-04-29 ,for datatable buttons style*/
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     -ms-border-radius: 0;
@@ -4973,7 +4973,7 @@ section.content {
 /* Input Group ================================= */
 .input-group {
   width: 100%;
-  margin-bottom: 20px; }
+  margin-bottom: 5px; }
   .input-group .form-line {
     display: inline-block;
     width: 100%;

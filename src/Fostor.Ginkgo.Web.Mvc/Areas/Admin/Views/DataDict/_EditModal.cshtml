@@ -2,7 +2,8 @@
 @using System.Collections.Generic;
 @model Fostor.Ginkgo.Web.Areas.Admin.Models.DataDictViewModel
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Modal.cshtml";
+    ViewBag.ModalTitle = L("EditDataDictionary");
 }
 <form name="DataDictEditForm" role="form" novalidate class="form-validation form-horizontal">
     <input type="hidden" name="Id" value="@Model.DataDictionaryDto.Id" />
@@ -19,5 +20,9 @@
         <bs-input bs-width="10" name="Value" value="@Model.DataDictionaryDto.Value" maxlength="1000"></bs-input>
     </bs-row>
 </form>
+@section modalfooter
+    {
+    <button type="button" class="btn btn-primary save-button waves-effect">@L("Save")</button>
+}
 <script src="~/view-resources/Admin/DataDict/_EditModal.js" asp-append-version="true"></script>
 

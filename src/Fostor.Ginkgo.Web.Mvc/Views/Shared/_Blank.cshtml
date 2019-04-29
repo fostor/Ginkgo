@@ -23,12 +23,9 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>@ViewBag.Title</title>
-    <link href="~/lib/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet" asp-append-version="true">
-    <link href="~/lib/jquery-datatable/extensions/scroller/css/scroller.dataTables.min.css" rel="stylesheet" asp-append-version="true">
-    <script src="~/lib/jquery-datatable/jquery.dataTables.js" asp-append-version="true"></script>
-    <script src="~/lib/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js" asp-append-version="true"></script>
-    <script src="~/lib/jquery-datatable/extensions/scroller/dataTables.scroller.min.js" asp-append-version="true"></script>
+    <title>@ViewBag.Title</title> 
+    <link href="~/view-resources/Views/_Bundles/datatable.min.css" rel="stylesheet" asp-append-version="true" />
+    <script src="~/view-resources/Views/_Bundles/datatable.min.js" asp-append-version="true"></script>
 
     <!-- View specific styles -->
     @RenderSection("styles", required: false)
@@ -47,3 +44,4 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+

@@ -3,7 +3,8 @@
 @using Fostor.Ginkgo
 @model Fostor.Ginkgo.Web.Areas.Admin.Models.SysObjectViewModel
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Modal.cshtml";
+    ViewBag.ModalTitle = L("AddSysObject");
 }
 <form name="SysObjectCreateForm" role="form" novalidate class="form-validation form-horizontal">
     <div>
@@ -85,7 +86,10 @@
         </div>
     </div>
 </form>
-
+@section modalfooter
+    {
+    <button type="button" class="btn btn-primary save-button waves-effect">@L("Save")</button>
+}
 <script src="~/view-resources/Admin/SysObject/_AddModal.js" asp-append-version="true"></script>
 
 

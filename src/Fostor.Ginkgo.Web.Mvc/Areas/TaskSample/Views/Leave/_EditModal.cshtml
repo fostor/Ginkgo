@@ -4,19 +4,20 @@
 @using Fostor.Ginkgo.Web.Views.Shared.Components.MaterialDatePicker
 @model Fostor.Ginkgo.Web.Areas.TaskSample.Models.LeaveViewModel
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Modal.cshtml";
+    ViewBag.ModalTitle = L("EditLeave");
 }
 
 
 <bs-form name="LeaveEditForm">
     <input type="hidden" name="Id" value="@Model.Leave.Id" />
-    <bs-row>        
+    <bs-row>
         <bs-label>@L("AppliNumber")<bs-star></bs-star></bs-label>
-        <bs-input name="AppliNumber" value="@Model.Leave.AppliNumber" maxlength="20" readonly="readonly"></bs-input>        
+        <bs-input name="AppliNumber" value="@Model.Leave.AppliNumber" maxlength="20" readonly="readonly"></bs-input>
         <bs-label>@L("Status")<bs-star></bs-star></bs-label>
         <div class="col-md-4">
             @await Component.InvokeAsync(typeof(DataConfigSelectorViewComponent), new { configCode = "LeaveAppliStatus", tagName = "Status", selectedValue = Model.Leave.Status, disabled = "1" })
-        </div> 
+        </div>
     </bs-row>
     <bs-row>
         <bs-label>@L("LeaveType")<bs-star></bs-star></bs-label>
@@ -24,7 +25,7 @@
             @await Component.InvokeAsync(typeof(DataConfigSelectorViewComponent), new { configCode = "LeaveType", tagName = "LeaveType", selectedValue = Model.Leave.LeaveType, required = "1" })
         </div>
         <bs-label>@L("Title")<bs-star></bs-star></bs-label>
-        <bs-input name="Title" value="@Model.Leave.Title" maxlength="50" requried="requried"></bs-input>       
+        <bs-input name="Title" value="@Model.Leave.Title" maxlength="50" requried="requried"></bs-input>
     </bs-row>
     <bs-row>
         <bs-label>@L("Description")</bs-label>
@@ -33,25 +34,27 @@
     <bs-row>
         <bs-label>@L("FromTime")<bs-star></bs-star></bs-label>
         <div class="col-md-4">
-            @await Component.InvokeAsync(typeof(MaterialDatePickerViewComponent), new { tagName = "FromTime", value = Model.Leave.FromTime.Value.ToString("yyyy-MM-dd HH:mm"), showTime = "1", required = "1" })
-        </div>       
+            @await Component.InvokeAsync(typeof(MaterialDatePickerViewComponent), new { tagName = "FromTime", value = Model.Leave.FromTime.Value.ToString("yyyy/MM/dd HH:mm"), showTime = "1", required = "1" })
+        </div>
         <bs-label>@L("To")<bs-star></bs-star></bs-label>
         <div class="col-md-4">
-            @await Component.InvokeAsync(typeof(MaterialDatePickerViewComponent), new { tagName = "EndTime", value = Model.Leave.EndTime.Value.ToString("yyyy-MM-dd HH:mm"), showTime = "1", required = "1" })
+            @await Component.InvokeAsync(typeof(MaterialDatePickerViewComponent), new { tagName = "EndTime", value = Model.Leave.EndTime.Value.ToString("yyyy/MM/dd HH:mm"), showTime = "1", required = "1" })
         </div>
     </bs-row>
     <bs-row>
         <bs-label>@L("TotalHours")<bs-star></bs-star></bs-label>
-        <bs-input name="TotalHours" value="@Model.Leave.TotalHours" type="number" requried="requried"></bs-input>      
+        <bs-input name="TotalHours" value="@Model.Leave.TotalHours" type="number" requried="requried"></bs-input>
         <bs-label>@L("Applicant")<bs-star></bs-star></bs-label>
-        <bs-input name="Applicant" value="@Model.Leave.Applicant" maxlength="30" requried="requried"></bs-input>       
+        <bs-input name="Applicant" value="@Model.Leave.Applicant" maxlength="30" requried="requried"></bs-input>
     </bs-row>
 </bs-form>
+@section modalfooter
+    {
+    <button type="button" class="btn btn-primary send-flow-button waves-effect m-r-50">@L("SendFlow")</button>
+    <button type="button" class="btn btn-primary save-button waves-effect">@L("Save")</button>
+}
 <script src="~/view-resources/TaskSample/Leave/_EditModal.js" asp-append-version="true"></script>
-<script src="~/lib/moment/min/moment.min.js" asp-append-version="true"></script>
-<script src="~/lib/moment/min/locales.min.js" asp-append-version="true"></script>
-<script src="~/lib/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js" asp-append-version="true"></script>
-<script src="~/view-resources/Views/Shared/Components/MaterialDatePicker/Default.js" asp-append-version="true"></script>
+
 
 
 

@@ -75,7 +75,7 @@
                     type: 'POST',
                     contentType: 'application/html',
                     success: function (content) {
-                        $('#DataDictEditModalBody').html(content);
+                        $('#DataDictEditModal  div.modal-content').html(content);
                     },
                     error: function (e) { }
                 });

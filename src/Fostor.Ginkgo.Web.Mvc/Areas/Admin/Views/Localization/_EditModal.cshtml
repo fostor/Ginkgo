@@ -2,7 +2,8 @@
 @using System.Collections.Generic
 @model Fostor.Ginkgo.Web.Areas.Admin.Models.LanguageTextViewModel
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Modal.cshtml";
+    ViewBag.ModalTitle = L("EditLanguageText");
 }
 <form name="LanguageTextEditForm" role="form" novalidate class="form-validation form-horizontal">
     <input type="hidden" name="Id" value="@Model.LangText.Id" />
@@ -36,6 +37,10 @@
         </div>
     </div>
 </form>
+@section modalfooter
+    {
+    <button type="button" class="btn btn-primary save-button waves-effect">@L("Save")</button>
+}
 <script src="~/view-resources/Admin/Localization/_EditModal.js" asp-append-version="true"></script>
 
 

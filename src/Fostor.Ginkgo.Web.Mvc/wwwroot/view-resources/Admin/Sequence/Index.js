@@ -76,7 +76,7 @@
                     type: 'POST',
                     contentType: 'application/html',
                     success: function (content) {
-                        $('#SequenceEditModalBody').html(content);
+                        $('#SequenceEditModal div.modal-content').html(content);
                     },
                     error: function (e) { }
                 });

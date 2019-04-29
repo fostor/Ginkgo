@@ -23,7 +23,7 @@
                 type: 'POST',
                 contentType: 'application/html',
                 success: function (content) {
-                    $('#LanguageTextCreateModalBody').html(content);
+                    $('#LanguageTextCreateModal div.modal-content').html(content);
                 },
                 error: function (e) { }
             });
@@ -36,7 +36,7 @@
                 type: 'POST',
                 contentType: 'application/html',
                 success: function (content) {
-                    $('#LanguageTextCopyModalBody').html(content);
+                    $('#LanguageTextCopyModal div.modal-content').html(content);
                 },
                 error: function (e) { }
             });
@@ -133,7 +133,7 @@
                     type: 'POST',
                     contentType: 'application/html',
                     success: function (content) {
-                        $('#LanguageTextEditModalBody').html(content);
+                        $('#LanguageTextEditModal div.modal-content').html(content);
                     },
                     error: function (e) { }
                 });

@@ -9,16 +9,13 @@ namespace Fostor.Ginkgo.Web.Views.Shared.Components.CommonModal
     public class CommonModalViewComponent : GinkgoViewComponent
     {
 
-        public IViewComponentResult Invoke(string modalName, string modalTitle = "", string showSaveBtn = "1", string width = "80%", string height = "80%", string otherBtnHtml = "")
+        public IViewComponentResult Invoke(string modalName, string width = "80%", string height = "80%")
         {
             var vmModel = new CommonModalViewModel
             {
-                ModalName = modalName,
-                ModalTitle = modalTitle,
-                ShowSaveButton = showSaveBtn == "1" ? true : false,
+                ModalName = modalName,              
                 Width = width,
-                Height = height,
-                OtherButtonHtml = otherBtnHtml
+                Height = height                
             };
             return View(vmModel);
         }
