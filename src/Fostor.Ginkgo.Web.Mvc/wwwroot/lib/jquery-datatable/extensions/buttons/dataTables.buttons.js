@@ -1799,7 +1799,7 @@ var _exportData = function ( dt, inOpts )
 {
 	var config = $.extend( true, {}, {
 		rows:           null,
-		columns:        '',
+		columns:        ':visible', // add by fostor at 2019/05/05
 		modifier:       {
 			search: 'applied',
 			order:  'applied'

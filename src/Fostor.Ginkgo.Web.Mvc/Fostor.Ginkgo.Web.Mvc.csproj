@@ -26,6 +26,7 @@
     <ProjectReference Include="..\Fostor.Ginkgo.Web.Core\Fostor.Ginkgo.Web.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="BuildBundlerMinifier" Version="2.9.406" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.0">
       <PrivateAssets>all</PrivateAssets>
