@@ -1,6 +1,9 @@
-﻿#####  jquery.dataTables  ########
+﻿*******  jquery.dataTables  *******
 1.5601行左右，修正隐藏栏位时的显示错误
 
-######  dataTables.buttons  #######
+*******  dataTables.buttons  *******
 1.1833行左右，屏蔽字体i的内容导出
 2.1802行左右，增加可见栏位的导出设置
+
+****** bootstrap-select ********
+1.在modal中显示不正常的解决方法:使用js再初始化一下,$('#modalSelect').selectpicker({});

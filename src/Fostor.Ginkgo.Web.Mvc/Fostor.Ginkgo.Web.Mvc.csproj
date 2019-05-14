@@ -10,7 +10,14 @@
     <RootNamespace>Fostor.Ginkgo.Web</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="app.config" />    
+    <Content Remove="wwwroot\view-resources\Admin\SystemSetting\Index.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\view-resources\Admin\SystemSetting\Index.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="wwwroot\view-resources\Admin\SystemSetting\Index.min.js" />    
     <None Update="Dockerfile">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -32,7 +39,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.1">
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
     <PackageReference Include="AspNet.Security.OpenIdConnect.Server" Version="2.0.0" />

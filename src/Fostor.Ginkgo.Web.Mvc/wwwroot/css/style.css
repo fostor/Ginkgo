@@ -8150,6 +8150,13 @@ html.ie11 .bs-searchbox .form-control {
     padding-bottom: 1px;
     max-width: 100px;
 }
+.form-horizontal .control-label:after { 
+    padding-left: 1px;
+    padding-right: 5px;
+    padding-top: 7px;
+    padding-bottom: 1px;
+    content:':';
+}
 
 /*datatables table layout*/
 .datatables-container {

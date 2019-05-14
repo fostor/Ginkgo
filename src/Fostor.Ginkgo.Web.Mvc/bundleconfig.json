@@ -296,5 +296,11 @@
     "inputFiles": [
       "wwwroot/lib/jquery-datatable/extensions/buttons/dataTables.buttons.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/view-resources/Admin/SystemSetting/Index.min.js",
+    "inputFiles": [
+      "wwwroot/view-resources/Admin/SystemSetting/Index.js"
+    ]
   }
 ]

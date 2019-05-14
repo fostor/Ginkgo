@@ -4,6 +4,8 @@
         var _$form = $('form[name=SearchForm]');
         var tableHeight = $(window).height() - 350;
 
+        //alert(JSON.stringify(abp.setting.values));
+
         $('#LeaveCreateModal').on('hide.bs.modal', function () {
             var s = $(this).find(".save-button").hasClass('save-clicked');
             if (s) {

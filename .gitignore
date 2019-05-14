@@ -251,3 +251,4 @@ paket-files/
 .idea/
 *.sln.iml
 /src/Fostor.Ginkgo.Web.Mvc/App_Data/Logs/Logs.txt
+/src/Fostor.Ginkgo.Web.Mvc/App_Data/Logs/Logs.txt.1
