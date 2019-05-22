@@ -11,6 +11,7 @@ using Abp.Domain.Uow;
 using Abp.Organizations;
 using Abp.Runtime.Caching;
 using Fostor.Ginkgo.Authorization.Roles;
+using System.Threading.Tasks;
 
 namespace Fostor.Ginkgo.Authorization.Users
 {
@@ -53,6 +54,17 @@ namespace Fostor.Ginkgo.Authorization.Users
                 organizationUnitSettings, 
                 settingManager)
         {
+        }
+        /// <summary>
+        /// fixed role delete error
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        public override async Task<IdentityResult> RemoveFromRoleAsync(User user, string role)
+        {
+            await AbpUserStore.UserRepository.EnsureCollectionLoadedAsync(user, u => u.Roles);
+            return await base.RemoveFromRoleAsync(user, role);
         }
     }
 }
