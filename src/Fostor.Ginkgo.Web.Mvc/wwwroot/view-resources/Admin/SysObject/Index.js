@@ -136,7 +136,7 @@
                     $.deleteConfirm(code),
                     function (isConfirmed) {
                         if (isConfirmed) {
-                            _dataService.delete({Id:id}).done(function () {
+                            _dataService.delete({id:id}).done(function () {
                                 loadList();
                             });
                         }

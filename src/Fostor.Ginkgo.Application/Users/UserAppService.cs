@@ -28,11 +28,12 @@ namespace Fostor.Ginkgo.Users
     //[AbpAuthorize(PermissionNames.Pages_Users)]
     public class UserAppService : AsyncCrudAppService<User, UserDto, long, PagedUserResultRequestDto, CreateUserDto, UserDto>, IUserAppService
     {
+        public new IGinkgoAbpSession AbpSession { get; set; }
         private readonly UserManager _userManager;
         private readonly RoleManager _roleManager;
         private readonly IRepository<Role> _roleRepository;
         private readonly IPasswordHasher<User> _passwordHasher;
-        private readonly IAbpSession _abpSession;
+        private readonly IGinkgoAbpSession _abpSession;
         private readonly LogInManager _logInManager;
         private readonly IRepository<User, long> _repository;
         public UserAppService(
@@ -41,7 +42,7 @@ namespace Fostor.Ginkgo.Users
             RoleManager roleManager,
             IRepository<Role> roleRepository,
             IPasswordHasher<User> passwordHasher,
-            IAbpSession abpSession,
+            IGinkgoAbpSession abpSession,
             LogInManager logInManager)
             : base(repository)
         {
@@ -231,6 +232,12 @@ namespace Fostor.Ginkgo.Users
                 {
                     u.FullName = u.Surname + u.Name;
                 }
+            }
+            //非管理员查询屏蔽admin信息
+            if (AbpSession.UserName != "admin")
+            {
+                var admin = users.FirstOrDefault(x => x.UserName == "admin");
+                users.Remove(admin);
             }
             return new PagedResultDto<UserDto> { Items = users, TotalCount = users.Count() };
         }
