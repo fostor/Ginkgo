@@ -19,7 +19,8 @@ namespace Fostor.Ginkgo.Web.Views.Shared.Components.UserSelector
             _userAppService = userAppService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(string tagName, string selectedValue = "", string required = "0", string disabled = "0")
+        public async Task<IViewComponentResult> InvokeAsync(string tagName, string selectedValue = "", string required = "0", string disabled = "0",
+            string multiple = "0", string useIdAsValue = "0")
         {
             var users = new List<UserDto>();
             users = (await _userAppService.GetAll(new PagedUserResultRequestDto { MaxResultCount = int.MaxValue }))
@@ -31,7 +32,9 @@ namespace Fostor.Ginkgo.Web.Views.Shared.Components.UserSelector
                 TagName = tagName,
                 SelectedValue = selectedValue,
                 IsRequired = required == "1" ? true : false,
-                IsDisabled = disabled == "1" ? true : false
+                IsDisabled = disabled == "1" ? true : false,
+                Multiple = multiple == "1" ? true : false,
+                UseIdAsValue = useIdAsValue == "1" ? true : false
             };
 
             return View("Default",viewModel);

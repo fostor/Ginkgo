@@ -302,5 +302,11 @@
     "inputFiles": [
       "wwwroot/view-resources/Admin/SystemSetting/Index.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/view-resources/Views/Shared/Components/DatePicker/Default.min.js",
+    "inputFiles": [
+      "wwwroot/view-resources/Views/Shared/Components/DatePicker/Default.js"
+    ]
   }
 ]

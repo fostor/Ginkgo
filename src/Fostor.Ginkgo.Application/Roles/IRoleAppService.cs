@@ -2,6 +2,8 @@
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Fostor.Ginkgo.Roles.Dto;
+using Fostor.Ginkgo.Users.Dto;
+using System.Collections.Generic;
 
 namespace Fostor.Ginkgo.Roles
 {
@@ -12,5 +14,8 @@ namespace Fostor.Ginkgo.Roles
         Task<GetRoleForEditOutput> GetRoleForEdit(EntityDto input);
 
         Task<ListResultDto<RoleListDto>> GetRolesAsync(GetRolesInput input);
+        Task<List<UserDto>> GetRoleUsers(string roleName);
+        void AddMember(int roleId, int userId);
+        void DeleteMember(int roleId, int userId);
     }
 }

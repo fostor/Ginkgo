@@ -10,7 +10,8 @@ namespace Fostor.Ginkgo.Web.Views.Shared.Components.SideBarUserArea
 
         public string GetShownLoginName()
         {
-            var userName = "<span id=\"HeaderCurrentUserName\">" + LoginInformations.User.UserName + "</span>";
+            var userName = "<span id=\"HeaderCurrentUserName\">" + LoginInformations.User.UserName
+                + "[" + LoginInformations.User.Surname + LoginInformations.User.Name + "]" + "</span>";
 
             if (!IsMultiTenancyEnabled)
             {

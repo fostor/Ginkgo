@@ -1,0 +1,51 @@
+﻿@using Fostor.Ginkgo.Web.Models.Common.Modals
+@using System.Collections.Generic
+@using Fostor.Ginkgo
+@using Fostor.Ginkgo.Web.Views.Shared.Components.DatePicker
+@using Fostor.Ginkgo.Web.Views.Shared.Components.UserSelector
+@{
+    Layout = "~/Views/Shared/_Modal.cshtml";
+    ViewBag.ModalTitle = L("RoleMembers");
+}
+<div class="row clear panel panel-default m-l-5 m-r-5">
+    <form name="RoleUserCreateForm" role="form" novalidate class="form-validation form-horizontal">
+        <input type="hidden" name="RoleId" value="@ViewBag.RoleId" />
+        <div class="form-group m-t-10 m-b-15">
+            <label class="col-md-2 control-label">@L("RoleName")</label>
+            <div class="col-md-3 m-b-10">
+                <div class="form-line">
+                    <input class="form-control" type="text" id="add_member_role_name" value="@ViewBag.RoleName" readonly />
+                </div>
+            </div>
+            <label class="col-md-2 control-label">@L("Users")</label>
+            <div class="col-md-3">
+                @await Component.InvokeAsync(typeof(UserSelectorViewComponent), new { tagName = "UserId", selectedValue = "", required = "1", useIdAsValue = "1" })
+            </div>
+            <div class="col-md-1 pull-right">
+                <button type="button" class="btn btn-primary add-user-button waves-effect">@L("Add")</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row clear m-l-5 m-r-5">
+    <table id="table_301" class="table table-condensed table-bordered" style="min-width:100%;">
+        <thead>
+            <tr>
+                <th>@L("UserName")</th>
+                <th>@L("UserFullName")</th>
+                <th style="text-align:center;">@L("Delete")</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>@L("UserName")</th>
+                <th>@L("UserFullName")</th>
+                <th style="text-align:center;">@L("Delete")</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<script src="~/view-resources/Views/Roles/_RoleUsersModal.js" asp-append-version="true"></script>
+
+

@@ -14,6 +14,9 @@ using Fostor.Ginkgo.Authorization.Users;
 using Fostor.Ginkgo.Roles.Dto;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Abp.Authorization.Users;
+using Fostor.Ginkgo.Users.Dto;
+using Abp.AutoMapper;
 
 namespace Fostor.Ginkgo.Roles
 {
@@ -22,12 +25,16 @@ namespace Fostor.Ginkgo.Roles
     {
         private readonly RoleManager _roleManager;
         private readonly UserManager _userManager;
+        private readonly IRepository<UserRole,long> _repoUserRole;
 
-        public RoleAppService(IRepository<Role> repository, RoleManager roleManager, UserManager userManager)
+        public RoleAppService(IRepository<Role> repository, RoleManager roleManager, 
+            UserManager userManager,
+            IRepository<UserRole,long> repoUserRole)
             : base(repository)
         {
             _roleManager = roleManager;
             _userManager = userManager;
+            _repoUserRole = repoUserRole;
         }
 
         public override async Task<RoleDto> Create(CreateRoleDto input)
@@ -142,6 +149,60 @@ namespace Fostor.Ginkgo.Roles
                 Permissions = ObjectMapper.Map<List<FlatPermissionDto>>(permissions).OrderBy(p => p.DisplayName).ToList(),
                 GrantedPermissionNames = grantedPermissions.Select(p => p.Name).ToList()
             };
+        }
+
+        public async Task<List<UserDto>> GetRoleUsers(string roleName)
+        {
+            var role = await _roleManager.GetRoleByNameAsync(roleName.ToUpper());
+            if (role != null && role.Name.Length > 0)
+            {
+                var userIds = _repoUserRole.GetAllList(x => x.TenantId == AbpSession.TenantId && x.RoleId == role.Id);
+                var users = new List<UserDto>();
+                foreach (var x in userIds)
+                {
+                    var user = await _userManager.GetUserByIdAsync(x.UserId);
+                    users.Add(user.MapTo<UserDto>());
+                }
+                //改变中文名字的显示方式
+                foreach (var u in users)
+                {
+                    if (IsNonAscii(u.Name) || IsNonAscii(u.Surname))
+                    {
+                        u.FullName = u.Surname + u.Name;
+                    }
+                }
+                return users;
+            }
+            else
+            {
+                return new List<UserDto>();
+            }
+        }
+
+        public void AddMember(int roleId, int userId)
+        {
+            _repoUserRole.Insert(new UserRole
+            {
+                TenantId = AbpSession.TenantId,
+                RoleId = roleId,
+                UserId = userId,
+                CreatorUserId = AbpSession.UserId,
+                CreationTime = Abp.Timing.Clock.Now
+            });
+        }
+
+        public void DeleteMember(int roleId, int userId)
+        {
+            var userRole = _repoUserRole.FirstOrDefault(x => x.TenantId == AbpSession.TenantId && x.RoleId == roleId && x.UserId == userId);
+            if (userRole != null)
+            {
+                _repoUserRole.Delete(userRole);
+            }
+        }
+
+        protected bool IsNonAscii(string str)
+        {
+            return System.Text.RegularExpressions.Regex.IsMatch(str, @"^[^\x00-\xFF]");
         }
     }
 }

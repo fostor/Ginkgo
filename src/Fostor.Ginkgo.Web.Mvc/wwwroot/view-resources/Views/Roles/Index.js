@@ -44,6 +44,19 @@
                         width: '35px',
                         render: function (data, type, row, meta) {
                             var content = '<div style="text-align:center;" >';
+                            content += '   <a href="#" class="waves-effect waves-block role-users" data-role-id="' + data + '"  data-toggle="modal" data-target="#RoleUsersModal"><i class="tiny material-icons">group</i></a>';
+
+                            content += '</div>';
+                            return content;
+                        }
+                    },
+                    {
+                        orderable: false,
+                        bSortable: false,
+                        data: "id",
+                        width: '35px',
+                        render: function (data, type, row, meta) {
+                            var content = '<div style="text-align:center;" >';
                             content += '   <a href="#" class="waves-effect waves-block delete-role" data-role-id="' + data + '"   data-role-name="' + row.name + '"><i class="tiny material-icons">delete_sweep</i></a>';
 
                             content += '</div>';
@@ -55,6 +68,7 @@
                 initComplete: function () {
                     bindEditEvent();
                     bindDeleteEvent();
+                    bindMembersEvent();
                     $.setTableSelectedRowsCss('table_100');
                     $.fixDataTableHeight('table_100', $(window).height() - 280);
                 }
@@ -72,6 +86,23 @@
                     contentType: 'application/html',
                     success: function (content) {
                         $('#RoleEditModal div.modal-content').html(content);
+                    },
+                    error: function (e) { }
+                });
+            });
+        }
+
+        function bindMembersEvent() {
+            $('.role-users').click(function (e) {
+                var roleId = $(this).attr("data-role-id");
+
+                e.preventDefault();
+                $.ajax({
+                    url: abp.appPath + 'Roles/RoleMembers?roleId=' + roleId,
+                    type: 'POST',
+                    contentType: 'application/html',
+                    success: function (content) {
+                        $('#RoleUsersModal div.modal-content').html(content);
                     },
                     error: function (e) { }
                 });

@@ -5,7 +5,7 @@
         clearBtn: true,
         language: "zh-CN",
         orientation: "bottom left",
-        daysOfWeekDisabled: "0",
+        daysOfWeekDisabled: "",
         daysOfWeekHighlighted: "1,2,3,4,5",
         todayHighlight: true,
         zIndexOffset:"10650"

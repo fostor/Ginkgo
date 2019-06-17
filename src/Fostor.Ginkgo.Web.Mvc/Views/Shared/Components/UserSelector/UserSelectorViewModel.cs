@@ -17,5 +17,7 @@ namespace Fostor.Ginkgo.Web.Views.Shared.Components.UserSelector
         public bool IsRequired { get; set; }
 
         public bool IsDisabled { get; set; }
+        public bool Multiple { get; set; }
+        public bool UseIdAsValue { get; set; }
     }
 }

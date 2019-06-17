@@ -48,6 +48,17 @@ namespace Fostor.Ginkgo.Web.Controllers
             return View("_EditRoleModal", model);
         }
 
+        public async Task<ActionResult> RoleMembers(int roleId)
+        {
+            var role = await _roleAppService.Get(new EntityDto(roleId));
+            if (role != null)
+            {
+                ViewBag.RoleId = role.Id;
+                ViewBag.RoleName = role.Name;
+            }
+            return View("_RoleUsersModal");
+        }
+
         private List<PermissionNodeViewModel> GetPermissionTree(IReadOnlyList<Roles.Dto.PermissionDto> permissions, RoleDto role)
         {
             List<PermissionNodeViewModel> list = new List<PermissionNodeViewModel>();

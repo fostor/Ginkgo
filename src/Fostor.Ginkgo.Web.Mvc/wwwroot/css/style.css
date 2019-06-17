@@ -7633,7 +7633,7 @@ fieldset[disabled] .form-control {
                 text-overflow: ellipsis;
                 overflow: hidden;
                 font-size: 14px;
-                max-width: 200px;
+                max-width: 250px;
             }
 
             .sidebar .user-info .info-container .email {
@@ -7643,7 +7643,7 @@ fieldset[disabled] .form-control {
                 text-overflow: ellipsis;
                 overflow: hidden;
                 font-size: 12px;
-                max-width: 200px;
+                max-width: 250px;
             }
 
             .sidebar .user-info .info-container .user-helper-dropdown {
@@ -8048,7 +8048,7 @@ fieldset[disabled] .form-control {
     box-shadow: none;
     border: none;
     font-size: 12px;
-    border-bottom: 1px solid #ddd; }
+    border-bottom: none; }
     .dataTables_wrapper input[type="search"]:focus, .dataTables_wrapper input[type="search"]:active {
       border-bottom: 2px solid #1f91f3; }
   .dataTables_wrapper .dt-buttons {

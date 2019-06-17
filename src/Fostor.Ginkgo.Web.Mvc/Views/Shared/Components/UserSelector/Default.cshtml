@@ -2,23 +2,81 @@
 @inject IWebResourceManager WebResourceManager
 @{
     WebResourceManager.AddScript(ApplicationPath + "lib/bootstrap-select/dist/js/bootstrap-select.min.js");
+    List<string> list = new List<string>();
+    if (Model.Multiple && Model.SelectedValue != "")
+    {
+        list = Model.SelectedValue.Split(",").ToList();
+    }
 }
 @model Fostor.Ginkgo.Web.Views.Shared.Components.UserSelector.UserSelectorViewModel
 <!-- Bootstrap Select -->
 <link href="~/lib/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
-<select class="form-control  bootstrap-select show-tick" name="@Model.TagName" data-live-search="true" @(Model.IsRequired == true ? "required" : "") @(Model.IsDisabled ? "disabled" : "")>
+<select class="form-control  bootstrap-select show-tick" name="@Model.TagName" data-live-search="true"
+        @(Model.IsRequired == true ? "required" : "") @(Model.IsDisabled ? "disabled" : "") @(Model.Multiple ? "multiple" : "")>
     <option value="">--select--</option>
-    @foreach (var s in Model.Users)
+    @if (Model.Multiple)
     {
-        if (s.UserName == Model.SelectedValue)
+        if (Model.UseIdAsValue)
         {
-            <option value="@s.UserName" selected>@s.UserName  @s.FullName</option>
+            foreach (var s in Model.Users)
+            {
+                if (list.Contains(s.Id.ToString()))
+                {
+                    <option value="@s.Id.ToString()" selected>@s.UserName  @s.FullName</option>
+                }
+                else
+                {
+                    <option value="@s.Id.ToString()">@s.UserName  @s.FullName</option>
+                }
+            }
         }
         else
         {
-            <option value="@s.UserName">@s.UserName  @s.FullName</option>
+            foreach (var s in Model.Users)
+            {
+                if (list.Contains(s.UserName))
+                {
+                    <option value="@s.UserName" selected>@s.UserName  @s.FullName</option>
+                }
+                else
+                {
+                    <option value="@s.UserName">@s.UserName  @s.FullName</option>
+                }
+            }
         }
     }
+    else
+    {
+        if (Model.UseIdAsValue)
+        {
+            foreach (var s in Model.Users)
+            {
+                if (s.Id.ToString() == Model.SelectedValue)
+                {
+                    <option value="@s.Id.ToString()" selected>@s.UserName  @s.FullName</option>
+                }
+                else
+                {
+                    <option value="@s.Id.ToString()">@s.UserName  @s.FullName</option>
+                }
+            }
+        }
+        else
+        {
+            foreach (var s in Model.Users)
+            {
+                if (s.UserName == Model.SelectedValue)
+                {
+                    <option value="@s.UserName" selected>@s.UserName  @s.FullName</option>
+                }
+                else
+                {
+                    <option value="@s.UserName">@s.UserName  @s.FullName</option>
+                }
+            }
+        }
+    }
+
 </select>
 
 
