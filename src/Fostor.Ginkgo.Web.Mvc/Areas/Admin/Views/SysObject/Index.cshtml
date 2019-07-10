@@ -7,6 +7,8 @@
 }
 @section scripts
     {
+    <link href="~/lib/bootstrap-treeview/dist/bootstrap-treeview.min.css" rel="stylesheet" />
+    <script src="~/lib/bootstrap-treeview/dist/bootstrap-treeview.min.js" asp-append-version="true"></script>
     <environment names="Development">
         <script src="~/view-resources/Admin/SysObject/Index.js" asp-append-version="true"></script>
     </environment>
@@ -22,51 +24,50 @@
                     @L("SysObject")
                 </h2>
             </div>
-            <button type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right add-object" data-toggle="modal" data-target="#SysObjectCreateModal">
-                <i class="material-icons">add</i>
-            </button>
-            <div class="datatables-container" style="width:98%;">
-                <table id="table_100" class="table table-condensed table-bordered" style="min-width:97%;">
-                    <thead>
-                        <tr>
-                            <th>@L("ParentKey")</th>
-                            <th>@L("ObjectKey")</th>
-                            <th>@L("DisplayName")</th>
-                            <th>@L("Edit")</th>
-                            <th>@L("Delete")</th>
-                            <th>@L("Icon")</th>
-                            <th>@L("Uri")</th>
-                            <th>@L("MenuLevel")</th>
-                            <th>@L("SortCode")</th>
-                            <th>@L("IsMenuItem")</th>
-                            <th>@L("IsEnable")</th>
-                            <th>@L("LastModificationTime")</th>
-                            <th style="min-width:80px;">@L("CreationTime")</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>@L("ParentKey")</th>
-                            <th>@L("ObjectKey")</th>
-                            <th>@L("DisplayName")</th>
-                            <th>@L("Edit")</th>
-                            <th>@L("Delete")</th>
-                            <th>@L("Icon")</th>
-                            <th>@L("Uri")</th>
-                            <th>@L("MenuLevel")</th>
-                            <th>@L("SortCode")</th>
-                            <th>@L("IsMenuItem")</th>
-                            <th>@L("IsEnable")</th>
-                            <th>@L("LastModificationTime")</th>
-                            <th style="min-width:80px;">@L("CreationTime")</th>
-                        </tr>
-                    </tfoot>
-                </table>
+            <div class="row">
+                <div class="col-md-3">
+                    @*<div class="form-group" style="margin-bottom:5px;">
+                            <span class="label" style="color:#00BCD4;font-size:medium;">@L("SysObjectTree"):</span>
+                        </div>*@
+                    <div id="tree_container" class="panel panel-default m-l-10 m-r--10" style="overflow:auto;" data-tree="@Json.Serialize(ViewBag.TreeData).ToString()">
+                        <div id="tree">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <form name="ToolsForm" role="form" novalidate class="form-validation form-horizontal">
+                        <div class="form-group m-b-10 m-t-5">
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-xs btn-primary waves-effect  waves-float add-root-node" data-toggle="modal" data-target="#SysObjectCreateModal">
+                                    <i class="material-icons">add</i>@L("CreateRootNode")
+                                </button>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-xs btn-primary waves-effect  waves-float add-sub-node">
+                                    <i class="material-icons">add</i>@L("CreateSubNode")
+                                </button>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-xs btn-primary waves-effect  waves-float delete-object">
+                                    <i class="material-icons">delete</i>@L("Delete")
+                                </button>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-xs btn-primary waves-effect  waves-float save-object">
+                                    <i class="material-icons">save</i>@L("Save")
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="panel panel-default m-r-10 m-t-5">
+                        <div id="edit_panel"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 @await Component.InvokeAsync(typeof(CommonModalViewComponent), new { modalName = "SysObjectCreate" })
-@await Component.InvokeAsync(typeof(CommonModalViewComponent), new { modalName = "SysObjectEdit" })
 
 

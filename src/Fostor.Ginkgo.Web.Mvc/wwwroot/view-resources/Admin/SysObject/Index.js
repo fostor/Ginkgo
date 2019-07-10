@@ -1,151 +1,85 @@
 ﻿(function () {
     $(function () {
-
         var _dataService = abp.services.app.sysObject;
+        $('#tree_container').height($(window).height() - 220);
+        $('#edit_panel').height($('#tree_container').height() - 50);
+        var treedata = $('#tree_container').attr("data-tree");
+        treedata = treedata.replace(/,"nodes":\[\]/g, "");
+        $('#tree').treeview({
+            data: treedata,
+            showBorder: false,
+            color: "#00BCD4", //#00BCD4   #3F51B5
+            levels: 2,
+            selectedBackColor: "#d9edf7",
+            selectedColor: "#3c85a9",
+            //nodeIcon: 'glyphicon glyphicon-list',
+            onNodeSelected: function (event, data) {
+                // Your logic goes here
+                //alert(JSON.stringify(data));
+                loadNode(data.id);
+            }
+        });
 
-        function loadList() {
-            _dataService.getAll({"maxResultCount":10000}).done(function (data) {
-                BindTable_100(data.items);
-                //var row0 = $('#table_100').DataTable().row(0);
-                //if (row0) {
-                //    row0.scrollTo();
-                //}
-                //else {
-                //    $('#table_100').DataTable().scroller.toPosition(-1);
-                //}
-            });
-        }
+        //var category = '';
+        //var selNodes = $('#catetree').treeview('getSelected', 'treeview');
+        //if (selNodes && selNodes.length > 0) {
+        //    category = selNodes[0].category;
+        //}
 
-        var table_100 = null;
-        loadList();
-        function BindTable_100(data) {
-            table_100 = $('#table_100').DataTable({
-                data: data,
-                destroy: true,
-                searching: true,
-                //stateSave: true,
-                // "stateSaveParams": function (settings, data) {                     
-                //    data.search.search = "";
-                //    $.each(data.columns, function (index, value) {
-                //        value.search = {};
-                //     });
-                //},
-                dom: 'Bftir',
-                language: $.getDataTableLang(),
-                buttons: $.getDataTableButtons(),
-                deferRender: true,
-                scrollY: $(window).height() - 310,
-                scrollX: true,
-                scrollCollapse: true,
-                scroller: true,   
-                columnDefs: [{ targets: '_all', width: '100px' }],
-                columns: [
-                    { data: 'parentKey' },
-                    { data: 'objectKey', width: '150px' },
-                    { data: 'displayName' },                    
-                    {
-                        orderable: false,
-                        bSortable: false,
-                        data: "id",
-                        width: '35px',
-                        render: function (data, type, row, meta) {
-                            var content = '<div style="text-align:center;" >';
-                            content += '   <a href="#" class="waves-effect waves-block edit-object" data-id="' + data + '"  data-toggle="modal" data-target="#SysObjectEditModal"><i class="tiny material-icons">edit</i></a>';
-                            content += '</div>';
-                            return content;
-                        }
-                    },
-                    {
-                        orderable: false,
-                        bSortable: false,
-                        data: "id",
-                        width: '35px',
-                        render: function (data, type, row, meta) {
-                            var content = '<div style="text-align:center;" >';
-                            content += '   <a href="#" class="waves-effect waves-block delete-object" data-id="' + data + '"   data-code="' + row.objectKey + '"><i class="tiny material-icons">delete_sweep</i></a>';
-                            content += '</div>';
-                            return content;
-                        }
-                    },
-                    { data: 'icon' },
-                    { data: 'uri', width: '130px' },
-                    { data: 'menuLevel', width: '80px' },
-                    { data: 'sortCode', width: '80px' },          
-                    {
-                        data: 'isMenuItem',
-                        width: '80px',
-                        render: function (data, type, row, meta) { return $.getColumnCheck(data); }
-                    },                  
-                    {
-                        data: 'isEnable',
-                        width: '80px',
-                        render: function (data, type, row, meta) {
-                            return $.getColumnCheck(data);                            
-                        }
-                    },
-                    {
-                        data: 'lastModificationTime',                       
-                        render: function (data, type, row, meta) {                            
-                            return $.getDateString(data, 16);                             
-                        }
-                    },
-                    {
-                        data: 'creationTime',
-                        render: function (data, type, row, meta) {                            
-                            return $.getDateString(data, 16);                             
-                        }
-                    }
-                ],
-
-                initComplete: function () {                    
-                    $.setTableSelectedRowsCss('table_100');
-                    $.bindTableColumnSearchEvent('table_100');
-                    $.resetTableColumnSearchInput('table_100');
-                    $.fixDataTableHeight('table_100', $(window).height() - 310);
+        function loadNode(id) {
+            $.ajax({
+                url: abp.appPath + 'Admin/SysObject/Edit?id=' + id,
+                type: 'POST',
+                contentType: 'application/html',
+                success: function (content) {
+                    $('#edit_panel').html(content);
+                    $.AdminBSB.input.activate($('#edit_panel').find('form[name=SysObjectEditForm]'));
                 },
-                drawCallback: function () {
-                    bindEditEvent();
-                    bindDeleteEvent();
-                }
-            });
-        }
-        $.setTableColumnSearchInput('table_100');
-
-        function bindEditEvent() {
-            $('.edit-object').off("click").on("click",function (e) {
-                var id = $(this).attr("data-id");
-
-                e.preventDefault();
-                $.ajax({
-                    url: abp.appPath + 'Admin/SysObject/Edit?id=' + id,
-                    type: 'POST',
-                    contentType: 'application/html',
-                    success: function (content) {
-                        $('#SysObjectEditModal div.modal-content').html(content);
-                    },
-                    error: function (e) { }
-                });
+                error: function (e) { }
             });
         }
 
-        function bindDeleteEvent() {
-            $('.delete-object').off("click").on("click",function () {
-                var id = $(this).attr("data-id");
-                var code = $(this).attr('data-code');
-                abp.message.confirm(                    
-                    $.deleteConfirm(code),
-                    function (isConfirmed) {
-                        if (isConfirmed) {
-                            _dataService.delete({id:id}).done(function () {
-                                loadList();
-                            });
+        function loadTree() {
+            _dataService.getTree().done(function (data) {
+                if (data) {
+                    var tdata = JSON.stringify(data);
+                    tdata = tdata.replace(/,"nodes":\[\]/g, "");
+                    $('#tree').treeview({
+                        data: tdata,
+                        showBorder: false,
+                        color: "#00BCD4",
+                        levels: 2,
+                        selectedBackColor: "#d9edf7",
+                        selectedColor: "#3c85a9",
+                        //nodeIcon: 'glyphicon glyphicon-list',
+                        onNodeSelected: function (event, data) {
+                            // Your logic goes here
+                            //alert(JSON.stringify(data));
+                            loadNode(data.id);
                         }
-                    }
-                );
-            });
+                    });
+                }
+            })
         }
 
-        $('.add-object').click(function (e) {
+        $('.delete-object').on("click", function (e) {
+            e.preventDefault();
+            var id = $('#edit_panel').find('input[name=Id]').val();
+            var code = $('#edit_panel').find('input[name=ObjectKey]').val();
+            abp.message.confirm(
+                $.deleteConfirm(code),
+                function (isConfirmed) {
+                    if (isConfirmed) {
+                        _dataService.delete({ id: id }).done(function () {
+                            loadTree();
+                            $('#edit_panel').html('');
+                        });
+                    }
+                }
+            );
+        });
+
+        $('.add-root-node').click(function (e) {
             e.preventDefault();
             $.ajax({
                 url: abp.appPath + 'Admin/SysObject/Add',
@@ -157,20 +91,69 @@
                 error: function (e) { }
             });
         });
-
-        //edit modal refresh
-        $('#SysObjectEditModal').on('hide.bs.modal', function () {
-            var s = $(this).find(".save-button").hasClass('save-clicked');            
-            if (s) {                
-                loadList();
+        $('.add-sub-node').click(function (e) {
+            e.preventDefault();
+            var pkey = $('#edit_panel').find('input[name=ObjectKey]').val();
+            if (pkey) {
+                $.ajax({
+                    url: abp.appPath + 'Admin/SysObject/Add?parentKey=' + pkey,
+                    type: 'POST',
+                    contentType: 'application/html',
+                    success: function (content) {
+                        $('#SysObjectCreateModal div.modal-content').html(content);
+                        $('#SysObjectCreateModal').modal('show');
+                    },
+                    error: function (e) { }
+                });
+            } else {
+                $.showError("未选择节点，不能创建子节点");
             }
         });
+
         //add modal refresh
         $('#SysObjectCreateModal').on('hide.bs.modal', function () {
             var s = $(this).find(".save-button").hasClass('save-clicked');
             if (s) {
-                loadList();
+                loadTree();
             }
-        }); 
+        });
+
+
+        function save() {
+            var _$form = $('#edit_panel').find('form[name=SysObjectEditForm]');
+            if (!_$form.valid()) {
+                return;
+            }
+            //处理选择项的值不改变的问题
+            $.setCheckVal(_$form);
+
+            var sysobj = _$form.serializeFormToObject(); //serializeFormToObject is defined in main.js
+            var objKey = _$form.find('input[name=ObjectKey]').val();
+            sysobj.RefPermissions = [];
+            var _$permissionCheckboxes = $("input[name='permission0']:checked");
+            if (_$permissionCheckboxes) {
+                for (var permissionIndex = 0; permissionIndex < _$permissionCheckboxes.length; permissionIndex++) {
+                    var _$permissionCheckbox = $(_$permissionCheckboxes[permissionIndex]);
+                    var _permissionName = _$permissionCheckbox.attr("data-permission-name");
+                    var _displayName = _$permissionCheckbox.attr("data-display-name");
+                    var _permision = {};
+                    _permision.ObjectKey = objKey;
+                    _permision.PermissionName = _permissionName;
+                    _permision.DisplayName = _displayName;
+                    sysobj.RefPermissions.push(_permision);
+                }
+            }
+            abp.ui.setBusy(_$form);
+            _dataService.update(sysobj).done(function () {
+                $.showOK('保存成功');
+            }).always(function () {
+                abp.ui.clearBusy(_$form);
+            });
+        }
+        //Handle save button click
+        $(".save-object").click(function (e) {
+            e.preventDefault();
+            save();
+        });
     });
 })();

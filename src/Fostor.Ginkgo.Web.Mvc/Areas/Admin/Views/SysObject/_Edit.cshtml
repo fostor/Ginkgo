@@ -1,13 +1,10 @@
-﻿@using Fostor.Ginkgo.Web.Models.Common.Modals
-@using System.Collections.Generic
-@model Fostor.Ginkgo.Web.Areas.Admin.Models.SysObjectViewModel
+﻿@model Fostor.Ginkgo.Web.Areas.Admin.Models.SysObjectViewModel
 @{
-    Layout = "~/Views/Shared/_Modal.cshtml";
-    ViewBag.ModalTitle = L("EditSysObject");
+    Layout = null;
 }
 <form name="SysObjectEditForm" role="form" novalidate class="form-validation form-horizontal">
     <input type="hidden" name="Id" value="@Model.SysObject.Id" />
-    <div>
+    <div class="m-l-20 m-t-10">
         <div class="form-group">
             <label class="col-md-2 control-label">@L("ParentKey")</label>
             <div class="col-md-10">
@@ -74,26 +71,20 @@
             </div>
         </div>
     </div>
-    <div class="row clearfix">
-        <div class="col-sm-12">
-            <h4>@L("Permissions")</h4>
-            @foreach (var permission in Model.AllPermissions)
-            {
-                <div class="col-sm-3">
-                    <input type="checkbox" name="permission0" value="false" data-permission-name="@permission.PermissionName" data-display-name="@permission.DisplayName" class="filled-in" id="@string.Format("permission{0}0",permission.PermissionName)" @(Model.SysObject.RefPermissions.Any(t => t.PermissionName == permission.PermissionName) ? "checked" : "") />
-                    <label for="@string.Format("permission{0}0",permission.PermissionName)">@permission.DisplayName</label>
-                </div>
-            }
+    <div class="panel panel-default m-t-10">
+        <div class="row clearfix">
+            <div class="col-sm-12 m-l-20">
+                <h4>@L("Permissions")</h4>
+                @foreach (var permission in Model.AllPermissions)
+                {
+                    <div class="col-sm-3">
+                        <input type="checkbox" name="permission0" value="false" data-permission-name="@permission.PermissionName" data-display-name="@permission.DisplayName" class="filled-in" id="@string.Format("permission{0}0",permission.PermissionName)" @(Model.SysObject.RefPermissions.Any(t => t.PermissionName == permission.PermissionName) ? "checked" : "") />
+                        <label for="@string.Format("permission{0}0",permission.PermissionName)">@permission.DisplayName</label>
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </form>
-@section modalfooter
-    {
-    <button type="button" class="btn btn-primary save-button waves-effect">@L("Save")</button>
-}
-<script src="~/view-resources/Admin/SysObject/_EditModal.js" asp-append-version="true"></script>
-
-
-
 
 

@@ -8,7 +8,7 @@
         }
         //处理选择项的值不改变的问题
         $.setCheckVal(_$form);
-        
+
         var sysobj = _$form.serializeFormToObject(); //serializeFormToObject is defined in main.js
         var objKey = _$form.find('input[name=ObjectKey]').val();
         sysobj.RefPermissions = [];
@@ -22,7 +22,7 @@
                 _permision.ObjectKey = objKey;
                 _permision.PermissionName = _permissionName;
                 _permision.DisplayName = _displayName;
-                pg.RefPermissions.push(_permision);
+                sysobj.RefPermissions.push(_permision);
             }
         }
         abp.ui.setBusy(_$form);

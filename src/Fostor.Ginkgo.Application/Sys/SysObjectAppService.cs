@@ -34,7 +34,9 @@ namespace Fostor.Ginkgo.Sys
             if (input.RefPermissions != null)
             {
                 foreach (ObjectPermissionDto p in input.RefPermissions)
-                {                    
+                {
+                    p.CreationTime = Abp.Timing.Clock.Now;
+                    p.Creator = AbpSession.UserName;
                     _repoPermission.InsertOrUpdate(p.MapTo<ObjectPermission>());
                 }
             }
@@ -55,6 +57,8 @@ namespace Fostor.Ginkgo.Sys
             //add new permission
             foreach (ObjectPermission p in listOP)
             {
+                p.CreationTime = Abp.Timing.Clock.Now;
+                p.Creator = AbpSession.UserName;
                 _repoPermission.InsertOrUpdate(p);
             }
             return base.Update(input);
@@ -88,6 +92,41 @@ namespace Fostor.Ginkgo.Sys
                     .MapTo<List<ObjectPermissionDto>>();
             }
             return list;
+        }
+
+        public List<ObjectNodeDto> GetTree()
+        {
+            var list = _repository.GetAllList(x => x.TenantId == null && x.IsDeleted != true);
+            var rootList = new List<ObjectNodeDto>();
+            var firstLevelNodes = list.FindAll(x => (x.ParentKey ?? "") == "");
+            foreach (var f in firstLevelNodes)
+            {
+                ObjectNodeDto objectNodeDto = new ObjectNodeDto
+                {
+                    Id = f.Id.ToString(),
+                    ObjectKey = f.ObjectKey,
+                    Text = f.DisplayName
+                };
+                AddChildNode(list, objectNodeDto);
+                rootList.Add(objectNodeDto);
+            }
+            return rootList;
+        }
+
+        void AddChildNode(List<SysObject> list, ObjectNodeDto currentNode)
+        {
+            var cNodes = list.FindAll(x => x.ParentKey == currentNode.ObjectKey);
+            foreach (var c in cNodes)
+            {
+                ObjectNodeDto m = new ObjectNodeDto
+                {
+                    Id = c.Id.ToString(),
+                    ObjectKey = c.ObjectKey,
+                    Text = c.DisplayName
+                };
+                AddChildNode(list, m);
+                currentNode.Nodes.Add(m);
+            }
         }
     }
 }

@@ -217,6 +217,18 @@
         return content;
     };
 
+    $.showOK = function (msg) {
+        var key = 'SaveOK';
+        if (msg) { key = msg; }
+        abp.message.success(abp.localization.localize(key, 'Ginkgo'));
+    }
+
+    $.showError = function (msg) {
+        var key = 'ExecuteError';
+        if (msg) { key = msg; }
+        abp.message.error(abp.localization.localize(key, 'Ginkgo'));
+    }
+
     $.deleteConfirm = function (code) {
         return abp.utils.formatString(abp.localization.localize('AreYouSureWantToDelete', 'Ginkgo'), code);
     };

@@ -16,5 +16,6 @@ namespace Fostor.Ginkgo.Sys
 {
     public interface ISysObjectAppService : ICrudAppService<SysObjectDto>
     {
+        List<ObjectNodeDto> GetTree();
     }
 }
