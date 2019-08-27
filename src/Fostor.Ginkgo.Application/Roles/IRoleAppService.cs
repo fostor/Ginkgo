@@ -17,5 +17,6 @@ namespace Fostor.Ginkgo.Roles
         Task<List<UserDto>> GetRoleUsers(string roleName);
         void AddMember(int roleId, int userId);
         void DeleteMember(int roleId, int userId);
+        Task<List<string>> GetRoleGrantedPermissionNames(string roleName);
     }
 }

@@ -39,6 +39,8 @@ namespace Fostor.Ginkgo.Web.Controllers
         {
             var role = await _roleAppService.Get(new EntityDto(roleId));
             var permissions = (await _roleAppService.GetAllPermissions()).Items;
+            //修正admin登录时,admin角色的权限缓存导致权限列表显示异常
+            role.Permissions = await _roleAppService.GetRoleGrantedPermissionNames(role.Name);
             var model = new EditRoleModalViewModel
             {
                 Role = role,

@@ -151,6 +151,13 @@ namespace Fostor.Ginkgo.Roles
             };
         }
 
+        public async Task<List<string>> GetRoleGrantedPermissionNames(string roleName)
+        {
+            var role = await _roleManager.GetRoleByNameAsync(roleName.ToUpper());
+            var grantedPermissions = (await _roleManager.GetGrantedPermissionsAsync(role)).ToArray();
+            return grantedPermissions.Select(p => p.Name).ToList();
+        }
+
         public async Task<List<UserDto>> GetRoleUsers(string roleName)
         {
             var role = await _roleManager.GetRoleByNameAsync(roleName.ToUpper());
