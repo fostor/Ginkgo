@@ -100,7 +100,8 @@
         var tableRTCSI = $('#' + tableId).DataTable();
         tableRTCSI.columns().eq(0).each(function (colIdx) {
             if (tableRTCSI.column(colIdx).visible() === true) {
-                $('input', tableRTCSI.column(colIdx).footer()).val("");
+                 //$('input', tableRTCSI.column(colIdx).footer()).val(""); //这种写法有特殊bug,特定情况下会清空页面的其它input
+                $(tableRTCSI.column(colIdx).footer()).find('input').val("");
             }
         });
         //$('#' + tableId + '_wrapper').find('.dataTables_scrollFootInner').css("margin-bottom", "-10px");
