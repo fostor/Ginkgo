@@ -8177,3 +8177,12 @@ input[type="number"] {
     padding-top: 2px;
     padding-bottom: 3px;
 }
+
+/* main card panel*/
+.main-card {
+    min-height: calc(100vh - 120px);
+}
+
+/*section.content div.card {
+    min-height: calc(100vh - 120px);
+}*/
