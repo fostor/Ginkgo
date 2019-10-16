@@ -13,14 +13,15 @@ namespace Fostor.Ginkgo.Web.Views.Shared.Components.SideBarUserArea
             var userName = "<span id=\"HeaderCurrentUserName\">" + LoginInformations.User.UserName
                 + "[" + LoginInformations.User.Surname + LoginInformations.User.Name + "]" + "</span>";
 
-            if (!IsMultiTenancyEnabled)
-            {
-                return userName;
-            }
+            return userName;
+            //if (!IsMultiTenancyEnabled)
+            //{
+            //    return userName;
+            //}
 
-            return LoginInformations.Tenant == null
-                ? "Host\\" + userName
-                : LoginInformations.Tenant.Name + "\\" + userName;
+            //return LoginInformations.Tenant == null
+            //    ? "Host\\" + userName
+            //    : LoginInformations.Tenant.Name + "\\" + userName;
         }
     }
 }

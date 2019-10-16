@@ -10,6 +10,14 @@ namespace Fostor.Ginkgo.Web.Startup
     {
         public static void Configure(IServiceCollection services, IConfiguration configuration)
         {
+            var cookieName = configuration["ApplicationCookie:Name"];
+            if (cookieName != null && cookieName.Length > 0)
+            {
+                services.ConfigureApplicationCookie(options =>
+                {
+                    options.Cookie.Name = cookieName;
+                });
+            }
             if (bool.Parse(configuration["Authentication:JwtBearer:IsEnabled"]))
             {
                 services.AddAuthentication()
