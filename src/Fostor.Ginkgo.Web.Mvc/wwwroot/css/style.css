@@ -8186,3 +8186,11 @@ input[type="number"] {
 section.content div.card:not(.sm-card) {
     min-height: calc(100vh - 75px);
 }
+
+.datatable-fullwidth {
+    min-width: calc(100% - 1px);
+}
+
+.dataTables_scrollBody table tr:nth-child(2n+0) {
+    background-color: #f2ffff;
+}

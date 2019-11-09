@@ -91,7 +91,7 @@
             if ($('#' + tableId + ' thead th').eq($(this).index()).find('i').length > 0) {
                 title = '';
             }
-            $(this).html('<input type="search" style="width:100%;color:#999;" placeholder="' + title + '" />');
+            $(this).html('<input type="search" style="width:100%;color:#999;font-weight:500;" placeholder="搜索[' + title + ']" />');
         });
     };
 
@@ -104,8 +104,9 @@
                 $(tableRTCSI.column(colIdx).footer()).find('input').val("");
             }
         });
-        //$('#' + tableId + '_wrapper').find('.dataTables_scrollFootInner').css("margin-bottom", "-10px");
         $('#' + tableId + '_wrapper').find('.dataTables_scrollFootInner').find('.dataTable').css("border-bottom", "none");
+        $('#' + tableId + '_wrapper').find('.dataTables_scrollFootInner').find('.dataTable').find('th').css("border-bottom", "none");
+        $('#' + tableId + '_wrapper').find('.dataTables_scroll').find('.dataTables_scrollFoot').css("margin-bottom", "-4px");
     };
 
     //bind DataTable Column Search Event
@@ -248,9 +249,17 @@
     $.fixDataTableHeight = function (tableId, height) {
         $('#' + tableId + '_wrapper').find('.dataTables_scrollBody').height(height);
         $('#' + tableId + '_wrapper').find('.dataTables_scroll').css("border", "1px solid #d9d9d9");
-        if ($('#' + tableId + '_wrapper').find('.dataTables_scroll').find('.dataTables_scrollFootInner').length > 0) {
-            $('#' + tableId + '_wrapper').find('.dataTables_scroll').css("border-bottom", "none");
-        }
+
+        //fix width
+        var w = $('#' + tableId + '_wrapper').find('.dataTables_scroll').width();
+        var wt = $('#' + tableId).width();
+        if (wt <= w || wt - 2 <= w) {
+            $('#' + tableId + '_wrapper').find('.dataTables_scroll').find('table').width(w - 2);
+            $('#' + tableId + '_wrapper').find('.dataTables_scroll').find('.dataTables_scrollHeadInner').width(w - 2);
+            if ($('#' + tableId + '_wrapper').find('.dataTables_scroll').find('.dataTables_scrollFootInner').length > 0) {
+                $('#' + tableId + '_wrapper').find('.dataTables_scroll').find('.dataTables_scrollFootInner').width(w - 2);
+            }
+        } 
     };
 
     $.setFormReadMode = function (form) {
