@@ -50,11 +50,6 @@
                                     <button type="button" id="btnCopy" class="btn btn-primary waves-effect copy-language-text" style="margin-left:20px;" data-toggle="modal" data-target="#LanguageTextCopyModal"><i class="small material-icons">content_copy</i>@L("Copy")</button>
                                 </div>
                             }*@
-                        <div class="col-md-2 pull-right" style="width:80px;">
-                            <button type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right add-language-text" data-toggle="modal" data-target="#LanguageTextCreateModal">
-                                <i class="material-icons">add</i>
-                            </button>
-                        </div>
                     </div>
                 </form>
             </div>
@@ -92,6 +87,7 @@
 @await Component.InvokeAsync(typeof(CommonModalViewComponent), new { modalName = "LanguageTextCopy", modalTitle = @L("CopyLanguageText"), width = "600px", height = "400px" })
 @await Component.InvokeAsync(typeof(CommonModalViewComponent), new { modalName = "LanguageTextEdit", modalTitle = @L("EditLanguageText"), width = "600px", height = "400px" })
 
+@await Component.InvokeAsync(typeof(CommonModalViewComponent), new { modalName = "LanguageTextBatchCreate", modalTitle = @L("BatchCreateLanguageText"), width = "800px", height = "600px" })
 
 
 

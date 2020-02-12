@@ -43,6 +43,31 @@ namespace Fostor.Ginkgo.Sys
             return _repository.Update(input.MapTo<ApplicationLanguageText>()).MapTo<LanguageTextDto>();
         }
 
+        public int BatchCreate(string langName, string batchText)
+        {
+            int n = 0;
+            if ((langName ?? "").Length > 0 && (batchText ?? "").Length > 0)
+            {
+                string[] lines = batchText.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                foreach (var x in lines)
+                {
+                    string langKey = x.Substring(0, x.IndexOf(",")).Trim();
+                    string langValue = x.Substring(x.IndexOf(",") + 1).Replace("\r", "").Trim();
+                    ApplicationLanguageText langText = new ApplicationLanguageText();
+                    langText.Source = GinkgoConsts.LocalizationSourceName;
+                    langText.TenantId = AbpSession.TenantId;
+                    langText.LanguageName = langName;
+                    langText.Key = langKey;
+                    langText.Value = langValue;
+                    langText.CreationTime = Abp.Timing.Clock.Now;
+                    langText.CreatorUserId = AbpSession.UserId;
+                    _repository.Insert(langText);
+                    n += 1;
+                }
+            }
+            return n;
+        }
+
         public void Delete(int id)
         {
             _repository.Delete(new ApplicationLanguageText { Id = id });

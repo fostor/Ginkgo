@@ -1,0 +1,37 @@
+﻿@using Fostor.Ginkgo.Web.Models.Common.Modals
+@using System.Collections.Generic
+@using Fostor.Ginkgo
+@{
+    Layout = "~/Views/Shared/_Modal.cshtml";
+    ViewBag.ModalTitle = L("BatchCreateLanguageText");
+}
+<form name="LanguageTextBatchCreateForm" role="form" novalidate class="form-validation form-horizontal">    
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-2 control-label">@L("LanguageName")<span style="color:red;">*</span></label>
+            <div class="col-md-10">
+                <div class="form-line">
+                    <select class="form-control  bootstrap-select show-tick" name="LanguageName" required>
+                        <option value="">-select-</option>
+                        <option value="zh-Hans">zh-Hans</option>
+                        <option value="en">en</option>
+                    </select>
+                </div>
+            </div>          
+        </div>
+        <div class="form-group m-t-5">
+            <label class="col-md-2 control-label">@L("BatchLanguageText")<span style="color:red;">*</span></label>
+            <div class="col-md-10">
+                <div style="border:1px solid #00BCD4;">                    
+                    <textarea class="form-control" autofocus="autofocus" rows="10" name="BatchLangText" placeholder="每行一条翻译内容,格式为:键值,显示文本" required></textarea>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+</form>
+@section modalfooter
+    {
+    <button type="button" class="btn btn-primary save-button waves-effect">@L("Save")</button>
+}
+<script src="~/view-resources/Admin/Localization/_BatchAddModal.js" asp-append-version="true"></script>

@@ -16,6 +16,7 @@ namespace Fostor.Ginkgo.Sys
     {
         LanguageTextDto Create(LanguageTextDto input);
         LanguageTextDto Update(LanguageTextDto input);
+        int BatchCreate(string langName, string batchText);
         void Delete(int id);
         LanguageTextDto Get(int id);
         Task<List<LanguageTextDto>> Search(SearchLanguageTextDto input);

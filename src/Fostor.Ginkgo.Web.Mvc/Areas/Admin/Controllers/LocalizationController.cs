@@ -29,6 +29,10 @@ namespace Fostor.Ginkgo.Web.Mvc.Areas.Admin.Controllers
         {
             return View("_AddModal");
         }
+        public IActionResult BatchAdd()
+        {
+            return View("_BatchAddModal");
+        }
         public IActionResult Edit(int id)
         {
             var lang = _languageTextAppService.Get(id);
