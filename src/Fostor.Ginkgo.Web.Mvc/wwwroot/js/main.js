@@ -91,7 +91,9 @@
             if ($('#' + tableId + ' thead th').eq($(this).index()).find('i').length > 0) {
                 title = '';
             }
-            $(this).html('<input type="search" style="width:100%;color:#999;font-weight:500;" placeholder="搜索[' + title + ']" />');
+            //$(this).html('<input type="search" style="width:100%;color:#999;font-weight:500;" placeholder="搜索[' + title + ']" />');
+            $(this).css("padding", "1px");
+            $(this).html('<input type="search" style="width:100%;color:#999;font-weight:500;" placeholder="--🔍搜索----" />');
         });
     };
 
@@ -104,20 +106,63 @@
                 $(tableRTCSI.column(colIdx).footer()).find('input').val("");
             }
         });
-        $('#' + tableId + '_wrapper').find('.dataTables_scrollFootInner').find('.dataTable').css("border-bottom", "none");
-        $('#' + tableId + '_wrapper').find('.dataTables_scrollFootInner').find('.dataTable').find('th').css("border-bottom", "none");
-        $('#' + tableId + '_wrapper').find('.dataTables_scroll').find('.dataTables_scrollFoot').css("margin-bottom", "-4px");
+        var div_f = $('#' + tableId + '_wrapper').find('div.dataTables_scroll').find('div.dataTables_scrollFoot');
+        var div_h = $('#' + tableId + '_wrapper').find('div.dataTables_scroll').find('div.dataTables_scrollHead');
+        div_f.insertAfter(div_h);
+        //$('#' + tableId + '_wrapper').find('.dataTables_scrollFootInner').find('.dataTable').css("border-bottom", "none");
+        //$('#' + tableId + '_wrapper').find('.dataTables_scrollFootInner').find('.dataTable').find('th').css("border-bottom", "none");
+        //$('#' + tableId + '_wrapper').find('.dataTables_scroll').find('.dataTables_scrollFoot').css("margin-bottom", "-4px");
     };
 
     //bind DataTable Column Search Event
-    $.bindTableColumnSearchEvent = function (tableId) {
+    $.bindTableColumnSearchEvent = function (tableId, useSelect) {
+        var useSel = useSelect || true;
         var tableBTCSE = $('#' + tableId).DataTable();
         tableBTCSE.columns().eq(0).each(function (colIdx) {
-            $('input', tableBTCSE.column(colIdx).footer()).on('keyup change', function () {
-                tableBTCSE.column(colIdx)
-                    .search(this.value)
-                    .draw();
-            }).off("mouseout").on("mouseout", function () { $(this).blur(); });
+            var column = tableBTCSE.column(colIdx);
+            if (column.visible() === true) {
+                var ilist = $(column.nodes()).find('i');
+                if (useSel) {
+                    var olist = tableBTCSE.cells(undefined, colIdx).render('display').unique().sort();
+                    if (olist.length <= 10 && (olist.length / tableBTCSE.data().length) <= 0.5 &&
+                        ilist.length === 0) {
+                        var select = $('<select   style="width:100%;"><option value=""></option></select>');
+                        olist.each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                        $(column.footer()).html('');
+                        select.appendTo($(column.footer()).eq(0))
+                            .off('click')
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                            });
+                    }
+                    else if (ilist.length > 0) {
+                        $(column.footer()).find('input').remove();
+                    } else {
+                        $('input', tableBTCSE.column(colIdx).footer()).on('keyup change', function () {
+                            tableBTCSE.column(colIdx)
+                                .search(this.value)
+                                .draw();
+                        }).off("mouseout").on("mouseout", function () { $(this).blur(); });
+                    }
+                } else {
+                    if (ilist.length > 0) {
+                        $(column.footer()).find('input').remove();
+                    } else {
+                        $('input', tableBTCSE.column(colIdx).footer()).on('keyup change', function () {
+                            tableBTCSE.column(colIdx)
+                                .search(this.value)
+                                .draw();
+                        }).off("mouseout").on("mouseout", function () { $(this).blur(); });
+                    }
+                }
+            }
         });
     };
     //行首选择框
@@ -142,8 +187,11 @@
     $.bindCheckAllEvent = function (selector, tableId) {
         selector.click(function (e) {
             $(this).toggleClass('selected');
+            var tableCheck = $('#' + tableId).DataTable(); 
             if ($(this).hasClass("selected")) {
                 $(this).find("i").text("check_box");
+                //$(tableCheck.cells(':visible', colIdx).nodes()).addClass('selected').find("a[name='checkItem']").find("i").text("check_box");
+                //$(tableCheck.column(colIdx).nodes()).addClass('selected').find("a[name='checkItem']").find("i").text("check_box");
                 $('#' + tableId + ' tbody tr').addClass('selected').find("a[name='checkItem']").find("i").text("check_box");
             } else {
                 $(this).find("i").text("check_box_outline_blank");
